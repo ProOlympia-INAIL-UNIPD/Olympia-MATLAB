@@ -1,0 +1,296 @@
+{
+    "General": {
+        "Joint": [
+            {
+                "label": "Cervical",
+                "group": "General",
+                "prox": "Trunk",
+                "dist": "Head",
+                "opt": 0.0,
+                "angleseq": "zxy",
+                "type": "free",
+                "JC": "C7"
+            },
+            {
+                "label": "Back",
+                "group": "General",
+                "prox": "Pelvis",
+                "dist": "Trunk",
+                "opt": 0.0,
+                "angleseq": "zxy",
+                "type": "free",
+                "JC": null
+            }
+        ]
+    },
+    "Unaffected_upper": {
+        "Joint": [
+            {
+                "label": "LeftShoulder",
+                "group": "Left",
+                "prox": "Trunk",
+                "dist": "LeftArm",
+                "opt": 0.0,
+                "angleseq": "zxy",
+                "type": "free",
+                "JC": "LSJC"
+            },
+            {
+                "label": "RightShoulder",
+                "group": "Right",
+                "prox": "Trunk",
+                "dist": "RightArm",
+                "opt": 0.0,
+                "angleseq": "zxy",
+                "type": "free",
+                "JC": "RSJC"
+            },
+            {
+                "label": "LeftElbow",
+                "group": "Left",
+                "prox": "LeftArm",
+                "dist": "LeftForearm",
+                "opt": 0.0,
+                "angleseq": "zxy",
+                "type": "hinge",
+                "JC": "LHLE"
+            },
+            {
+                "label": "RightElbow",
+                "group": "Right",
+                "prox": "RightArm",
+                "dist": "RightForearm",
+                "opt": 0.0,
+                "angleseq": "zxy",
+                "type": "hinge",
+                "JC": "RHLE"
+            }
+        ]
+    },
+    "Unaffected_lower": {
+        "Joint": [
+            {
+                "label": "LeftHip",
+                "group": "Left",
+                "prox": "Pelvis",
+                "dist": "LeftThigh",
+                "opt": 0.0,
+                "angleseq": "zxy",
+                "type": "free",
+                "JC": "LHJC"
+            },
+            {
+                "label": "RightHip",
+                "group": "Right",
+                "prox": "Pelvis",
+                "dist": "RightThigh",
+                "opt": 0.0,
+                "angleseq": "zxy",
+                "type": "free",
+                "JC": "RHJC"
+            },
+            {
+                "label": "LeftKnee",
+                "group": "Left",
+                "prox": "LeftThigh",
+                "dist": "LeftShank",
+                "opt": 0.0,
+                "angleseq": "zxy",
+                "type": "free",
+                "JC": "LKJC"
+            },
+            {
+                "label": "RightKnee",
+                "group": "Right",
+                "prox": "RightThigh",
+                "dist": "RightShank",
+                "opt": 0.0,
+                "angleseq": "zxy",
+                "type": "free",
+                "JC": "RKJC"
+            },
+            {
+                "label": "LeftAnkle",
+                "group": "Left",
+                "prox": "LeftShank",
+                "dist": "LeftFoot",
+                "opt": 0.0,
+                "angleseq": "zyx",
+                "type": "free",
+                "JC": "LAJC"
+            },
+            {
+                "label": "RightAnkle",
+                "group": "Right",
+                "prox": "RightShank",
+                "dist": "RightFoot",
+                "opt": 0.0,
+                "angleseq": "zyx",
+                "type": "free",
+                "JC": "RAJC"
+            }
+        ]
+    },
+    "Affected_lower": {
+        "Joint": [
+            {
+                "label": "LeftHip",
+                "group": "Left",
+                "prox": "Pelvis",
+                "dist": "LeftSocket",
+                "opt": 2.0,
+                "angleseq": "zxy",
+                "type": "free",
+                "JC": "LHJC"
+            },
+            {
+                "label": "RightHip",
+                "group": "Right",
+                "prox": "Pelvis",
+                "dist": "RightSocket",
+                "opt": 2.0,
+                "angleseq": "zxy",
+                "type": "free",
+                "JC": "RHJC"
+            },
+            {
+                "label": "LeftProstheticKnee",
+                "group": "Left",
+                "prox": "LeftKneeProx",
+                "dist": "LeftKneeDist",
+                "opt": 2.0,
+                "angleseq": "zxy",
+                "type": "hinge",
+                "JC": null
+            },
+            {
+                "label": "RightProstheticKnee",
+                "group": "Right",
+                "prox": "RightKneeProx",
+                "dist": "RightKneeDist",
+                "opt": 2.0,
+                "angleseq": "zxy",
+                "type": "hinge",
+                "JC": null
+            },
+            {
+                "label": "LeftProstheticAnkle",
+                "group": "Left",
+                "prox": "LeftFootClamp",
+                "dist": "LeftFootDist",
+                "opt": 2.0,
+                "angleseq": "zyx",
+                "type": "free",
+                "JC": null
+            },
+            {
+                "label": "RightProstheticAnkle",
+                "group": "Right",
+                "prox": "RightFootClamp",
+                "dist": "RightFootDist",
+                "opt": 2.0,
+                "angleseq": "zyx",
+                "type": "free",
+                "JC": null
+            },
+            {
+                "label": "LeftHip",
+                "group": "Left",
+                "prox": "Pelvis",
+                "dist": "LeftThigh",
+                "opt": 3.0,
+                "angleseq": "zxy",
+                "type": "free",
+                "JC": "LHJC"
+            },
+            {
+                "label": "RightHip",
+                "group": "Right",
+                "prox": "Pelvis",
+                "dist": "RightThigh",
+                "opt": 3.0,
+                "angleseq": "zxy",
+                "type": "free",
+                "JC": "RHJC"
+            },
+            {
+                "label": "LeftKnee",
+                "group": "Left",
+                "prox": "LeftThigh",
+                "dist": "LeftSocket",
+                "opt": 3.0,
+                "angleseq": "zxy",
+                "type": "free",
+                "JC": "LKJC"
+            },
+            {
+                "label": "RightKnee",
+                "group": "Right",
+                "prox": "RightThigh",
+                "dist": "RightSocket",
+                "opt": 3.0,
+                "angleseq": "zxy",
+                "type": "free",
+                "JC": "RKJC"
+            },
+            {
+                "label": "LeftProstheticAnkle",
+                "group": "Left",
+                "prox": "LeftFootClamp",
+                "dist": "LeftFootDist",
+                "opt": 3.0,
+                "angleseq": "zyx",
+                "type": "free",
+                "JC": null
+            },
+            {
+                "label": "RightProstheticAnkle",
+                "group": "Right",
+                "prox": "RightFootClamp",
+                "dist": "RightFootDist",
+                "opt": 3.0,
+                "angleseq": "zyx",
+                "type": "free",
+                "JC": null
+            }
+        ]
+    },
+    "KinematicChain": {
+        "unaffected_lower": [
+            {
+                "group": "Left",
+                "joints": "LeftHip, LeftKnee, LeftAnkle",
+                "endbody": "ForcePlatform"
+            },
+            {
+                "group": "Right",
+                "joints": "RightHip, RightKnee, RightAnkle",
+                "endbody": "ForcePlatform"
+            }
+        ],
+        "tf_lower": [
+            {
+                "group": "Left",
+                "joints": "LeftHip, LeftProstheticKnee, LeftProstheticAnkle",
+                "endbody": "ForcePlatform"
+            },
+            {
+                "group": "Right",
+                "joints": "RightHip, RightProstheticKnee, RightProstheticAnkle",
+                "endbody": "ForcePlatform"
+            }
+        ],
+        "tt_lower": [
+            {
+                "group": "Left",
+                "joints": "LeftHip, LeftKnee, LeftProstheticAnkle",
+                "endbody": "ForcePlatform"
+            },
+            {
+                "group": "Right",
+                "joints": "RightHip, RightKnee, RightProstheticAnkle",
+                "endbody": "ForcePlatform"
+            }
+        ]
+    }
+}

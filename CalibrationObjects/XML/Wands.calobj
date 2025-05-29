@@ -1,0 +1,13 @@
+<?xml version = "1.0" encoding = "UTF-8" ?>
+<calibration_objects>
+    <arrow416>
+        <TailMarker>WandD</TailMarker>
+        <TipMarker>WandP</TipMarker>
+        <Tail2RealTip>416</Tail2RealTip>
+    </arrow416>
+    <wand160>
+        <TailMarker>WandM</TailMarker>
+        <TipMarker>WandD</TipMarker>
+        <Tail2RealTip>160.1</Tail2RealTip>
+    </wand160>
+</calibration_objects>

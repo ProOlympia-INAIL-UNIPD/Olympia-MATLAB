@@ -1,0 +1,23 @@
+{
+    "type": "running prosthesis",
+    "alignment": {
+        "ID": "A1",
+        "preflexion_angle": {
+            "unit": "deg",
+            "value": 9.0
+        },
+        "TAP": {
+            "unit": "cm",
+            "value": 5.5
+        },
+        "SAP": {
+            "unit": "",
+            "value": ""
+        }
+    },
+    "knee": "Ottobock3S80",
+    "foot": {
+        "name": "StandardRunner19E1",
+        "cat": 3.5
+    }
+}

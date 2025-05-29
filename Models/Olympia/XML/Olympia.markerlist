@@ -1,0 +1,220 @@
+<?xml version = "1.0" encoding = "UTF-8" ?>
+<MarkerSet label="OLYMPIA">
+    <!--
+    <Marker type="T: technical; M: mechanical; A: anatomical; V: virtual"
+        label="marker label"
+        segment="segment which the marker should be solidified to"
+        static="0: no; 1: yes"
+        calibrated="0: no; 1: yes"
+        opt="0: no; 1: yes; 2: TF only; 3: TT only"
+        radius="millimeters"
+        colorR="RGB color (red) between 0 and 1"
+        colorG="RGB color (green) between 0 and 1"
+        colorB="RGB color (blue) between 0 and 1"
+        visible="0: no; 1: yes"
+        trajectory="0: no; 1: yes"
+        cluster="0: no; 1: yes if used to solidify" />
+    -->
+    <!--General-->
+    <!-- HEAD -->
+    <Marker type="T" label="H1" segment="Head" group="General" cluster="1" static="0" calibrated="0" opt="0" radius="14" colorR="0.6" colorG="0.7" colorB="0.9" visible="1" trajectory="0" />
+    <Marker type="T" label="H2" segment="Head" group="General" cluster="1" static="0" calibrated="0" opt="0" radius="14" colorR="0.6" colorG="0.7" colorB="0.9" visible="1" trajectory="0" />
+    <Marker type="T" label="H3" segment="Head" group="General" cluster= "1" static="0" calibrated="0" opt="0" radius="14" colorR="0.6" colorG="0.7" colorB="0.9" visible="1" trajectory="0" />
+    <Marker type="T" label="H4" segment="Head" group="General" cluster="1" static="0" calibrated="0" opt="0" radius="14" colorR="0.6" colorG="0.7" colorB="0.9" visible="1" trajectory="0" />
+    <Marker type="A" label="GB" segment="Head" group="General" cluster="0" static="1" calibrated="1" opt="0" radius="14" colorR="0.6" colorG="0.7" colorB="0.9" visible="1" trajectory="0" />
+    <Marker type="A" label="LAM" segment="Head" group="General" cluster="0" static="1" calibrated="1" opt="0" radius="14" colorR="0.6" colorG="0.7" colorB="0.9" visible="1" trajectory="0" />
+    <Marker type="A" label="RAM" segment="Head" group="General" cluster="0" static="1" calibrated="1" opt="0" radius="14" colorR="0.6" colorG="0.7" colorB="0.9" visible="1" trajectory="0" />
+    <Marker type="A" label="CH" segment="Head" group="General" cluster="0" static="1" calibrated="1" opt="0" radius="14" colorR="0.6" colorG="0.7" colorB="0.9" visible="1" trajectory="0" />
+    <!-- TRUNK -->
+    <Marker type="A" label="IJ" segment="Trunk" group="General" cluster="1" static="0" calibrated="0" opt="0" radius="14" colorR="0.2" colorG="0.4" colorB="0.8" visible="1" trajectory="0" />
+    <Marker type="A" label="PX" segment="Trunk" group="General" cluster="1" static="0" calibrated="0" opt="0" radius="14" colorR="0.2" colorG="0.4" colorB="0.8" visible="1" trajectory="0" />
+    <Marker type="A" label="T8" segment="Trunk" group="General" cluster="1" static="0" calibrated="0" opt="0" radius="14" colorR="0.2" colorG="0.4" colorB="0.8" visible="1" trajectory="0" />
+    <Marker type="A" label="C7" segment="Trunk" group="General" cluster="1" static="0" calibrated="0" opt="0" radius="14" colorR="0.2" colorG="0.4" colorB="0.8" visible="1" trajectory="0" />
+    <!-- PELVIS -->
+    <Marker type="A" label="LASIS" segment="Pelvis" group="General" cluster="1" static="0" calibrated="0" opt="0" radius="14" colorR="0" colorG="0.2" colorB="0.5" visible="1" trajectory="0" />
+    <Marker type="A" label="RASIS" segment="Pelvis" group="General" cluster="1" static="0" calibrated="0" opt="0" radius="14" colorR="0" colorG="0.2" colorB="0.5" visible="1" trajectory="0" />
+    <Marker type="A" label="LPSIS" segment="Pelvis" group="General" cluster="1" static="0" calibrated="0" opt="0" radius="14" colorR="0" colorG="0.2" colorB="0.5" visible="1" trajectory="0" />
+    <Marker type="A" label="RPSIS" segment="Pelvis" group="General" cluster="1" static="0" calibrated="0" opt="0" radius="14" colorR="0" colorG="0.2" colorB="0.5" visible="1" trajectory="0" />
+    <Marker type="V" label="LHJC" segment="Pelvis" group="General" cluster="0" static="0" calibrated="1" opt="0" radius="14" colorR="0" colorG="0.2" colorB="0.5" visible="1" trajectory="0" />
+    <Marker type="V" label="RHJC" segment="Pelvis" group="General" cluster="0" static="0" calibrated="1" opt="0" radius="14" colorR="0" colorG="0.2" colorB="0.5" visible="1" trajectory="0" />
+    <Marker type="V" label="MIDH" segment="Pelvis" group="General" cluster="0" static="0" calibrated="1" opt="0" radius="14" colorR="0" colorG="0.2" colorB="0.5" visible="1" trajectory="0" />
+    <!--/General-->   
+
+    <!--Unaffected_upper-->
+    <!-- LEFT ARM -->
+    <Marker type="A" label="LAC" segment="LeftArm" group="Left" cluster="1" static="0" calibrated="0" opt="0" radius="14" colorR="0.3" colorG="0" colorB="0" visible="1" trajectory="0" />
+    <Marker type="A" label="LHLE" segment="LeftArm" group="Left" cluster="1" static="0" calibrated="0" opt="0" radius="14" colorR="0.3" colorG="0" colorB="0" visible="1" trajectory="0" />
+    <Marker type="A" label="LMSS" segment="LeftArm" group="Left" cluster="1" static="0" calibrated="0" opt="0" radius="14" colorR="0.3" colorG="0" colorB="0" visible="1" trajectory="0" />
+    <!-- RIGHT ARM -->
+    <Marker type="A" label="RAC" segment="RightArm" group="Right" cluster="1" static="0" calibrated="0" opt="0" radius="14" colorR="0" colorG="0.3" colorB="0" visible="1" trajectory="0" />
+    <Marker type="A" label="RHLE" segment="RightArm" group="Right" cluster="1" static="0" calibrated="0" opt="0" radius="14" colorR="0" colorG="0.3" colorB="0" visible="1" trajectory="0" />
+    <Marker type="A" label="RMSS" segment="RightArm" group="Right" cluster="1" static="0" calibrated="0" opt="0" radius="14" colorR="0" colorG="0.3" colorB="0" visible="1" trajectory="0" />
+    <!--/Unaffected_upper-->
+
+    <!--Unaffected_lower-->
+    <!-- LEFT THIGH -->
+    <Marker type="A" label="LGT" segment="LeftThigh" group="Left" cluster="0" static="0" calibrated="0" opt="0" radius="14" colorR="1" colorG="0.7" colorB="0.7" visible="1" trajectory="0" eventDetection="MidStance" />
+    <Marker type="A" label="LFLE" segment="LeftThigh" group="Left" cluster="0" static="0" calibrated="0" opt="0" radius="14" colorR="1" colorG="0.7" colorB="0.7" visible="1" trajectory="0" />
+    <Marker type="A" label="LFME" segment="LeftThigh" group="Left" cluster="0" static="1" calibrated="0" opt="0" radius="14" colorR="1" colorG="0.7" colorB="0.7" visible="1" trajectory="0" />
+    <Marker type="T" label="LT1" segment="LeftThigh" group="Left" cluster="1" static="0" calibrated="0" opt="0" radius="14" colorR="1" colorG="0.7" colorB="0.7" visible="1" trajectory="0" />
+    <Marker type="T" label="LT2" segment="LeftThigh" group="Left" cluster="1" static="0" calibrated="0" opt="0" radius="14" colorR="1" colorG="0.7" colorB="0.7" visible="1" trajectory="0" />
+    <Marker type="T" label="LT3" segment="LeftThigh" group="Left" cluster="1" static="0" calibrated="0" opt="0" radius="14" colorR="1" colorG="0.7" colorB="0.7" visible="1" trajectory="0" />
+    <Marker type="T" label="LT4" segment="LeftThigh" group="Left" cluster="1" static="0" calibrated="0" opt="0" radius="14" colorR="1" colorG="0.7" colorB="0.7" visible="1" trajectory="0" />
+    <Marker type="V" label="LKJC" segment="LeftThigh" group="Left" cluster="0" static="0" calibrated="1" opt="0" radius="14" colorR="1" colorG="0.7" colorB="0.7" visible="1" trajectory="0" />
+    <!-- RIGHT THIGH -->
+    <Marker type="A" label="RGT" segment="RightThigh" group="Right" cluster="0" static="0" calibrated="0" opt="0" radius="14" colorR="0.6" colorG="1" colorB="0.6" visible="1" trajectory="0" eventDetection="MidStance" />
+    <Marker type="A" label="RFLE" segment="RightThigh" group="Right" cluster="0" static="0" calibrated="0" opt="0" radius="14" colorR="0.6" colorG="1" colorB="0.6" visible="1" trajectory="0" />
+    <Marker type="A" label="RFME" segment="RightThigh" group="Right" cluster="0" static="1" calibrated="0" opt="0" radius="14" colorR="0.6" colorG="1" colorB="0.6" visible="1" trajectory="0" />
+    <Marker type="T" label="RT1" segment="RightThigh" group="Right" cluster="1" static="0" calibrated="0" opt="0" radius="14" colorR="0.6" colorG="1" colorB="0.6" visible="1" trajectory="0" />
+    <Marker type="T" label="RT2" segment="RightThigh" group="Right" cluster="1" static="0" calibrated="0" opt="0" radius="14" colorR="0.6" colorG="1" colorB="0.6" visible="1" trajectory="0" />
+    <Marker type="T" label="RT3" segment="RightThigh" group="Right" cluster="1" static="0" calibrated="0" opt="0" radius="14" colorR="0.6" colorG="1" colorB="0.6" visible="1" trajectory="0" />
+    <Marker type="T" label="RT4" segment="RightThigh" group="Right" cluster="1" static="0" calibrated="0" opt="0" radius="14" colorR="0.6" colorG="1" colorB="0.6" visible="1" trajectory="0" />
+    <Marker type="V" label="RKJC" segment="RightThigh" group="Right" cluster="0" static="0" calibrated="1" opt="0" radius="14" colorR="0.6" colorG="1" colorB="0.6" visible="1" trajectory="0" />
+    <!-- LEFT SHANK -->
+    <Marker type="A" label="LTT" segment="LeftShank" group="Left" cluster="1" static="0" calibrated="0" opt="0" radius="14" colorR="0.7" colorG="0.2" colorB="0.2" visible="1" trajectory="0" />
+    <Marker type="A" label="LHF" segment="LeftShank" group="Left" cluster="1" static="0" calibrated="0" opt="0" radius="14" colorR="0.7" colorG="0.2" colorB="0.2" visible="1" trajectory="0" />
+    <Marker type="A" label="LLM" segment="LeftShank" group="Left" cluster="1" static="0" calibrated="0" opt="0" radius="14" colorR="0.7" colorG="0.2" colorB="0.2" visible="1" trajectory="0" />
+    <Marker type="A" label="LMM" segment="LeftShank" group="Left" cluster="1" static="1" calibrated="0" opt="0" radius="14" colorR="0.7" colorG="0.2" colorB="0.2" visible="1" trajectory="0" />
+    <Marker type="T" label="LSH1" segment="LeftShank" group="Left" cluster="1" static="0" calibrated="0" opt="0" radius="14" colorR="0.7" colorG="0.2" colorB="0.2" visible="1" trajectory="0" />
+    <Marker type="V" label="LAJC" segment="LeftShank" group="Left" cluster="0" static="0" calibrated="1" opt="0" radius="14" colorR="0.7" colorG="0.2" colorB="0.2" visible="1" trajectory="0" />
+    <!-- RIGHT SHANK -->
+    <Marker type="A" label="RTT" segment="RightShank" group="Right" cluster="1" static="0" calibrated="0" opt="0" radius="14" colorR="0.2" colorG="0.6" colorB="0.2" visible="1" trajectory="0" />
+    <Marker type="A" label="RHF" segment="RightShank" group="Right" cluster="1" static="0" calibrated="0" opt="0" radius="14" colorR="0.2" colorG="0.6" colorB="0.2" visible="1" trajectory="0" />
+    <Marker type="A" label="RLM" segment="RightShank" group="Right" cluster="1" static="0" calibrated="0" opt="0" radius="14" colorR="0.2" colorG="0.6" colorB="0.2" visible="1" trajectory="0" />
+    <Marker type="A" label="RMM" segment="RightShank" group="Right" cluster="1" static="1" calibrated="0" opt="0" radius="14" colorR="0.2" colorG="0.6" colorB="0.2" visible="1" trajectory="0" />
+    <Marker type="T" label="RSH1" segment="RightShank" group="Right" cluster="1" static="0" calibrated="0" opt="0" radius="14" colorR="0.2" colorG="0.6" colorB="0.2" visible="1" trajectory="0" />
+    <Marker type="V" label="RAJC" segment="RightShank" group="Right" cluster="0" static="0" calibrated="1" opt="0" radius="14" colorR="0.2" colorG="0.6" colorB="0.2" visible="1" trajectory="0" />
+    <!-- LEFT FOOT -->
+    <Marker type="A" label="LCA" segment="LeftFoot" group="Left" cluster="1" static="0" calibrated="0" opt="0" radius="14" colorR="0.5" colorG="0" colorB="0" visible="1" trajectory="0" eventDetection="FootStrike" />
+    <Marker type="A" label="LIMH" segment="LeftFoot" group="Left" cluster="1" static="0" calibrated="0" opt="0" radius="14" colorR="0.5" colorG="0" colorB="0" visible="1" trajectory="0" />
+    <Marker type="A" label="LIIMH" segment="LeftFoot" group="Left" cluster="1" static="0" calibrated="0" opt="0" radius="14" colorR="0.5" colorG="0" colorB="0" visible="1" trajectory="0" eventDetection="FootOff" />
+    <Marker type="A" label="LVMH" segment="LeftFoot" group="Left" cluster="1" static="0" calibrated="0" opt="0" radius="14" colorR="0.5" colorG="0" colorB="0" visible="1" trajectory="0" eventDetection="MidStance" />
+    <Marker type="T" label="LF1" segment="LeftFoot" group="Left" cluster="1" static="0" calibrated="0" opt="0" radius="14" colorR="0.5" colorG="0" colorB="0" visible="1" trajectory="0" />
+    <!-- RIGHT FOOT -->
+    <Marker type="A" label="RCA" segment="RightFoot" group="Right" cluster="1" static="0" calibrated="0" opt="0" radius="14" colorR="0" colorG="0.4" colorB="0" visible="1" trajectory="0" eventDetection="FootStrike" />
+    <Marker type="A" label="RIMH" segment="RightFoot" group="Right" cluster="1" static="0" calibrated="0" opt="0" radius="14" colorR="0" colorG="0.4" colorB="0" visible="1" trajectory="0" />
+    <Marker type="A" label="RIIMH" segment="RightFoot" group="Right" cluster="1" static="0" calibrated="0" opt="0" radius="14" colorR="0" colorG="0.4" colorB="0" visible="1" trajectory="0" eventDetection="FootOff" />
+    <Marker type="A" label="RVMH" segment="RightFoot" group="Right" cluster="1" static="0" calibrated="0" opt="0" radius="14" colorR="0" colorG="0.4" colorB="0" visible="1" trajectory="0" eventDetection="MidStance" />
+    <Marker type="T" label="RF1" segment="RightFoot" group="Right" cluster="1" static="0" calibrated="0" opt="0" radius="14" colorR="0" colorG="0.4" colorB="0" visible="1" trajectory="0" />
+    <!--/Unaffected_lower-->
+
+    <!--Socket_transfemoral-->
+    <!-- LEFT SOCKET -->
+    <Marker type="A" label="LGT" segment="LeftSocket" group="Left" cluster="0" static="0" calibrated="0" opt="0" radius="14" colorR="1" colorG="0.7" colorB="0.7" visible="1" trajectory="0" eventDetection="MidStance" />
+    <Marker type="T" label="LFAP" segment="LeftSocket" group="Left" cluster="1" static="0" calibrated="0" opt="0" radius="14" colorR="1" colorG="0.7" colorB="0.7" visible="1" trajectory="0" />
+    <Marker type="T" label="LFAD" segment="LeftSocket" group="Left" cluster="1" static="0" calibrated="0" opt="0" radius="14" colorR="1" colorG="0.7" colorB="0.7" visible="1" trajectory="0" />
+    <Marker type="T" label="LLAP" segment="LeftSocket" group="Left" cluster="1" tatic="0" calibrated="0" opt="0" radius="14" colorR="1" colorG="0.7" colorB="0.7" visible="1" trajectory="0" />
+    <Marker type="T" label="LLAD" segment="LeftSocket" group="Left" cluster="1" static="0" calibrated="0" opt="0" radius="14" colorR="1" colorG="0.7" colorB="0.7" visible="1" trajectory="0" />
+    <Marker type="T" label="LMAP" segment="LeftSocket" group="Left" cluster="1" static="1" calibrated="0" opt="0" radius="14" colorR="1" colorG="0.7" colorB="0.7" visible="1" trajectory="0" />
+    <Marker type="T" label="LMAD" segment="LeftSocket" group="Left" cluster="1" static="1" calibrated="0" opt="0" radius="14" colorR="1" colorG="0.7" colorB="0.7" visible="1" trajectory="0" />
+    <Marker type="M" label="LKL" segment="LeftSocket" group="Left" cluster="1" static="0" calibrated="0" opt="2" radius="14" colorR="1" colorG="0.7" colorB="0.7" visible="1" trajectory="0" eventDetection="MidStance" />
+    <Marker type="M" label="LKM" segment="LeftSocket" group="Left" cluster="1" static="0" calibrated="0" opt="2" radius="14" colorR="1" colorG="0.7" colorB="0.7" visible="1" trajectory="0" eventDetection="MidStance" />
+    <Marker type="M" label="LWAM" segment="LeftSocket" group="Left" cluster="0" static="0" calibrated="1" opt="2" radius="14" colorR="1" colorG="0.7" colorB="0.7" visible="1" trajectory="0" />
+    <Marker type="M" label="LWAL" segment="LeftSocket" group="Left" cluster="0" static="0" calibrated="1" opt="2" radius="14" colorR="1" colorG="0.7" colorB="0.7" visible="1" trajectory="0" />
+    <Marker type="M" label="LWPM" segment="LeftSocket" group="Left" cluster="0" static="0" calibrated="1" opt="2" radius="14" colorR="1" colorG="0.7" colorB="0.7" visible="1" trajectory="0" />
+    <Marker type="M" label="LWPL" segment="LeftSocket" group="Left" cluster="0" static="0" calibrated="1" opt="2" radius="14" colorR="1" colorG="0.7" colorB="0.7" visible="1" trajectory="0" />
+    
+    <!-- RIGHT SOCKET -->
+    <Marker type="A" label="RGT" segment="RightSocket" group="Right" cluster="0" static="0" calibrated="0" opt="0" radius="14" colorR="0.6" colorG="1" colorB="0.6" visible="1" trajectory="0" eventDetection="MidStance" />
+    <Marker type="T" label="RFAP" segment="RightSocket" group="Right" cluster="1" static="0" calibrated="0" opt="0" radius="14" colorR="0.6" colorG="1" colorB="0.6" visible="1" trajectory="0" />
+    <Marker type="T" label="RFAD" segment="RightSocket" group="Right" cluster="1" static="0" calibrated="0" opt="0" radius="14" colorR="0.6" colorG="1" colorB="0.6" visible="1" trajectory="0" />
+    <Marker type="T" label="RLAP" segment="RightSocket" group="Right" cluster="1" static="0" calibrated="0" opt="0" radius="14" colorR="0.6" colorG="1" colorB="0.6" visible="1" trajectory="0" />
+    <Marker type="T" label="RLAD" segment="RightSocket" group="Right" cluster="1" static="0" calibrated="0" opt="0" radius="14" colorR="0.6" colorG="1" colorB="0.6" visible="1" trajectory="0" />
+    <Marker type="T" label="RMAP" segment="RightSocket" group="Right" cluster="1" static="1" calibrated="0" opt="0" radius="14" colorR="0.6" colorG="1" colorB="0.6" visible="1" trajectory="0" />
+    <Marker type="T" label="RMAD" segment="RightSocket" group="Right" cluster="1" static="1" calibrated="0" opt="0" radius="14" colorR="0.6" colorG="1" colorB="0.6" visible="1" trajectory="0" />
+    <Marker type="M" label="RKL" segment="RightSocket" group="Right" cluster="1" static="0" calibrated="0" opt="2" radius="14" colorR="0.6" colorG="1" colorB="0.6" visible="1" trajectory="0" eventDetection="MidStance" />
+    <Marker type="M" label="RKM" segment="RightSocket" group="Right" cluster="1" static="0" calibrated="0" opt="2" radius="14" colorR="0.6" colorG="1" colorB="0.6" visible="1" trajectory="0" eventDetection="MidStance" />
+    <Marker type="M" label="RWAM" segment="RightSocket" group="Right" cluster="0" static="0" calibrated="1" opt="2" radius="14" colorR="0.6" colorG="1" colorB="0.6" visible="1" trajectory="0" />
+    <Marker type="M" label="RWAL" segment="RightSocket" group="Right" cluster="0" static="0" calibrated="1" opt="2" radius="14" colorR="0.6" colorG="1" colorB="0.6" visible="1" trajectory="0" />
+    <Marker type="M" label="RWPM" segment="RightSocket" group="Right" cluster="0" static="0" calibrated="1" opt="2" radius="14" colorR="0.6" colorG="1" colorB="0.6" visible="1" trajectory="0" />
+    <Marker type="M" label="RWPL" segment="RightSocket" group="Right" cluster="0" static="0" calibrated="1" opt="2" radius="14" colorR="0.6" colorG="1" colorB="0.6" visible="1" trajectory="0" />
+    <!--/Socket_transfemoral-->
+
+    <!-- ProstheticFoot_transfemoral-->
+    <!-- LEFT PROSTHETIC PROXIMAL FOOT -->
+    <Marker type="M" label="LCLL" segment="LeftFootProx" group="Left" cluster="0" static="0" calibrated="1" opt="2" radius="14" colorR="0.8" colorG="0.3" colorB="0.3" visible="1" trajectory="0" />
+    <Marker type="M" label="LCLA" segment="LeftFootProx" group="Left" cluster="0" static="0" calibrated="1" opt="2" radius="14" colorR="0.8" colorG="0.3" colorB="0.3" visible="1" trajectory="0" />
+    <Marker type="M" label="LCLM" segment="LeftFootProx" group="Left" cluster="0" static="0" calibrated="1" opt="2" radius="14" colorR="0.8" colorG="0.3" colorB="0.3" visible="1" trajectory="0" />
+    <Marker type="M" label="LCLP" segment="LeftFootProx" group="Left" cluster="0" static="0" calibrated="1" opt="2" radius="14" colorR="0.8" colorG="0.3" colorB="0.3" visible="1" trajectory="0" />
+    <Marker type="M" label="LCLAL" segment="LeftFootProx" group="Left" cluster="0" static="0" calibrated="1" opt="2" radius="14" colorR="0.8" colorG="0.3" colorB="0.3" visible="1" trajectory="0" />
+    <Marker type="M" label="LCLPL" segment="LeftFootProx" group="Left" cluster="0" static="0" calibrated="1" opt="2" radius="14" colorR="0.8" colorG="0.3" colorB="0.3" visible="1" trajectory="0" />
+    <Marker type="M" label="LCLAM" segment="LeftFootProx" group="Left" cluster="0" static="0" calibrated="1" opt="2" radius="14" colorR="0.8" colorG="0.3" colorB="0.3" visible="1" trajectory="0" />
+    <Marker type="M" label="LCLPM" segment="LeftFootProx" group="Left" cluster="0" static="0" calibrated="1" opt="2" radius="14" colorR="0.8" colorG="0.3" colorB="0.3" visible="1" trajectory="0" />
+    <Marker type="T" label="LFPA" segment="LeftFootProx" group="Left" cluster="0" static="0" calibrated="0" opt="1" radius="14" colorR="0.8" colorG="0.3" colorB="0.3" visible="1" trajectory="0" />
+    <Marker type="T" label="LFPP" segment="LeftFootProx" group="Left" cluster="0" static="0" calibrated="0" opt="1" radius="14" colorR="0.8" colorG="0.3" colorB="0.3" visible="1" trajectory="0" />
+    <Marker type="T" label="LFP1" segment="LeftFootProx" group="Left" cluster="1" static="0" calibrated="0" opt="0" radius="14" colorR="0.8" colorG="0.3" colorB="0.3" visible="1" trajectory="0" />
+    <Marker type="T" label="LFP2" segment="LeftFootProx" group="Left" cluster="1" static="0" calibrated="0" opt="0" radius="14" colorR="0.8" colorG="0.3" colorB="0.3" visible="1" trajectory="0" />
+    <Marker type="T" label="LFP3" segment="LeftFootProx" group="Left" cluster="1" static="0" calibrated="0" opt="0" radius="14" colorR="0.8" colorG="0.3" colorB="0.3" visible="1" trajectory="0" />
+    
+    <!-- RIGHT PROSTHETIC PROXIMAL FOOT -->
+    <Marker type="M" label="RCLL" segment="RightFootProx" group="Right" cluster="0" static="0" calibrated="1" opt="2" radius="14" colorR="0.3" colorG="0.8" colorB="0.3" visible="1" trajectory="0" />
+    <Marker type="M" label="RCLA" segment="RightFootProx" group="Right" cluster="0" static="0" calibrated="1" opt="2" radius="14" colorR="0.3" colorG="0.8" colorB="0.3" visible="1" trajectory="0" />
+    <Marker type="M" label="RCLM" segment="RightFootProx" group="Right" cluster="0" static="0" calibrated="1" opt="2" radius="14" colorR="0.3" colorG="0.8" colorB="0.3" visible="1" trajectory="0" />
+    <Marker type="M" label="RCLP" segment="RightFootProx" group="Right" cluster="0" static="0" calibrated="1" opt="2" radius="14" colorR="0.3" colorG="0.8" colorB="0.3" visible="1" trajectory="0" />
+    <Marker type="M" label="RCLAL" segment="RightFootProx" group="Right" cluster="0" static="0" calibrated="1" opt="2" radius="14" colorR="0.3" colorG="0.8" colorB="0.3" visible="1" trajectory="0" />
+    <Marker type="M" label="RCLPL" segment="RightFootProx" group="Right" cluster="0" static="0" calibrated="1" opt="2" radius="14" colorR="0.3" colorG="0.8" colorB="0.3" visible="1" trajectory="0" />
+    <Marker type="M" label="RCLAM" segment="RightFootProx" group="Right" cluster="0" static="0" calibrated="1" opt="2" radius="14" colorR="0.3" colorG="0.8" colorB="0.3" visible="1" trajectory="0" />
+    <Marker type="M" label="RCLPM" segment="RightFootProx" group="Right" cluster="0" static="0" calibrated="1" opt="2" radius="14" colorR="0.3" colorG="0.8" colorB="0.3" visible="1" trajectory="0" />
+    <Marker type="T" label="RFPA" segment="RightFootProx" group="Right" cluster="0" static="0" calibrated="0" opt="1" radius="14" colorR="0.3" colorG="0.8" colorB="0.3" visible="1" trajectory="0" />
+    <Marker type="T" label="RFPP" segment="RightFootProx" group="Right" cluster="0" static="0" calibrated="0" opt="1" radius="14" colorR="0.3" colorG="0.8" colorB="0.3" visible="1" trajectory="0" />
+    <Marker type="T" label="RFP1" segment="RightFootProx" group="Right" cluster="1" static="0" calibrated="0" opt="0" radius="14" colorR="0.3" colorG="0.8" colorB="0.3" visible="1" trajectory="0" />
+    <Marker type="T" label="RFP2" segment="RightFootProx" group="Right" cluster="1" static="0" calibrated="0" opt="0" radius="14" colorR="0.3" colorG="0.8" colorB="0.3" visible="1" trajectory="0" />
+    <Marker type="T" label="RFP3" segment="RightFootProx" group="Right" cluster="1" static="0" calibrated="0" opt="0" radius="14" colorR="0.3" colorG="0.8" colorB="0.3" visible="1" trajectory="0" />
+    
+    <!-- LEFT PROSTHETIC MID-FOOT -->
+    <Marker type="T" label="LFM1" segment="LeftFootMid" group="Left" cluster="0" static="0" calibrated="0" opt="0" radius="14" colorR="0.6" colorG="0.1" colorB="0.1" visible="1" trajectory="0" />
+    <Marker type="T" label="LFL1" segment="LeftFootMid" group="Left" cluster="0" static="0" calibrated="0" opt="0" radius="14" colorR="0.6" colorG="0.1" colorB="0.1" visible="1" trajectory="0" />
+    <Marker type="T" label="LFM2" segment="LeftFootMid" group="Left" cluster="0" static="0" calibrated="0" opt="0" radius="14" colorR="0.6" colorG="0.1" colorB="0.1" visible="1" trajectory="0" />
+    <Marker type="T" label="LFM3" segment="LeftFootMid" group="Left" cluster="0" static="0" calibrated="0" opt="0" radius="14" colorR="0.6" colorG="0.1" colorB="0.1" visible="1" trajectory="0" />
+    
+    <!-- RIGHT PROSTHETIC MID-FOOT -->
+    <Marker type="T" label="RFM1" segment="RightFootMid" group="Right" cluster="0" static="0" calibrated="0" opt="0" radius="14" colorR="0.1" colorG="0.6" colorB="0.1" visible="1" trajectory="0" />
+    <Marker type="T" label="RFL1" segment="RightFootMid" group="Right" cluster="0" static="0" calibrated="0" opt="0" radius="14" colorR="0.1" colorG="0.6" colorB="0.1" visible="1" trajectory="0" />
+    <Marker type="T" label="RFM2" segment="RightFootMid" group="Right" cluster="0" static="0" calibrated="0" opt="0" radius="14" colorR="0.1" colorG="0.6" colorB="0.1" visible="1" trajectory="0" />
+    <Marker type="T" label="RFM3" segment="RightFootMid" group="Right" cluster="0" static="0" calibrated="0" opt="0" radius="14" colorR="0.1" colorG="0.6" colorB="0.1" visible="1" trajectory="0" />
+    
+    <!-- LEFT PROSTHETIC DISTAL FOOT -->
+    <Marker type="T" label="LFD1" segment="LeftFootDist" group="Left" cluster="1" static="0" calibrated="0" opt="0" radius="14" colorR="0.5" colorG="0" colorB="0" visible="1" trajectory="0" eventDetection="FootOff" />
+    <Marker type="T" label="LFD2" segment="LeftFootDist" group="Left" cluster="1" static="0" calibrated="0" opt="0" radius="14" colorR="0.5" colorG="0" colorB="0" visible="1" trajectory="0" />
+    <Marker type="T" label="LFD3" segment="LeftFootDist" group="Left" cluster="1" static="0" calibrated="0" opt="0" radius="14" colorR="0.5" colorG="0" colorB="0" visible="1" trajectory="0" />
+
+    <!-- RIGHT PROSTHETIC DISTAL FOOT -->
+    <Marker type="T" label="RFD1" segment="RightFootDist" group="Right" cluster="1" static="0" calibrated="0" opt="0" radius="14" colorR="0" colorG="0.4" colorB="0" visible="1" trajectory="0" eventDetection="FootOff" />
+    <Marker type="T" label="RFD2" segment="RightFootDist" group="Right" cluster="1" static="0" calibrated="0" opt="0" radius="14" colorR="0" colorG="0.4" colorB="0" visible="1" trajectory="0" />
+    <Marker type="T" label="RFD3" segment="RightFootDist" group="Right" cluster="1" static="0" calibrated="0" opt="0" radius="14" colorR="0" colorG="0.4" colorB="0" visible="1" trajectory="0" />
+    <!--/ProstheticFoot_transfemoral-->
+
+    <!--ProstheticFoot_transtibial -->
+    <!-- LEFT PROSTHETIC PROXIMAL FOOT -->
+    <Marker type="M" label="LCLPL" segment="LeftFootProx" group="Left" cluster="1" static="0" calibrated="0" opt="3" radius="14" colorR="0.8" colorG="0.3" colorB="0.3" visible="1" trajectory="0" />
+    <Marker type="M" label="LCLDL" segment="LeftFootProx" group="Left" cluster="1" static="0" calibrated="0" opt="3" radius="14" colorR="0.8" colorG="0.3" colorB="0.3" visible="1" trajectory="0" />
+    <Marker type="M" label="LCLPM" segment="LeftFootProx" group="Left" cluster="1" static="0" calibrated="0" opt="3" radius="14" colorR="0.8" colorG="0.3" colorB="0.3" visible="1" trajectory="0" />
+    <Marker type="M" label="LCLDM" segment="LeftFootProx" group="Left" cluster="1" static="0" calibrated="0" opt="3" radius="14" colorR="0.8" colorG="0.3" colorB="0.3" visible="1" trajectory="0" />
+    <Marker type="M" label="LWP" segment="LeftFootProx" group="Left" cluster="0" static="0" calibrated="1" opt="3" radius="14" colorR="0.8" colorG="0.3" colorB="0.3" visible="1" trajectory="0" />
+    <Marker type="M" label="LWD" segment="LeftFootProx" group="Left" cluster="0" static="0" calibrated="1" opt="3" radius="14" colorR="0.8" colorG="0.3" colorB="0.3" visible="1" trajectory="0" />
+
+    <!-- RIGHT PROSTHETIC PROXIMAL FOOT -->
+    <Marker type="M" label="RCLPL" segment="RightFootProx" group="Right" cluster="1" static="0" calibrated="0" opt="3" radius="14" colorR="0.3" colorG="0.8" colorB="0.3" visible="1" trajectory="0" />
+    <Marker type="M" label="RCLDL" segment="RightFootProx" group="Right" cluster="1" static="0" calibrated="0" opt="3" radius="14" colorR="0.3" colorG="0.8" colorB="0.3" visible="1" trajectory="0" />
+    <Marker type="M" label="RCLPM" segment="RightFootProx" group="Right" cluster="1" static="0" calibrated="0" opt="3" radius="14" colorR="0.3" colorG="0.8" colorB="0.3" visible="1" trajectory="0" />
+    <Marker type="M" label="RCLDM" segment="RightFootProx" group="Right" cluster="1" static="0" calibrated="0" opt="3" radius="14" colorR="0.3" colorG="0.8" colorB="0.3" visible="1" trajectory="0" />
+    <Marker type="M" label="RWP" segment="RightFootProx" group="Right" cluster="0" static="0" calibrated="1" opt="3" radius="14" colorR="0.3" colorG="0.8" colorB="0.3" visible="1" trajectory="0" />
+    <Marker type="M" label="RWD" segment="RightFootProx" group="Right" cluster="0" static="0" calibrated="1" opt="3" radius="14" colorR="0.3" colorG="0.8" colorB="0.3" visible="1" trajectory="0" />
+    <!-- /ProstheticFoot_transtibial> -->
+
+    <VirtualMarkerDef label="LHJC" method="Bell" source="LASIS,RASIS,LPSIS,RPSIS"/>
+    <VirtualMarkerDef label="RHJC" method="Bell" source="LASIS,RASIS,LPSIS,RPSIS"/>
+    <VirtualMarkerDef label="MIDH" method="centroid" source="LHJC,RHJC"/>
+    <VirtualMarkerDef label="LKJC" method="centroid" source="LFLE,LFME"/>
+    <VirtualMarkerDef label="RKJC" method="centroid" source="RFLE,RFME"/>
+    <VirtualMarkerDef label="LAJC" method="centroid" source="LLM,LMM"/>
+    <VirtualMarkerDef label="RAJC" method="centroid" source="RLM,RMM"/>
+	<VirtualMarkerDef label="LCLP" method="centroid" source="LCLPL,LCLPM"/>
+    <VirtualMarkerDef label="LCLA" method="centroid" source="LCLAL,LCLAM"/>
+    <VirtualMarkerDef label="LCLL" method="centroid" source="LCLPL,LCLAL"/>
+    <VirtualMarkerDef label="LCLM" method="centroid" source="LCLAM,LCLPM"/>
+    <VirtualMarkerDef label="RCLP" method="centroid" source="RCLPL,RCLPM"/>
+    <VirtualMarkerDef label="RCLA" method="centroid" source="RCLAL,RCLAM"/>
+    <VirtualMarkerDef label="RCLL" method="centroid" source="RCLPL,RCLAL"/>
+    <VirtualMarkerDef label="RCLM" method="centroid" source="RCLAM,RCLPM"/>
+</MarkerSet>

@@ -1,0 +1,600 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<struct>
+    <mass>
+        <value>0</value>
+        <unit>kg</unit>
+    </mass>
+    <medical_device>
+        <left>
+            <type>running specific prosthesis</type>
+            <alignment>
+                <ID></ID>
+                <preflexion_angle>
+                    <unit>deg</unit>
+                    <value>0</value>
+                </preflexion_angle>
+                <TAP>
+                    <unit>cm</unit>
+                    <value>0</value>
+                </TAP>
+                <SAP>
+                    <unit>cm</unit>
+                    <value>0</value>
+                </SAP>
+            </alignment>
+            <foot>
+                <name></name>
+                <cat></cat>
+            </foot>
+        </left>
+    </medical_device>
+    <MarkerSet>
+        <Marker type="T" label="H1" segment="Head" group="General" cluster="1" static="0" calibrated="0" opt="0" eventDetection="" radius="14" colorR="0.6" colorG="0.7" colorB="0.9" visible="1" trajectory="0"/>
+        <Marker type="T" label="H2" segment="Head" group="General" cluster="1" static="0" calibrated="0" opt="0" eventDetection="" radius="14" colorR="0.6" colorG="0.7" colorB="0.9" visible="1" trajectory="0"/>
+        <Marker type="T" label="H3" segment="Head" group="General" cluster="1" static="0" calibrated="0" opt="0" eventDetection="" radius="14" colorR="0.6" colorG="0.7" colorB="0.9" visible="1" trajectory="0"/>
+        <Marker type="T" label="H4" segment="Head" group="General" cluster="1" static="0" calibrated="0" opt="0" eventDetection="" radius="14" colorR="0.6" colorG="0.7" colorB="0.9" visible="1" trajectory="0"/>
+        <Marker type="A" label="GB" segment="Head" group="General" cluster="1" static="1" calibrated="1" opt="0" eventDetection="" radius="14" colorR="0.6" colorG="0.7" colorB="0.9" visible="1" trajectory="0"/>
+        <Marker type="A" label="LAM" segment="Head" group="General" cluster="1" static="1" calibrated="1" opt="0" eventDetection="" radius="14" colorR="0.6" colorG="0.7" colorB="0.9" visible="1" trajectory="0"/>
+        <Marker type="A" label="RAM" segment="Head" group="General" cluster="1" static="1" calibrated="1" opt="0" eventDetection="" radius="14" colorR="0.6" colorG="0.7" colorB="0.9" visible="1" trajectory="0"/>
+        <Marker type="A" label="CH" segment="Head" group="General" cluster="1" static="1" calibrated="1" opt="0" eventDetection="" radius="14" colorR="0.6" colorG="0.7" colorB="0.9" visible="1" trajectory="0"/>
+        <Marker type="A" label="IJ" segment="Trunk" group="General" cluster="1" static="0" calibrated="0" opt="0" eventDetection="" radius="14" colorR="0.2" colorG="0.4" colorB="0.8" visible="1" trajectory="0"/>
+        <Marker type="A" label="PX" segment="Trunk" group="General" cluster="1" static="0" calibrated="0" opt="0" eventDetection="" radius="14" colorR="0.2" colorG="0.4" colorB="0.8" visible="1" trajectory="0"/>
+        <Marker type="A" label="T8" segment="Trunk" group="General" cluster="1" static="0" calibrated="0" opt="0" eventDetection="" radius="14" colorR="0.2" colorG="0.4" colorB="0.8" visible="1" trajectory="0"/>
+        <Marker type="A" label="C7" segment="Trunk" group="General" cluster="1" static="0" calibrated="0" opt="0" eventDetection="" radius="14" colorR="0.2" colorG="0.4" colorB="0.8" visible="1" trajectory="0"/>
+        <Marker type="A" label="LASIS" segment="Pelvis" group="General" cluster="1" static="0" calibrated="0" opt="0" eventDetection="" radius="14" colorR="0" colorG="0.2" colorB="0.5" visible="1" trajectory="0"/>
+        <Marker type="A" label="RASIS" segment="Pelvis" group="General" cluster="1" static="0" calibrated="0" opt="0" eventDetection="" radius="14" colorR="0" colorG="0.2" colorB="0.5" visible="1" trajectory="0"/>
+        <Marker type="A" label="LPSIS" segment="Pelvis" group="General" cluster="1" static="0" calibrated="0" opt="0" eventDetection="" radius="14" colorR="0" colorG="0.2" colorB="0.5" visible="1" trajectory="0"/>
+        <Marker type="A" label="RPSIS" segment="Pelvis" group="General" cluster="1" static="0" calibrated="0" opt="0" eventDetection="" radius="14" colorR="0" colorG="0.2" colorB="0.5" visible="1" trajectory="0"/>
+        <Marker type="V" label="LHJC" segment="Pelvis" group="General" cluster="1" static="0" calibrated="1" opt="0" eventDetection="" radius="14" colorR="0" colorG="0.2" colorB="0.5" visible="1" trajectory="0"/>
+        <Marker type="V" label="RHJC" segment="Pelvis" group="General" cluster="1" static="0" calibrated="1" opt="0" eventDetection="" radius="14" colorR="0" colorG="0.2" colorB="0.5" visible="1" trajectory="0"/>
+        <Marker type="V" label="MIDH" segment="Pelvis" group="General" cluster="1" static="0" calibrated="1" opt="0" eventDetection="" radius="14" colorR="0" colorG="0.2" colorB="0.5" visible="1" trajectory="0"/>
+        <Marker type="A" label="LAC" segment="LeftArm" group="Left" cluster="1" static="0" calibrated="0" opt="0" eventDetection="" radius="14" colorR="0.3" colorG="0" colorB="0" visible="1" trajectory="0"/>
+        <Marker type="A" label="LHLE" segment="LeftArm" group="Left" cluster="1" static="0" calibrated="0" opt="0" eventDetection="" radius="14" colorR="0.3" colorG="0" colorB="0" visible="1" trajectory="0"/>
+        <Marker type="A" label="LMSS" segment="LeftArm" group="Left" cluster="1" static="0" calibrated="0" opt="0" eventDetection="" radius="14" colorR="0.3" colorG="0" colorB="0" visible="1" trajectory="0"/>
+        <Marker type="A" label="RAC" segment="RightArm" group="Right" cluster="1" static="0" calibrated="0" opt="0" eventDetection="" radius="14" colorR="0" colorG="0.3" colorB="0" visible="1" trajectory="0"/>
+        <Marker type="A" label="RHLE" segment="RightArm" group="Right" cluster="1" static="0" calibrated="0" opt="0" eventDetection="" radius="14" colorR="0" colorG="0.3" colorB="0" visible="1" trajectory="0"/>
+        <Marker type="A" label="RMSS" segment="RightArm" group="Right" cluster="1" static="0" calibrated="0" opt="0" eventDetection="" radius="14" colorR="0" colorG="0.3" colorB="0" visible="1" trajectory="0"/>
+        <Marker type="A" label="RGT" segment="RightThigh" group="Right" cluster="0" static="0" calibrated="0" opt="0" eventDetection="MidStance" radius="14" colorR="0.6" colorG="1" colorB="0.6" visible="1" trajectory="0"/>
+        <Marker type="A" label="RFLE" segment="RightThigh" group="Right" cluster="0" static="0" calibrated="0" opt="0" eventDetection="" radius="14" colorR="0.6" colorG="1" colorB="0.6" visible="1" trajectory="0"/>
+        <Marker type="A" label="RFME" segment="RightThigh" group="Right" cluster="0" static="1" calibrated="0" opt="0" eventDetection="" radius="14" colorR="0.6" colorG="1" colorB="0.6" visible="1" trajectory="0"/>
+        <Marker type="T" label="RT1" segment="RightThigh" group="Right" cluster="1" static="0" calibrated="0" opt="0" eventDetection="" radius="14" colorR="0.6" colorG="1" colorB="0.6" visible="1" trajectory="0"/>
+        <Marker type="T" label="RT2" segment="RightThigh" group="Right" cluster="1" static="0" calibrated="0" opt="0" eventDetection="" radius="14" colorR="0.6" colorG="1" colorB="0.6" visible="1" trajectory="0"/>
+        <Marker type="T" label="RT3" segment="RightThigh" group="Right" cluster="1" static="0" calibrated="0" opt="0" eventDetection="" radius="14" colorR="0.6" colorG="1" colorB="0.6" visible="1" trajectory="0"/>
+        <Marker type="T" label="RT4" segment="RightThigh" group="Right" cluster="1" static="0" calibrated="0" opt="0" eventDetection="" radius="14" colorR="0.6" colorG="1" colorB="0.6" visible="1" trajectory="0"/>
+        <Marker type="V" label="RKJC" segment="RightThigh" group="Right" cluster="1" static="0" calibrated="1" opt="0" eventDetection="" radius="14" colorR="0.6" colorG="1" colorB="0.6" visible="1" trajectory="0"/>
+        <Marker type="A" label="RTT" segment="RightShank" group="Right" cluster="1" static="0" calibrated="0" opt="0" eventDetection="" radius="14" colorR="0.2" colorG="0.6" colorB="0.2" visible="1" trajectory="0"/>
+        <Marker type="A" label="RHF" segment="RightShank" group="Right" cluster="1" static="0" calibrated="0" opt="0" eventDetection="" radius="14" colorR="0.2" colorG="0.6" colorB="0.2" visible="1" trajectory="0"/>
+        <Marker type="A" label="RLM" segment="RightShank" group="Right" cluster="1" static="0" calibrated="0" opt="0" eventDetection="" radius="14" colorR="0.2" colorG="0.6" colorB="0.2" visible="1" trajectory="0"/>
+        <Marker type="A" label="RMM" segment="RightShank" group="Right" cluster="1" static="1" calibrated="0" opt="0" eventDetection="" radius="14" colorR="0.2" colorG="0.6" colorB="0.2" visible="1" trajectory="0"/>
+        <Marker type="T" label="RSH1" segment="RightShank" group="Right" cluster="1" static="0" calibrated="0" opt="0" eventDetection="" radius="14" colorR="0.2" colorG="0.6" colorB="0.2" visible="1" trajectory="0"/>
+        <Marker type="V" label="RAJC" segment="RightShank" group="Right" cluster="1" static="0" calibrated="1" opt="0" eventDetection="" radius="14" colorR="0.2" colorG="0.6" colorB="0.2" visible="1" trajectory="0"/>
+        <Marker type="A" label="RCA" segment="RightFoot" group="Right" cluster="1" static="0" calibrated="0" opt="0" eventDetection="FootStrike" radius="14" colorR="0" colorG="0.4" colorB="0" visible="1" trajectory="0"/>
+        <Marker type="A" label="RIMH" segment="RightFoot" group="Right" cluster="1" static="0" calibrated="0" opt="0" eventDetection="" radius="14" colorR="0" colorG="0.4" colorB="0" visible="1" trajectory="0"/>
+        <Marker type="A" label="RIIMH" segment="RightFoot" group="Right" cluster="1" static="0" calibrated="0" opt="0" eventDetection="FootOff" radius="14" colorR="0" colorG="0.4" colorB="0" visible="1" trajectory="0"/>
+        <Marker type="A" label="RVMH" segment="RightFoot" group="Right" cluster="1" static="0" calibrated="0" opt="0" eventDetection="MidStance" radius="14" colorR="0" colorG="0.4" colorB="0" visible="1" trajectory="0"/>
+        <Marker type="T" label="RF1" segment="RightFoot" group="Right" cluster="1" static="0" calibrated="0" opt="0" eventDetection="" radius="14" colorR="0" colorG="0.4" colorB="0" visible="1" trajectory="0"/>
+        <Marker type="A" label="LGT" segment="LeftSocket" group="Left" cluster="0" static="0" calibrated="0" opt="0" eventDetection="MidStance" radius="14" colorR="1" colorG="0.7" colorB="0.7" visible="1" trajectory="0"/>
+        <Marker type="T" label="LFAP" segment="LeftSocket" group="Left" cluster="1" static="0" calibrated="0" opt="0" eventDetection="" radius="14" colorR="1" colorG="0.7" colorB="0.7" visible="1" trajectory="0"/>
+        <Marker type="T" label="LFAD" segment="LeftSocket" group="Left" cluster="1" static="0" calibrated="0" opt="0" eventDetection="" radius="14" colorR="1" colorG="0.7" colorB="0.7" visible="1" trajectory="0"/>
+        <Marker type="T" label="LLAP" segment="LeftSocket" group="Left" cluster="1" static="0" calibrated="0" opt="0" eventDetection="" radius="14" colorR="1" colorG="0.7" colorB="0.7" visible="1" trajectory="0"/>
+        <Marker type="T" label="LLAD" segment="LeftSocket" group="Left" cluster="1" static="0" calibrated="0" opt="0" eventDetection="" radius="14" colorR="1" colorG="0.7" colorB="0.7" visible="1" trajectory="0"/>
+        <Marker type="T" label="LMAP" segment="LeftSocket" group="Left" cluster="0" static="1" calibrated="0" opt="0" eventDetection="" radius="14" colorR="1" colorG="0.7" colorB="0.7" visible="1" trajectory="0"/>
+        <Marker type="T" label="LMAD" segment="LeftSocket" group="Left" cluster="0" static="1" calibrated="0" opt="0" eventDetection="" radius="14" colorR="1" colorG="0.7" colorB="0.7" visible="1" trajectory="0"/>
+        <Marker type="M" label="LKL" segment="LeftSocket" group="Left" cluster="1" static="0" calibrated="0" opt="0" eventDetection="MidStance" radius="14" colorR="1" colorG="0.7" colorB="0.7" visible="1" trajectory="0"/>
+        <Marker type="M" label="LKM" segment="LeftSocket" group="Left" cluster="1" static="0" calibrated="0" opt="0" eventDetection="MidStance" radius="14" colorR="1" colorG="0.7" colorB="0.7" visible="1" trajectory="0"/>
+        <Marker type="M" label="LPKJC" segment="LeftSocket" group="Left" cluster="0" static="0" calibrated="0" opt="0" eventDetection="MidStance" radius="14" colorR="1" colorG="0.7" colorB="0.7" visible="1" trajectory="0"/>
+        <Marker type="M" label="LWAM" segment="LeftSocket" group="Left" cluster="0" static="0" calibrated="1" opt="2" eventDetection="" radius="14" colorR="1" colorG="0.7" colorB="0.7" visible="1" trajectory="0"/>
+        <Marker type="M" label="LWAL" segment="LeftSocket" group="Left" cluster="0" static="0" calibrated="1" opt="2" eventDetection="" radius="14" colorR="1" colorG="0.7" colorB="0.7" visible="1" trajectory="0"/>
+        <Marker type="M" label="LWPM" segment="LeftSocket" group="Left" cluster="0" static="0" calibrated="1" opt="2" eventDetection="" radius="14" colorR="1" colorG="0.7" colorB="0.7" visible="1" trajectory="0"/>
+        <Marker type="M" label="LWPL" segment="LeftSocket" group="Left" cluster="0" static="0" calibrated="1" opt="2" eventDetection="" radius="14" colorR="1" colorG="0.7" colorB="0.7" visible="1" trajectory="0"/>
+        <Marker type="M" label="LCLL" segment="LeftFootProx" group="Left" cluster="0" static="0" calibrated="1" opt="2" eventDetection="" radius="14" colorR="0.8" colorG="0.3" colorB="0.3" visible="1" trajectory="0"/>
+        <Marker type="M" label="LCLA" segment="LeftFootProx" group="Left" cluster="0" static="0" calibrated="1" opt="2" eventDetection="" radius="14" colorR="0.8" colorG="0.3" colorB="0.3" visible="1" trajectory="0"/>
+        <Marker type="M" label="LCLM" segment="LeftFootProx" group="Left" cluster="0" static="0" calibrated="1" opt="2" eventDetection="" radius="14" colorR="0.8" colorG="0.3" colorB="0.3" visible="1" trajectory="0"/>
+        <Marker type="M" label="LCLP" segment="LeftFootProx" group="Left" cluster="0" static="0" calibrated="1" opt="2" eventDetection="" radius="14" colorR="0.8" colorG="0.3" colorB="0.3" visible="1" trajectory="0"/>
+        <Marker type="M" label="LCLAL" segment="LeftFootProx" group="Left" cluster="0" static="0" calibrated="1" opt="2" eventDetection="" radius="14" colorR="0.8" colorG="0.3" colorB="0.3" visible="1" trajectory="0"/>
+        <Marker type="M" label="LCLPL" segment="LeftFootProx" group="Left" cluster="0" static="0" calibrated="1" opt="2" eventDetection="" radius="14" colorR="0.8" colorG="0.3" colorB="0.3" visible="1" trajectory="0"/>
+        <Marker type="M" label="LCLAM" segment="LeftFootProx" group="Left" cluster="0" static="0" calibrated="1" opt="2" eventDetection="" radius="14" colorR="0.8" colorG="0.3" colorB="0.3" visible="1" trajectory="0"/>
+        <Marker type="M" label="LCLPM" segment="LeftFootProx" group="Left" cluster="0" static="0" calibrated="1" opt="2" eventDetection="" radius="14" colorR="0.8" colorG="0.3" colorB="0.3" visible="1" trajectory="0"/>
+        <Marker type="T" label="LFPA" segment="LeftFootProx" group="Left" cluster="0" static="0" calibrated="0" opt="1" eventDetection="" radius="14" colorR="0.8" colorG="0.3" colorB="0.3" visible="1" trajectory="0"/>
+        <Marker type="T" label="LFPP" segment="LeftFootProx" group="Left" cluster="0" static="0" calibrated="0" opt="1" eventDetection="" radius="14" colorR="0.8" colorG="0.3" colorB="0.3" visible="1" trajectory="0"/>
+        <Marker type="T" label="LFP1" segment="LeftFootProx" group="Left" cluster="1" static="0" calibrated="0" opt="0" eventDetection="" radius="14" colorR="0.8" colorG="0.3" colorB="0.3" visible="1" trajectory="0"/>
+        <Marker type="T" label="LFP2" segment="LeftFootProx" group="Left" cluster="1" static="0" calibrated="0" opt="0" eventDetection="" radius="14" colorR="0.8" colorG="0.3" colorB="0.3" visible="1" trajectory="0"/>
+        <Marker type="T" label="LFP3" segment="LeftFootProx" group="Left" cluster="1" static="0" calibrated="0" opt="0" eventDetection="" radius="14" colorR="0.8" colorG="0.3" colorB="0.3" visible="1" trajectory="0"/>
+        <Marker type="T" label="LFD1" segment="LeftFootDist" group="Left" cluster="1" static="0" calibrated="0" opt="0" eventDetection="FootOff" radius="14" colorR="0.5" colorG="0" colorB="0" visible="1" trajectory="0"/>
+        <Marker type="T" label="LFD2" segment="LeftFootDist" group="Left" cluster="1" static="0" calibrated="0" opt="0" eventDetection="" radius="14" colorR="0.5" colorG="0" colorB="0" visible="1" trajectory="0"/>
+        <Marker type="T" label="LFD3" segment="LeftFootDist" group="Left" cluster="1" static="0" calibrated="0" opt="0" eventDetection="" radius="14" colorR="0.5" colorG="0" colorB="0" visible="1" trajectory="0"/>
+        <Marker type="" label="HDCOM" segment="Head" group="" cluster="0" static="" calibrated="" opt="" eventDetection="" radius="" colorR="" colorG="" colorB="" visible="" trajectory=""/>
+        <Marker type="" label="TKCOM" segment="Trunk" group="" cluster="0" static="" calibrated="" opt="" eventDetection="" radius="" colorR="" colorG="" colorB="" visible="" trajectory=""/>
+        <Marker type="" label="LARCOM" segment="LeftArm" group="" cluster="0" static="" calibrated="" opt="" eventDetection="" radius="" colorR="" colorG="" colorB="" visible="" trajectory=""/>
+        <Marker type="" label="LFACOM" segment="LeftForearm" group="" cluster="0" static="" calibrated="" opt="" eventDetection="" radius="" colorR="" colorG="" colorB="" visible="" trajectory=""/>
+        <Marker type="" label="RARCOM" segment="RightArm" group="" cluster="0" static="" calibrated="" opt="" eventDetection="" radius="" colorR="" colorG="" colorB="" visible="" trajectory=""/>
+        <Marker type="" label="RFACOM" segment="RightForearm" group="" cluster="0" static="" calibrated="" opt="" eventDetection="" radius="" colorR="" colorG="" colorB="" visible="" trajectory=""/>
+        <Marker type="" label="RTHCOM" segment="RightThigh" group="" cluster="0" static="" calibrated="" opt="" eventDetection="" radius="" colorR="" colorG="" colorB="" visible="" trajectory=""/>
+        <Marker type="" label="RSHCOM" segment="RightShank" group="" cluster="0" static="" calibrated="" opt="" eventDetection="" radius="" colorR="" colorG="" colorB="" visible="" trajectory=""/>
+        <Marker type="" label="RFTCOM" segment="RightFoot" group="" cluster="0" static="" calibrated="" opt="" eventDetection="" radius="" colorR="" colorG="" colorB="" visible="" trajectory=""/>
+        <VirtualMarkerDef label="LHJC" method="Bell" source="LASIS,RASIS,LPSIS,RPSIS"/>
+        <VirtualMarkerDef label="RHJC" method="Bell" source="LASIS,RASIS,LPSIS,RPSIS"/>
+        <VirtualMarkerDef label="MIDH" method="centroid" source="LHJC,RHJC"/>
+        <VirtualMarkerDef label="RKJC" method="centroid" source="RFLE,RFME"/>
+        <VirtualMarkerDef label="RAJC" method="centroid" source="RLM,RMM"/>
+        <VirtualMarkerDef label="LPKJC" method="centroid" source="LKL,LKM"/>
+        <VirtualMarkerDef label="LCLA" method="centroid" source="LCLAL,LCLAM"/>
+        <VirtualMarkerDef label="LCLP" method="centroid" source="LCLPL,LCLPM"/>
+        <VirtualMarkerDef label="LCLL" method="centroid" source="LCLPL,LCLAL"/>
+        <VirtualMarkerDef label="LCLM" method="centroid" source="LCLPM,LCLAM"/>
+        <CalibratedMarkerDef label="LWAL" wand="arrow416" source="TF01_S17_T09_WAND_08.c3d"/>
+        <CalibratedMarkerDef label="LWAM" wand="arrow416" source="TF01_S17_T12_WAND_11.c3d"/>
+        <CalibratedMarkerDef label="LWPM" wand="arrow416" source="TF01_S17_T11_WAND_10.c3d"/>
+        <CalibratedMarkerDef label="LWPL" wand="arrow416" source="TF01_S17_T10_WAND_09.c3d"/>
+        <CalibratedMarkerDef label="LCLAL" wand="arrow416" source="TF01_S17_T08_WAND_07.c3d"/>
+        <CalibratedMarkerDef label="LCLAM" wand="arrow416" source="TF01_S17_T07_WAND_06.c3d"/>
+        <CalibratedMarkerDef label="LCLPM" wand="arrow416" source="TF01_S17_T06_WAND_05.c3d"/>
+        <CalibratedMarkerDef label="LCLPL" wand="arrow416" source="TF01_S17_T06_WAND_05.c3d"/>
+        <CalibratedMarkerDef label="PX" wand="arrow416" source="TF01_S17_T13_WAND_12.c3d"/>
+        <CalibratedMarkerDef label="LAM" wand="arrow416" source=""/>
+        <CalibratedMarkerDef label="RAM" wand="arrow416" source=""/>
+    </MarkerSet>
+    <KinematicModel>
+        <Segment label="Head" group="General" points="H1,H2,H3,H4,GB,LAM,RAM,CH" opt="0" angleseq="xyz" endpoints="LAM,RAM" inertialalias="Head" comlabel="HDCOM">
+            <CoordSys>
+                <tag>HD</tag>
+                <origin>LAM</origin>
+                <origin>RAM</origin>
+                <axis1>
+                    <axis>
+                        <tail>CH</tail>
+                        <tip>GB</tip>
+                    </axis>
+                </axis1>
+                <temp_axis>
+                    <axis>
+                        <tail>GB</tail>
+                        <tip>origin</tip>
+                    </axis>
+                </temp_axis>
+                <seq>yzx</seq>
+            </CoordSys>
+        </Segment>
+        <Segment label="Trunk" group="General" points="IJ,PX,T8,C7" opt="0" angleseq="xyz" endpoints="IJ,MIDH" inertialalias="Trunk" comlabel="TKCOM">
+            <CoordSys>
+                <tag>TK</tag>
+                <origin>IJ</origin>
+                <axis1>
+                    <axis>
+                        <tail>T8</tail>
+                        <tail>PX</tail>
+                        <tip>IJ</tip>
+                        <tip>C7</tip>
+                    </axis>
+                </axis1>
+                <temp_axis>
+                    <axis>
+                        <tail>IJ</tail>
+                        <tip>C7</tip>
+                    </axis>
+                </temp_axis>
+                <seq>yzx</seq>
+            </CoordSys>
+        </Segment>
+        <Segment label="Pelvis" group="General" points="LASIS,RASIS,LPSIS,RPSIS,LHJC,RHJC,MIDH" opt="0" angleseq="xyz" endpoints="" inertialalias="Pelvis" comlabel="PLCOM">
+            <CoordSys>
+                <tag>PL</tag>
+                <origin>LASIS</origin>
+                <origin>RASIS</origin>
+                <axis1>
+                    <axis>
+                        <tail>LASIS</tail>
+                        <tip>RASIS</tip>
+                    </axis>
+                </axis1>
+                <temp_axis>
+                    <axis>
+                        <tail>LPSIS</tail>
+                        <tail>RPSIS</tail>
+                        <tip>origin</tip>
+                    </axis>
+                </temp_axis>
+                <seq>zyx</seq>
+            </CoordSys>
+        </Segment>
+        <Segment label="LeftArm" group="Left" points="LAC,LHLE,LMSS,LSJC" opt="0" angleseq="xyz" endpoints="LSJC,LHLE" inertialalias="Arm" comlabel="LARCOM">
+            <CoordSys>
+                <tag>LAR</tag>
+                <origin>LHLE</origin>
+                <axis1>
+                    <axis>
+                        <tail>LHLE</tail>
+                        <tip>LAC</tip>
+                    </axis>
+                </axis1>
+                <temp_axis>
+                    <axis>
+                        <tail>LHLE</tail>
+                        <tip>LMSS</tip>
+                    </axis>
+                </temp_axis>
+                <seq>yzx</seq>
+            </CoordSys>
+        </Segment>
+        <Segment label="RightArm" group="Right" points="RAC,RHLE,RMSS,RSJC" opt="0" angleseq="xyz" endpoints="RSJC,RHLE" inertialalias="Arm" comlabel="RARCOM">
+            <CoordSys>
+                <tag>RAR</tag>
+                <origin>RHLE</origin>
+                <axis1>
+                    <axis>
+                        <tail>RHLE</tail>
+                        <tip>RAC</tip>
+                    </axis>
+                </axis1>
+                <temp_axis>
+                    <axis>
+                        <tail>RHLE</tail>
+                        <tip>RMSS</tip>
+                    </axis>
+                </temp_axis>
+                <seq>yzx</seq>
+            </CoordSys>
+        </Segment>
+        <Segment label="LeftForearm" group="Left" points="LAC,LHLE,LMSS,LSJC" opt="0" angleseq="xyz" endpoints="LSJC,LHLE" inertialalias="Forearm" comlabel="LFACOM">
+            <CoordSys>
+                <tag>LFA</tag>
+                <origin>LHLE</origin>
+                <axis1>
+                    <axis>
+                        <tail>LMSS</tail>
+                        <tip>LHLE</tip>
+                    </axis>
+                </axis1>
+                <temp_axis>
+                    <axis>
+                        <tail>LAC</tail>
+                        <tip>LHLE</tip>
+                    </axis>
+                </temp_axis>
+                <seq>yzx</seq>
+            </CoordSys>
+        </Segment>
+        <Segment label="RightForearm" group="Right" points="RAC,RHLE,RMSS,RSJC" opt="0" angleseq="xyz" endpoints="RSJC,RHLE" inertialalias="Forearm" comlabel="RFACOM">
+            <CoordSys>
+                <tag>RFA</tag>
+                <origin>RHLE</origin>
+                <axis1>
+                    <axis>
+                        <tail>RMSS</tail>
+                        <tip>RHLE</tip>
+                    </axis>
+                </axis1>
+                <temp_axis>
+                    <axis>
+                        <tail>RAC</tail>
+                        <tip>RHLE</tip>
+                    </axis>
+                </temp_axis>
+                <seq>yzx</seq>
+            </CoordSys>
+        </Segment>
+        <Segment label="RightThigh" group="Right" points="RGT,RHJC,RFLE,RFME,RT1,RT2,RT3,RT4,RKJC" opt="0" angleseq="xyz" endpoints="RHJC,RKJC" inertialalias="Thigh" comlabel="RTHCOM">
+            <CoordSys>
+                <tag>RTH</tag>
+                <origin>RFLE</origin>
+                <origin>RFME</origin>
+                <axis1>
+                    <axis>
+                        <tail>origin</tail>
+                        <tip>RHJC</tip>
+                    </axis>
+                </axis1>
+                <temp_axis>
+                    <axis>
+                        <tail>RFME</tail>
+                        <tip>RFLE</tip>
+                    </axis>
+                </temp_axis>
+                <seq>yxz</seq>
+            </CoordSys>
+        </Segment>
+        <Segment label="RightShank" group="Right" points="RTT,RHF,RLM,RMM,RSH1,RAJC" opt="0" angleseq="xyz" endpoints="RKJC,RAJC" inertialalias="Shank" comlabel="RSHCOM">
+            <CoordSys>
+                <tag>RSH</tag>
+                <origin>RLM</origin>
+                <origin>RMM</origin>
+                <axis1>
+                    <axis>
+                        <tail>origin</tail>
+                        <tip>RHF</tip>
+                    </axis>
+                    <axis>
+                        <tail>RMM</tail>
+                        <tip>RLM</tip>
+                    </axis>
+                </axis1>
+                <temp_axis>
+                    <axis>
+                        <tail>origin</tail>
+                        <tip>RTT</tip>
+                    </axis>
+                </temp_axis>
+                <seq>xzy</seq>
+            </CoordSys>
+        </Segment>
+        <Segment label="RightFoot" group="Right" points="RCA,RIMH,RIIMH,RVMH,RF1" opt="0" angleseq="xyz" endpoints="RCA,RIIMH" inertialalias="Foot" comlabel="RFTCOM">
+            <CoordSys>
+                <tag>RFT</tag>
+                <origin>RCA</origin>
+                <axis1>
+                    <axis>
+                        <tail>RCA</tail>
+                        <tip>RVMH</tip>
+                    </axis>
+                    <axis>
+                        <tail>RCA</tail>
+                        <tip>RIMH</tip>
+                    </axis>
+                </axis1>
+                <temp_axis>
+                    <axis>
+                        <tail>RIIMH</tail>
+                        <tip>RCA</tip>
+                    </axis>
+                </temp_axis>
+                <seq>yzx</seq>
+            </CoordSys>
+        </Segment>
+        <Segment label="LeftSocket" group="Left" points="LGT,LFAP,LFAD,LLAP,LLAD,LMAP,LMAD,LKL,LKM,LWAM,LWAL,LWPM,LWPL,LHJC" opt="2" angleseq="xyz" endpoints="LHJC" inertialalias="" comlabel="LSKCOM">
+            <CoordSys>
+                <tag>LSK</tag>
+                <origin>LLAD</origin>
+                <origin>LMAD</origin>
+                <axis1>
+                    <axis>
+                        <tail>LLAD</tail>
+                        <tip>LLAP</tip>
+                    </axis>
+                    <axis>
+                        <tail>LLAD</tail>
+                        <tip>LMAD</tip>
+                    </axis>
+                </axis1>
+                <temp_axis>
+                    <axis>
+                        <tail>LFAD</tail>
+                        <tip>LFAP</tip>
+                    </axis>
+                </temp_axis>
+                <seq>xzy</seq>
+            </CoordSys>
+        </Segment>
+        <Segment label="LeftSocketClamp" group="Left" points="LWAM,LWAL,LWPM,LWPL" opt="2" angleseq="xyz" endpoints="" inertialalias="" comlabel="">
+            <CoordSys>
+                <tag>LSC</tag>
+                <origin>LWAM</origin>
+                <origin>LWAL</origin>
+                <origin>LWPL</origin>
+                <origin>LWPM</origin>
+                <axis1>
+                    <axis>
+                        <tail>LWPL</tail>
+                        <tip>LWAL</tip>
+                    </axis>
+                    <axis>
+                        <tail>LWPM</tail>
+                        <tip>LWPL</tip>
+                    </axis>
+                </axis1>
+                <temp_axis>
+                    <axis>
+                        <tail>LWAL</tail>
+                        <tip>LWAM</tip>
+                    </axis>
+                </temp_axis>
+                <seq>yxz</seq>
+            </CoordSys>
+        </Segment>
+        <Segment label="LeftFootClamp" group="Left" points="LCLL,LCLA,LCLM,LCLP,LFP1,LFP2,LFP3" opt="2" angleseq="xyz" endpoints="" inertialalias="" comlabel="LFCCOM">
+            <CoordSys>
+                <tag>LFC</tag>
+                <origin>LCLL</origin>
+                <origin>LCLM</origin>
+                <origin>LCLA</origin>
+                <origin>LCLP</origin>
+                <axis1>
+                    <axis>
+                        <tail>LCLL</tail>
+                        <tip>LCLM</tip>
+                    </axis>
+                    <axis>
+                        <tail>LCLP</tail>
+                        <tip>LCLA</tip>
+                    </axis>
+                </axis1>
+                <temp_axis>
+                    <axis>
+                        <tail>LCLL</tail>
+                        <tip>LCLM</tip>
+                    </axis>
+                </temp_axis>
+                <seq>yxz</seq>
+            </CoordSys>
+        </Segment>
+        <Segment label="LeftFootProx" group="Left" points="LFPA,LFPP,LFP1,LFP2,LFP3,LCLL,LCLA,LCLM,LCLP" opt="2" angleseq="xyz" endpoints="" inertialalias="" comlabel="LFPCOM">
+            <CoordSys>
+                <tag>LFP</tag>
+                <origin>LFP1</origin>
+                <origin>LFP2</origin>
+                <axis1>
+                    <axis>
+                        <tail>LFP2</tail>
+                        <tip>LFP1</tip>
+                    </axis>
+                </axis1>
+                <temp_axis>
+                    <axis>
+                        <tail>LFP3</tail>
+                        <tip>origin</tip>
+                    </axis>
+                </temp_axis>
+                <seq>xzy</seq>
+            </CoordSys>
+        </Segment>
+        <Segment label="LeftFootDist" group="Left" points="LFD1,LFD2,LFD3" opt="2" angleseq="xyz" endpoints="" inertialalias="" comlabel="LFDCOM">
+            <CoordSys>
+                <tag>LFD</tag>
+                <origin>LFD2</origin>
+                <origin>LFD3</origin>
+                <axis1>
+                    <axis>
+                        <tail>origin</tail>
+                        <tip>LFD1</tip>
+                    </axis>
+                </axis1>
+                <temp_axis>
+                    <axis>
+                        <tail>LFD2</tail>
+                        <tip>LFD3</tip>
+                    </axis>
+                </temp_axis>
+                <seq>xyz</seq>
+            </CoordSys>
+        </Segment>
+        <Segment label="LeftKneeProx" group="Left" points="LKL,LKM,LWPM,LWAM,LWAL,LWPL" opt="2" angleseq="xyz" endpoints="" inertialalias="" comlabel="LKPCOM">
+            <CoordSys>
+                <tag>LKP</tag>
+                <origin>LKL</origin>
+                <origin>LKM</origin>
+                <axis1>
+                    <axis>
+                        <tail>LKL</tail>
+                        <tip>LKM</tip>
+                    </axis>
+                </axis1>
+                <temp_axis>
+                    <axis>
+                        <tail>LWPL</tail>
+                        <tip>LWAL</tip>
+                    </axis>
+                    <axis>
+                        <tail>LWPM</tail>
+                        <tip>LWPL</tip>
+                    </axis>
+                </temp_axis>
+                <seq>zxy</seq>
+            </CoordSys>
+        </Segment>
+        <Segment label="LeftKneeDist" group="Left" points="LKL,LKM,LCLL,LCLM,LCLP,LCLA" opt="2" angleseq="xyz" endpoints="" inertialalias="" comlabel="LKDCOM">
+            <CoordSys>
+                <tag>LKD</tag>
+                <origin>LKM</origin>
+                <origin>LKL</origin>
+                <axis1>
+                    <axis>
+                        <tail>LKL</tail>
+                        <tip>LKM</tip>
+                    </axis>
+                </axis1>
+                <temp_axis>
+                    <axis>
+                        <tail>LCLL</tail>
+                        <tip>LCLM</tip>
+                    </axis>
+                    <axis>
+                        <tail>LCLP</tail>
+                        <tip>LCLA</tip>
+                    </axis>
+                </temp_axis>
+                <seq>zxy</seq>
+            </CoordSys>
+        </Segment>
+        <Segment label="LeftHJC_Knee" group="Auxiliary" points="LHJC,LKL,LKM" opt="0" angleseq="xyz" endpoints="" inertialalias="" comlabel="">
+            <CoordSys>
+                <tag>LHK</tag>
+                <origin>LKL</origin>
+                <origin>LKM</origin>
+                <axis1>
+                    <axis>
+                        <tail>origin</tail>
+                        <tip>LHJC</tip>
+                    </axis>
+                </axis1>
+                <temp_axis>
+                    <axis>
+                        <tail>LKL</tail>
+                        <tip>LKM</tip>
+                    </axis>
+                </temp_axis>
+                <seq>yxz</seq>
+            </CoordSys>
+        </Segment>
+        <Segment label="RightHJC_Knee" group="Auxiliary" points="RHJC,RKL,RKM" opt="0" angleseq="xyz" endpoints="" inertialalias="" comlabel="">
+            <CoordSys>
+                <tag>RHK</tag>
+                <origin>RKL</origin>
+                <origin>RKM</origin>
+                <axis1>
+                    <axis>
+                        <tail>origin</tail>
+                        <tip>RHJC</tip>
+                    </axis>
+                </axis1>
+                <temp_axis>
+                    <axis>
+                        <tail>RKM</tail>
+                        <tip>RKL</tip>
+                    </axis>
+                </temp_axis>
+                <seq>yxz</seq>
+            </CoordSys>
+        </Segment>
+        <Segment label="LeftGT_Knee" group="Auxiliary" points="LGT,LKL,LKM" opt="0" angleseq="xyz" endpoints="" inertialalias="" comlabel="">
+            <CoordSys>
+                <tag>LGK</tag>
+                <origin>LKL</origin>
+                <axis1>
+                    <axis>
+                        <tail>LKL</tail>
+                        <tip>LGT</tip>
+                    </axis>
+                </axis1>
+                <temp_axis>
+                    <axis>
+                        <body>Ground</body>
+                        <label>x</label>
+                    </axis>
+                </temp_axis>
+                <seq>yxz</seq>
+            </CoordSys>
+        </Segment>
+        <Segment label="RightGT_Knee" group="Auxiliary" points="RGT,RKL,RKM" opt="0" angleseq="xyz" endpoints="" inertialalias="" comlabel="">
+            <CoordSys>
+                <tag>RGK</tag>
+                <origin>RKL</origin>
+                <axis1>
+                    <axis>
+                        <tail>RKL</tail>
+                        <tip>RGT</tip>
+                    </axis>
+                </axis1>
+                <temp_axis>
+                    <axis>
+                        <tail>Ground</tail>
+                        <tip>x</tip>
+                    </axis>
+                </temp_axis>
+                <seq>yxz</seq>
+            </CoordSys>
+        </Segment>
+        <Joint label="Cervical" group="General" prox="Trunk" dist="Head" opt="0" angleseq="zxy" type="free" JC="C7"/>
+        <Joint label="Back" group="General" prox="Pelvis" dist="Trunk" opt="0" angleseq="zxy" type="free" JC=""/>
+        <Joint label="LeftShoulder" group="Left" prox="Trunk" dist="LeftArm" opt="0" angleseq="zxy" type="free" JC="LSJC"/>
+        <Joint label="RightShoulder" group="Right" prox="Trunk" dist="RightArm" opt="0" angleseq="zxy" type="free" JC="RSJC"/>
+        <Joint label="LeftElbow" group="Left" prox="LeftArm" dist="LeftForearm" opt="0" angleseq="zxy" type="hinge" JC="LHLE"/>
+        <Joint label="RightElbow" group="Right" prox="RightArm" dist="RightForearm" opt="0" angleseq="zxy" type="hinge" JC="RHLE"/>
+        <Joint label="RightHip" group="Right" prox="Pelvis" dist="RightThigh" opt="0" angleseq="zxy" type="free" JC="RHJC"/>
+        <Joint label="RightKnee" group="Right" prox="RightThigh" dist="RightShank" opt="0" angleseq="zxy" type="free" JC="RKJC"/>
+        <Joint label="RightAnkle" group="Right" prox="RightShank" dist="RightFoot" opt="0" angleseq="zyx" type="free" JC="RAJC"/>
+        <Joint label="LeftHip" group="Left" prox="Pelvis" dist="LeftSocket" opt="2" angleseq="zxy" type="free" JC="LHJC"/>
+        <Joint label="LeftProstheticKnee" group="Left" prox="LeftKneeProx" dist="LeftKneeDist" opt="2" angleseq="zxy" type="hinge" JC="LPKJC"/>
+        <Joint label="LeftProstheticAnkle" group="Left" prox="LeftFootClamp" dist="LeftFootDist" opt="2" angleseq="zyx" type="free" JC=""/>
+        <KinematicChain group="Right" joints="RightHip, RightKnee, RightAnkle" endbody="ForcePlatform"/>
+        <KinematicChain group="Left" joints="LeftHip, LeftProstheticKnee" endbody="ForcePlatform"/>
+    </KinematicModel>
+</struct>

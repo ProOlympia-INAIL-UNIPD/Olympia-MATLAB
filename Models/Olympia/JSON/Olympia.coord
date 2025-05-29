@@ -1,0 +1,1354 @@
+{
+    "General": {
+        "Segment": [
+            {
+                "label": "Head",
+                "group": "General",
+                "points": "H1,H2,H3,H4,GB,LAM,RAM,CH",
+                "opt": 0.0,
+                "angleseq": "xyz",
+                "endpoints": "LAM,RAM",
+                "inertialalias": "Head",
+                "comlabel": "HDCOM",
+                "CoordSys": {
+                    "tag": "HD",
+                    "origin": [
+                        "LAM",
+                        "RAM"
+                    ],
+                    "axis1": {
+                        "axis": {
+                            "tail": "CH",
+                            "tip": "GB"
+                        }
+                    },
+                    "temp_axis": {
+                        "axis": {
+                            "tail": "GB",
+                            "tip": "origin"
+                        }
+                    },
+                    "seq": "yzx"
+                }
+            },
+            {
+                "label": "Trunk",
+                "group": "General",
+                "points": "IJ,PX,T8,C7",
+                "opt": 0.0,
+                "angleseq": "xyz",
+                "endpoints": "IJ,MIDH",
+                "inertialalias": "Trunk",
+                "comlabel": "TKCOM",
+                "CoordSys": {
+                    "tag": "TK",
+                    "origin": "IJ",
+                    "axis1": {
+                        "axis": {
+                            "tail": [
+                                "T8",
+                                "PX"
+                            ],
+                            "tip": [
+                                "IJ",
+                                "C7"
+                            ]
+                        }
+                    },
+                    "temp_axis": {
+                        "axis": {
+                            "tail": "IJ",
+                            "tip": "C7"
+                        }
+                    },
+                    "seq": "yzx"
+                }
+            },
+            {
+                "label": "Pelvis",
+                "group": "General",
+                "points": "LASIS,RASIS,LPSIS,RPSIS,LHJC,RHJC,MIDH",
+                "opt": 0.0,
+                "angleseq": "xyz",
+                "endpoints": "",
+                "inertialalias": "Pelvis",
+                "comlabel": "PLCOM",
+                "CoordSys": {
+                    "tag": "PL",
+                    "origin": [
+                        "LASIS",
+                        "RASIS"
+                    ],
+                    "axis1": {
+                        "axis": {
+                            "tail": "LASIS",
+                            "tip": "RASIS"
+                        }
+                    },
+                    "temp_axis": {
+                        "axis": {
+                            "tail": [
+                                "LPSIS",
+                                "RPSIS"
+                            ],
+                            "tip": "origin"
+                        }
+                    },
+                    "seq": "zyx"
+                }
+            }
+        ]
+    },
+    "Unaffected_upper": {
+        "Segment": [
+            {
+                "label": "LeftArm",
+                "group": "Left",
+                "points": "LAC,LHLE,LMSS,LSJC",
+                "opt": 0.0,
+                "angleseq": "xyz",
+                "endpoints": "LSJC,LHLE",
+                "inertialalias": "Arm",
+                "comlabel": "LARCOM",
+                "CoordSys": {
+                    "tag": "LAR",
+                    "origin": "LHLE",
+                    "axis1": {
+                        "axis": {
+                            "tail": "LHLE",
+                            "tip": "LAC"
+                        }
+                    },
+                    "temp_axis": {
+                        "axis": {
+                            "tail": "LHLE",
+                            "tip": "LMSS"
+                        }
+                    },
+                    "seq": "yzx"
+                }
+            },
+            {
+                "label": "RightArm",
+                "group": "Right",
+                "points": "RAC,RHLE,RMSS,RSJC",
+                "opt": 0.0,
+                "angleseq": "xyz",
+                "endpoints": "RSJC,RHLE",
+                "inertialalias": "Arm",
+                "comlabel": "RARCOM",
+                "CoordSys": {
+                    "tag": "RAR",
+                    "origin": "RHLE",
+                    "axis1": {
+                        "axis": {
+                            "tail": "RHLE",
+                            "tip": "RAC"
+                        }
+                    },
+                    "temp_axis": {
+                        "axis": {
+                            "tail": "RHLE",
+                            "tip": "RMSS"
+                        }
+                    },
+                    "seq": "yzx"
+                }
+            },
+            {
+                "label": "LeftForearm",
+                "group": "Left",
+                "points": "LAC,LHLE,LMSS,LSJC",
+                "opt": 0.0,
+                "angleseq": "xyz",
+                "endpoints": "LSJC,LHLE",
+                "inertialalias": "Forearm",
+                "comlabel": "LFACOM",
+                "CoordSys": {
+                    "tag": "LFA",
+                    "origin": "LHLE",
+                    "axis1": {
+                        "axis": {
+                            "tail": "LMSS",
+                            "tip": "LHLE"
+                        }
+                    },
+                    "temp_axis": {
+                        "axis": {
+                            "tail": "LAC",
+                            "tip": "LHLE"
+                        }
+                    },
+                    "seq": "yzx"
+                }
+            },
+            {
+                "label": "RightForearm",
+                "group": "Right",
+                "points": "RAC,RHLE,RMSS,RSJC",
+                "opt": 0.0,
+                "angleseq": "xyz",
+                "endpoints": "RSJC,RHLE",
+                "inertialalias": "Forearm",
+                "comlabel": "RFACOM",
+                "CoordSys": {
+                    "tag": "RFA",
+                    "origin": "RHLE",
+                    "axis1": {
+                        "axis": {
+                            "tail": "RMSS",
+                            "tip": "RHLE"
+                        }
+                    },
+                    "temp_axis": {
+                        "axis": {
+                            "tail": "RAC",
+                            "tip": "RHLE"
+                        }
+                    },
+                    "seq": "yzx"
+                }
+            }
+        ]
+    },
+    "Unaffected_lower": {
+        "Segment": [
+            {
+                "label": "LeftThigh",
+                "group": "Left",
+                "points": "LGT,LHJC,LFLE,LFME,LT1,LT2,LT3,LT4,LKJC",
+                "opt": 0.0,
+                "angleseq": "xyz",
+                "endpoints": "LHJC,LKJC",
+                "inertialalias": "Thigh",
+                "comlabel": "LTHCOM",
+                "CoordSys": {
+                    "tag": "LTH",
+                    "origin": [
+                        "LFLE",
+                        "LFME"
+                    ],
+                    "axis1": {
+                        "axis": {
+                            "tail": "origin",
+                            "tip": "LHJC"
+                        }
+                    },
+                    "temp_axis": {
+                        "axis": {
+                            "tail": "LFLE",
+                            "tip": "LFME"
+                        }
+                    },
+                    "seq": "yxz"
+                }
+            },
+            {
+                "label": "RightThigh",
+                "group": "Right",
+                "points": "RGT,RHJC,RFLE,RFME,RT1,RT2,RT3,RT4,RKJC",
+                "opt": 0.0,
+                "angleseq": "xyz",
+                "endpoints": "RHJC,RKJC",
+                "inertialalias": "Thigh",
+                "comlabel": "RTHCOM",
+                "CoordSys": {
+                    "tag": "RTH",
+                    "origin": [
+                        "RFLE",
+                        "RFME"
+                    ],
+                    "axis1": {
+                        "axis": {
+                            "tail": "origin",
+                            "tip": "RHJC"
+                        }
+                    },
+                    "temp_axis": {
+                        "axis": {
+                            "tail": "RFME",
+                            "tip": "RFLE"
+                        }
+                    },
+                    "seq": "yxz"
+                }
+            },
+            {
+                "label": "LeftShank",
+                "group": "Left",
+                "points": "LTT,LHF,LLM,LMM,LSH1,LAJC",
+                "opt": 0.0,
+                "angleseq": "xyz",
+                "endpoints": "LKJC,LAJC",
+                "inertialalias": "Shank",
+                "comlabel": "LSHCOM",
+                "CoordSys": {
+                    "tag": "LSH",
+                    "origin": [
+                        "LLM",
+                        "LMM"
+                    ],
+                    "axis1": {
+                        "axis": [
+                            {
+                                "tail": "origin",
+                                "tip": "LHF"
+                            },
+                            {
+                                "tail": "LLM",
+                                "tip": "LMM"
+                            }
+                        ]
+                    },
+                    "temp_axis": {
+                        "axis": {
+                            "tail": "origin",
+                            "tip": "LTT"
+                        }
+                    },
+                    "seq": "xzy"
+                }
+            },
+            {
+                "label": "RightShank",
+                "group": "Right",
+                "points": "RTT,RHF,RLM,RMM,RSH1,RAJC",
+                "opt": 0.0,
+                "angleseq": "xyz",
+                "endpoints": "RKJC,RAJC",
+                "inertialalias": "Shank",
+                "comlabel": "RSHCOM",
+                "CoordSys": {
+                    "tag": "RSH",
+                    "origin": [
+                        "RLM",
+                        "RMM"
+                    ],
+                    "axis1": {
+                        "axis": [
+                            {
+                                "tail": "origin",
+                                "tip": "RHF"
+                            },
+                            {
+                                "tail": "RMM",
+                                "tip": "RLM"
+                            }
+                        ]
+                    },
+                    "temp_axis": {
+                        "axis": {
+                            "tail": "origin",
+                            "tip": "RTT"
+                        }
+                    },
+                    "seq": "xzy"
+                }
+            },
+            {
+                "label": "LeftFoot",
+                "group": "Left",
+                "points": "LCA,LIMH,LIIMH,LVMH,LF1",
+                "opt": 0.0,
+                "angleseq": "xyz",
+                "endpoints": "LCA,LIIMH",
+                "inertialalias": "Foot",
+                "comlabel": "LFTCOM",
+                "CoordSys": {
+                    "tag": "LFT",
+                    "origin": "LCA",
+                    "axis1": {
+                        "axis": [
+                            {
+                                "tail": "LCA",
+                                "tip": "LIMH"
+                            },
+                            {
+                                "tail": "LCA",
+                                "tip": "LVMH"
+                            }
+                        ]
+                    },
+                    "temp_axis": {
+                        "axis": {
+                            "tail": "LIIMH",
+                            "tip": "LCA"
+                        }
+                    },
+                    "seq": "yzx"
+                }
+            },
+            {
+                "label": "RightFoot",
+                "group": "Right",
+                "points": "RCA,RIMH,RIIMH,RVMH,RF1",
+                "opt": 0.0,
+                "angleseq": "xyz",
+                "endpoints": "RCA,RIIMH",
+                "inertialalias": "Foot",
+                "comlabel": "RFTCOM",
+                "CoordSys": {
+                    "tag": "RFT",
+                    "origin": "RCA",
+                    "axis1": {
+                        "axis": [
+                            {
+                                "tail": "RCA",
+                                "tip": "RVMH"
+                            },
+                            {
+                                "tail": "RCA",
+                                "tip": "RIMH"
+                            }
+                        ]
+                    },
+                    "temp_axis": {
+                        "axis": {
+                            "tail": "RIIMH",
+                            "tip": "RCA"
+                        }
+                    },
+                    "seq": "yzx"
+                }
+            }
+        ]
+    },
+    "Affected_lower": {
+        "Segment": [
+            {
+                "label": "LeftSocket",
+                "group": "Left",
+                "points": "LGT,LFAP,LFAD,LLAP,LLAD,LMAP,LMAD,LKL,LKM,LWAM,LWAL,LWPM,LWPL,LHJC",
+                "opt": 2.0,
+                "angleseq": "xyz",
+                "endpoints": "LHJC",
+                "inertialalias": "",
+                "comlabel": "LSKCOM",
+                "CoordSys": {
+                    "tag": "LSK",
+                    "origin": [
+                        "LLAD",
+                        "LMAD"
+                    ],
+                    "axis1": {
+                        "axis": [
+                            {
+                                "tail": "LLAD",
+                                "tip": "LLAP"
+                            },
+                            {
+                                "tail": "LLAD",
+                                "tip": "LMAD"
+                            }
+                        ]
+                    },
+                    "temp_axis": {
+                        "axis": {
+                            "tail": "LFAD",
+                            "tip": "LFAP"
+                        }
+                    },
+                    "seq": "xzy"
+                }
+            },
+            {
+                "label": "RightSocket",
+                "group": "Right",
+                "points": "RGT,RFAP,RFAD,RLAP,RLAD,RMAP,RMAD,RKL,RKM,RWAM,RWAL,RWPM,RWPL,RHJC",
+                "opt": 2.0,
+                "angleseq": "xyz",
+                "endpoints": "RHJC",
+                "inertialalias": "",
+                "comlabel": "RSKCOM",
+                "CoordSys": {
+                    "tag": "RSK",
+                    "origin": [
+                        "RLAD",
+                        "RMAD"
+                    ],
+                    "axis1": {
+                        "axis": [
+                            {
+                                "tail": "RLAD",
+                                "tip": "RLAP"
+                            },
+                            {
+                                "tail": "RMAD",
+                                "tip": "RLAD"
+                            }
+                        ]
+                    },
+                    "temp_axis": {
+                        "axis": {
+                            "tail": "RFAD",
+                            "tip": "RFAP"
+                        }
+                    },
+                    "seq": "xzy"
+                }
+            },
+            {
+                "label": "LeftSocketClamp",
+                "group": "Left",
+                "points": "LWAM,LWAL,LWPM,LWPL",
+                "opt": 2.0,
+                "angleseq": "xyz",
+                "endpoints": null,
+                "inertialalias": null,
+                "comlabel": null,
+                "CoordSys": {
+                    "tag": "LSC",
+                    "origin": [
+                        "LWAM",
+                        "LWAL",
+                        "LWPL",
+                        "LWPM"
+                    ],
+                    "axis1": {
+                        "axis": [
+                            {
+                                "tail": "LWPM",
+                                "tip": "LWAM"
+                            },
+                            {
+                                "tail": "LWPM",
+                                "tip": "LWAL"
+                            }
+                        ]
+                    },
+                    "temp_axis": {
+                        "axis": {
+                            "tail": "LWAL",
+                            "tip": "LWAM"
+                        }
+                    },
+                    "seq": "yxz"
+                }
+            },
+            {
+                "label": "RightSocketClamp",
+                "group": "Right",
+                "points": "RWAM,RWAL,RWPM,RWPL",
+                "opt": 2.0,
+                "angleseq": "xyz",
+                "endpoints": null,
+                "inertialalias": null,
+                "comlabel": null,
+                "CoordSys": {
+                    "tag": "RSC",
+                    "origin": [
+                        "RWAM",
+                        "RWAL",
+                        "RWPL",
+                        "RWPM"
+                    ],
+                    "axis1": {
+                        "axis": [
+                            {
+                                "tail": "RWPM",
+                                "tip": "RWAL"
+                            },
+                            {
+                                "tail": "RWPM",
+                                "tip": "RWAM"
+                            }
+                        ]
+                    },
+                    "temp_axis": {
+                        "axis": {
+                            "tail": "RWAM",
+                            "tip": "RWAL"
+                        }
+                    },
+                    "seq": "yxz"
+                }
+            },
+            {
+                "label": "LeftFootClamp",
+                "group": "Left",
+                "points": "LCLL,LCLA,LCLM,LCLP,LFP1,LFP2,LFP3",
+                "opt": 2.0,
+                "angleseq": "xyz",
+                "endpoints": "",
+                "inertialalias": null,
+                "comlabel": "LFCCOM",
+                "CoordSys": {
+                    "tag": "LFC",
+                    "origin": [
+                        "LCLL",
+                        "LCLM",
+                        "LCLA",
+                        "LCLP"
+                    ],
+                    "axis1": {
+                        "axis": [
+                            {
+                                "tail": "LCLL",
+                                "tip": "LCLM"
+                            },
+                            {
+                                "tail": "LCLP",
+                                "tip": "LCLA"
+                            }
+                        ]
+                    },
+                    "temp_axis": {
+                        "axis": {
+                            "tail": "LCLL",
+                            "tip": "LCLM"
+                        }
+                    },
+                    "seq": "yxz"
+                }
+            },
+            {
+                "label": "RightFootClamp",
+                "group": "Right",
+                "points": "RCLL,RCLA,RCLM,RCLP,RFP1,RFP2,RFP3",
+                "opt": 2.0,
+                "angleseq": "xyz",
+                "endpoints": "",
+                "inertialalias": null,
+                "comlabel": "RFCCOM",
+                "CoordSys": {
+                    "tag": "RFC",
+                    "origin": [
+                        "RCLL",
+                        "RCLM",
+                        "RCLA",
+                        "RCLP"
+                    ],
+                    "axis1": {
+                        "axis": [
+                            {
+                                "tail": "RCLM",
+                                "tip": "RCLL"
+                            },
+                            {
+                                "tail": "RCLP",
+                                "tip": "RCLA"
+                            }
+                        ]
+                    },
+                    "temp_axis": {
+                        "axis": {
+                            "tail": "RCLM",
+                            "tip": "RCLL"
+                        }
+                    },
+                    "seq": "yxz"
+                }
+            },
+            {
+                "label": "LeftFootProx",
+                "group": "Left",
+                "points": "LFPA,LFPP,LFP1,LFP2,LFP3,LCLL,LCLA,LCLM,LCLP",
+                "opt": 2.0,
+                "angleseq": "xyz",
+                "endpoints": "",
+                "inertialalias": null,
+                "comlabel": "LFPCOM",
+                "CoordSys": {
+                    "tag": "LFP",
+                    "origin": [
+                        "LFP1",
+                        "LFP2"
+                    ],
+                    "axis1": {
+                        "axis": {
+                            "tail": "LFP2",
+                            "tip": "LFP1"
+                        }
+                    },
+                    "temp_axis": {
+                        "axis": {
+                            "tail": "LFP3",
+                            "tip": "origin"
+                        }
+                    },
+                    "seq": "xzy"
+                }
+            },
+            {
+                "label": "RightFootProx",
+                "group": "Right",
+                "points": "RFPA,RFPP,RFP1,RFP2,RFP3,RCLL,RCLA,RCLM,RCLP",
+                "opt": 2.0,
+                "angleseq": "xyz",
+                "endpoints": "",
+                "inertialalias": null,
+                "comlabel": "RFPCOM",
+                "CoordSys": {
+                    "tag": "RFP",
+                    "origin": [
+                        "RFP1",
+                        "RFP2"
+                    ],
+                    "axis1": {
+                        "axis": {
+                            "tail": "RFP2",
+                            "tip": "RFP1"
+                        }
+                    },
+                    "temp_axis": {
+                        "axis": {
+                            "tail": "RFP3",
+                            "tip": "origin"
+                        }
+                    },
+                    "seq": "xzy"
+                }
+            },
+            {
+                "label": "LeftFootDist",
+                "group": "Left",
+                "points": "LFD1,LFD2,LFD3",
+                "opt": 2.0,
+                "angleseq": "xyz",
+                "endpoints": "",
+                "inertialalias": null,
+                "comlabel": "LFDCOM",
+                "CoordSys": {
+                    "tag": "LFD",
+                    "origin": "LFD1",
+                    "axis1": {
+                        "axis": {
+                            "tail": "origin",
+                            "tip": "LFD1"
+                        }
+                    },
+                    "temp_axis": {
+                        "axis": {
+                            "tail": "LFD2",
+                            "tip": "LFD3"
+                        }
+                    },
+                    "seq": "xyz"
+                }
+            },
+            {
+                "label": "RightFootDist",
+                "group": "Right",
+                "points": "RFD1,RFD2,RFD3",
+                "opt": 2.0,
+                "angleseq": "xyz",
+                "endpoints": "",
+                "inertialalias": null,
+                "comlabel": "RFDCOM",
+                "CoordSys": {
+                    "tag": "RFD",
+                    "origin": "RFD1",
+                    "axis1": {
+                        "axis": {
+                            "tail": "origin",
+                            "tip": "RFD1"
+                        }
+                    },
+                    "temp_axis": {
+                        "axis": {
+                            "tail": "RFD3",
+                            "tip": "RFD2"
+                        }
+                    },
+                    "seq": "xyz"
+                }
+            },
+            {
+                "label": "LeftKneeProx",
+                "group": "Left",
+                "points": "LKL,LKM,LWPM,LWAM,LWAL",
+                "opt": 2.0,
+                "angleseq": "xyz",
+                "endpoints": "",
+                "inertialalias": null,
+                "comlabel": "LKPCOM",
+                "CoordSys": {
+                    "tag": "LKP",
+                    "origin": [
+                        "LKL",
+                        "LKM"
+                    ],
+                    "axis1": {
+                        "axis": {
+                            "tail": "LKL",
+                            "tip": "LKM"
+                        }
+                    },
+                    "temp_axis": {
+                        "axis": [
+                            {
+                                "tail": "LWPM",
+                                "tip": "LWAM"
+                            },
+                            {
+                                "tail": "LWPM",
+                                "tip": "LWAL"
+                            }
+                        ]
+                    },
+                    "seq": "zxy"
+                }
+            },
+            {
+                "label": "RightKneeProx",
+                "group": "Right",
+                "points": "RKL,RKM,RWPM,RWAM,RWAL",
+                "opt": 2.0,
+                "angleseq": "xyz",
+                "endpoints": "",
+                "inertialalias": null,
+                "comlabel": "RKPCOM",
+                "CoordSys": {
+                    "tag": "RKP",
+                    "origin": [
+                        "RKL",
+                        "RKM"
+                    ],
+                    "axis1": {
+                        "axis": {
+                            "tail": "RKM",
+                            "tip": "RKL"
+                        }
+                    },
+                    "temp_axis": {
+                        "axis": [
+                            {
+                                "tail": "RWPM",
+                                "tip": "RWAL"
+                            },
+                            {
+                                "tail": "RWPM",
+                                "tip": "RWAM"
+                            }
+                        ]
+                    },
+                    "seq": "zxy"
+                }
+            },
+            {
+                "label": "LeftKneeDist",
+                "group": "Left",
+                "points": "LKL,LKM,LCLL,LCLM,LCLP,LCLA",
+                "opt": 2.0,
+                "angleseq": "xyz",
+                "endpoints": "",
+                "inertialalias": null,
+                "comlabel": "LKDCOM",
+                "CoordSys": {
+                    "tag": "LKD",
+                    "origin": [
+                        "LKM",
+                        "LKL"
+                    ],
+                    "axis1": {
+                        "axis": {
+                            "tail": "LKL",
+                            "tip": "LKM"
+                        }
+                    },
+                    "temp_axis": {
+                        "axis": [
+                            {
+                                "tail": "LCLL",
+                                "tip": "LCLM"
+                            },
+                            {
+                                "tail": "LCLP",
+                                "tip": "LCLA"
+                            }
+                        ]
+                    },
+                    "seq": "zxy"
+                }
+            },
+            {
+                "label": "RightKneeDist",
+                "group": "Right",
+                "points": "RKL,RKM,RCLL,RCLM,RCLP,RCLA",
+                "opt": 2.0,
+                "angleseq": "xyz",
+                "endpoints": "",
+                "inertialalias": null,
+                "comlabel": "RKDCOM",
+                "CoordSys": {
+                    "tag": "RKD",
+                    "origin": [
+                        "RKL",
+                        "RKM"
+                    ],
+                    "axis1": {
+                        "axis": {
+                            "tail": "RKM",
+                            "tip": "RKL"
+                        }
+                    },
+                    "temp_axis": {
+                        "axis": [
+                            {
+                                "tail": "RCLM",
+                                "tip": "RCLL"
+                            },
+                            {
+                                "tail": "RCLP",
+                                "tip": "RCLA"
+                            }
+                        ]
+                    },
+                    "seq": "zxy"
+                }
+            },
+            {
+                "label": "LeftThigh",
+                "group": "Left",
+                "points": "LGT,LHJC,LFLE,LFME,LT1,LT2,LT3,LT4,LKJC",
+                "opt": 3.0,
+                "angleseq": "xyz",
+                "endpoints": "LHJC,LKJC",
+                "inertialalias": "Thigh",
+                "comlabel": "LTHCOM",
+                "CoordSys": {
+                    "tag": "LTH",
+                    "origin": [
+                        "LFLE",
+                        "LFME"
+                    ],
+                    "axis1": {
+                        "axis": {
+                            "tail": "origin",
+                            "tip": "LHJC"
+                        }
+                    },
+                    "temp_axis": {
+                        "axis": {
+                            "tail": "LFLE",
+                            "tip": "LFME"
+                        }
+                    },
+                    "seq": "yxz"
+                }
+            },
+            {
+                "label": "RightThigh",
+                "group": "Right",
+                "points": "RGT,RHJC,RFLE,RFME,RT1,RT2,RT3,RT4,RKJC",
+                "opt": 3.0,
+                "angleseq": "xyz",
+                "endpoints": "RHJC,RKJC",
+                "inertialalias": "Thigh",
+                "comlabel": "RTHCOM",
+                "CoordSys": {
+                    "tag": "RTH",
+                    "origin": [
+                        "RFLE",
+                        "RFME"
+                    ],
+                    "axis1": {
+                        "axis": {
+                            "tail": "origin",
+                            "tip": "RHJC"
+                        }
+                    },
+                    "temp_axis": {
+                        "axis": {
+                            "tail": "RFME",
+                            "tip": "RFLE"
+                        }
+                    },
+                    "seq": "yxz"
+                }
+            },
+            {
+                "label": "LeftSocket",
+                "group": "Left",
+                "points": "LGT,LFAP,LFAD,LLAP,LLAD,LMAP,LMAD,LKL,LKM,LHJC",
+                "opt": 3.0,
+                "angleseq": "xyz",
+                "endpoints": "LHJC",
+                "inertialalias": "",
+                "comlabel": "LSKCOM",
+                "CoordSys": {
+                    "tag": "LSK",
+                    "origin": [
+                        "LLAD",
+                        "LMAD"
+                    ],
+                    "axis1": {
+                        "axis": [
+                            {
+                                "tail": "LLAD",
+                                "tip": "LLAP"
+                            },
+                            {
+                                "tail": "LLAD",
+                                "tip": "LMAD"
+                            }
+                        ]
+                    },
+                    "temp_axis": {
+                        "axis": {
+                            "tail": "LFAD",
+                            "tip": "LFAP"
+                        }
+                    },
+                    "seq": "xzy"
+                }
+            },
+            {
+                "label": "RightSocket",
+                "group": "Right",
+                "points": "RGT,RFAP,RFAD,RLAP,RLAD,RMAP,RMAD,RKL,RKM,RHJC",
+                "opt": 3.0,
+                "angleseq": "xyz",
+                "endpoints": "RHJC",
+                "inertialalias": "",
+                "comlabel": "RSKCOM",
+                "CoordSys": {
+                    "tag": "RSK",
+                    "origin": [
+                        "RLAD",
+                        "RMAD"
+                    ],
+                    "axis1": {
+                        "axis": [
+                            {
+                                "tail": "RLAD",
+                                "tip": "RLAP"
+                            },
+                            {
+                                "tail": "RMAD",
+                                "tip": "RLAD"
+                            }
+                        ]
+                    },
+                    "temp_axis": {
+                        "axis": {
+                            "tail": "RFAD",
+                            "tip": "RFAP"
+                        }
+                    },
+                    "seq": "xzy"
+                }
+            },
+            {
+                "label": "LeftFootClamp",
+                "group": "Left",
+                "points": "LCLPM,LCLPL,LCLDM,LCLDL,LFP1,LFP2,LFP3,LWD,LWL",
+                "opt": 3.0,
+                "angleseq": "xyz",
+                "endpoints": "",
+                "inertialalias": "",
+                "comlabel": "LFCCOM",
+                "CoordSys": {
+                    "tag": "LFC",
+                    "origin": [
+                        "LCLPM",
+                        "LCLPL",
+                        "LCLDM",
+                        "LCLDL"
+                    ],
+                    "axis1": {
+                        "axis": [
+                            {
+                                "tail": "LCLDM",
+                                "tip": "LCLPL"
+                            },
+                            {
+                                "tail": "LCLDL",
+                                "tip": "LCLPM"
+                            }
+                        ]
+                    },
+                    "temp_axis": {
+                        "axis": {
+                            "tail": [
+                                "LCLDL",
+                                "LCLDM"
+                            ],
+                            "tip": [
+                                "LCLPL",
+                                "LCLPM"
+                            ]
+                        }
+                    },
+                    "seq": "xzy"
+                }
+            },
+            {
+                "label": "RightFootClamp",
+                "group": "Right",
+                "points": "RCLPM,RCLPL,RCLDM,RCLDL,RFP1,RFP2,RFP3,RWD,RWL",
+                "opt": 3.0,
+                "angleseq": "xyz",
+                "endpoints": "",
+                "inertialalias": "",
+                "comlabel": "RFCCOM",
+                "CoordSys": {
+                    "tag": "RFC",
+                    "origin": [
+                        "RCLPM",
+                        "RCLPL",
+                        "RCLDM",
+                        "RCLDL"
+                    ],
+                    "axis1": {
+                        "axis": [
+                            {
+                                "tail": "RCLDL",
+                                "tip": "RCLPM"
+                            },
+                            {
+                                "tail": "RCLDM",
+                                "tip": "RCLPL"
+                            }
+                        ]
+                    },
+                    "temp_axis": {
+                        "axis": {
+                            "tail": [
+                                "RCLDL",
+                                "RCLDM"
+                            ],
+                            "tip": [
+                                "RCLPL",
+                                "RCLPM"
+                            ]
+                        }
+                    },
+                    "seq": "xzy"
+                }
+            },
+            {
+                "label": "LeftFootProx",
+                "group": "Left",
+                "points": "LFPA,LFPP,LFP1,LFP2,LFP3,LCLL,LCLA,LCLM,LCLP",
+                "opt": 3.0,
+                "angleseq": "xyz",
+                "endpoints": "",
+                "inertialalias": "",
+                "comlabel": "LFPCOM",
+                "CoordSys": {
+                    "tag": "LFP",
+                    "origin": [
+                        "LFP1",
+                        "LFP2"
+                    ],
+                    "axis1": {
+                        "axis": {
+                            "tail": "LFP2",
+                            "tip": "LFP1"
+                        }
+                    },
+                    "temp_axis": {
+                        "axis": {
+                            "tail": "LFP3",
+                            "tip": "origin"
+                        }
+                    },
+                    "seq": "xzy"
+                }
+            },
+            {
+                "label": "RightFootProx",
+                "group": "Right",
+                "points": "RFPA,RFPP,RFP1,RFP2,RFP3,RCLL,RCLA,RCLM,RCLP",
+                "opt": 3.0,
+                "angleseq": "xyz",
+                "endpoints": "",
+                "inertialalias": "",
+                "comlabel": "RFPCOM",
+                "CoordSys": {
+                    "tag": "RFP",
+                    "origin": [
+                        "RFP1",
+                        "RFP2"
+                    ],
+                    "axis1": {
+                        "axis": {
+                            "tail": "RFP2",
+                            "tip": "RFP1"
+                        }
+                    },
+                    "temp_axis": {
+                        "axis": {
+                            "tail": "RFP3",
+                            "tip": "origin"
+                        }
+                    },
+                    "seq": "xzy"
+                }
+            },
+            {
+                "label": "LeftFootDist",
+                "group": "Left",
+                "points": "LFD1,LFD2,LFD3",
+                "opt": 3.0,
+                "angleseq": "xyz",
+                "endpoints": "",
+                "inertialalias": "",
+                "comlabel": "LFDCOM",
+                "CoordSys": {
+                    "tag": "LFD",
+                    "origin": "LFD1",
+                    "axis1": {
+                        "axis": {
+                            "tail": "origin",
+                            "tip": "LFD1"
+                        }
+                    },
+                    "temp_axis": {
+                        "axis": {
+                            "tail": "LFD2",
+                            "tip": "LFD3"
+                        }
+                    },
+                    "seq": "xyz"
+                }
+            },
+            {
+                "label": "RightFootDist",
+                "group": "Right",
+                "points": "RFD1,RFD2,RFD3",
+                "opt": 3.0,
+                "angleseq": "xyz",
+                "endpoints": "",
+                "inertialalias": "",
+                "comlabel": "RFDCOM",
+                "CoordSys": {
+                    "tag": "RFD",
+                    "origin": "RFD1",
+                    "axis1": {
+                        "axis": {
+                            "tail": "origin",
+                            "tip": "RFD1"
+                        }
+                    },
+                    "temp_axis": {
+                        "axis": {
+                            "tail": "RFD3",
+                            "tip": "RFD2"
+                        }
+                    },
+                    "seq": "xyz"
+                }
+            }
+        ]
+    },
+    "Auxiliary": {
+        "Segment": [
+            {
+                "label": "LeftHJC_Knee",
+                "group": "Auxiliary",
+                "points": "LHJC,LKL,LKM",
+                "opt": 0.0,
+                "angleseq": "xyz",
+                "endpoints": "",
+                "inertialalias": "",
+                "comlabel": "",
+                "CoordSys": {
+                    "tag": "LHK",
+                    "origin": [
+                        "LKL",
+                        "LKM"
+                    ],
+                    "axis1": {
+                        "axis": {
+                            "tail": "origin",
+                            "tip": "LHJC"
+                        }
+                    },
+                    "temp_axis": {
+                        "axis": {
+                            "tail": "LKL",
+                            "tip": "LKM"
+                        }
+                    },
+                    "seq": "yxz"
+                }
+            },
+            {
+                "label": "RightHJC_Knee",
+                "group": "Auxiliary",
+                "points": "RHJC,RKL,RKM",
+                "opt": 0.0,
+                "angleseq": "xyz",
+                "endpoints": "",
+                "inertialalias": "",
+                "comlabel": "",
+                "CoordSys": {
+                    "tag": "RHK",
+                    "origin": [
+                        "RKL",
+                        "RKM"
+                    ],
+                    "axis1": {
+                        "axis": {
+                            "tail": "origin",
+                            "tip": "RHJC"
+                        }
+                    },
+                    "temp_axis": {
+                        "axis": {
+                            "tail": "RKM",
+                            "tip": "RKL"
+                        }
+                    },
+                    "seq": "yxz"
+                }
+            },
+            {
+                "label": "LeftGT_Knee",
+                "group": "Auxiliary",
+                "points": "LGT,LKL,LKM",
+                "opt": 0.0,
+                "angleseq": "xyz",
+                "endpoints": "",
+                "inertialalias": "",
+                "comlabel": "",
+                "CoordSys": {
+                    "tag": "LGK",
+                    "origin": "LKL",
+                    "axis1": {
+                        "axis": {
+                            "tail": "LKL",
+                            "tip": "LGT"
+                        }
+                    },
+                    "temp_axis": {
+                        "axis": {
+                            "body": "Ground",
+                            "label": "x"
+                        }
+                    },
+                    "seq": "yxz"
+                }
+            },
+            {
+                "label": "RightGT_Knee",
+                "group": "Auxiliary",
+                "points": "RGT,RKL,RKM",
+                "opt": 0.0,
+                "angleseq": "xyz",
+                "endpoints": "",
+                "inertialalias": "",
+                "comlabel": "",
+                "CoordSys": {
+                    "tag": "RGK",
+                    "origin": "RKL",
+                    "axis1": {
+                        "axis": {
+                            "tail": "RKL",
+                            "tip": "RGT"
+                        }
+                    },
+                    "temp_axis": {
+                        "axis": {
+                            "tail": "Ground",
+                            "tip": "x"
+                        }
+                    },
+                    "seq": "yxz"
+                }
+            }
+        ]
+    }
+}

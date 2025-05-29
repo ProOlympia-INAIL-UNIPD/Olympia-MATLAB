@@ -1,0 +1,65 @@
+<?xml version = "1.0" encoding = "UTF-8" ?>
+<kinematics>
+    <!-- Joint label="Name"
+            group="possible grouping among joints (e.g., General/Right/Left; Common/Affected/Unaffected; etc.)"
+            prox="proximal segment name"
+            dist="distal segment name"
+            opt="2: TF only; 3: TT only"
+            angleseq="Euler/Cardan sequence to decompose the 3D rotation"
+            type="joint type (e.g., hinge, free, etc.)"
+            JC="joint center point"
+    -->
+
+    <!-- GENERAL JOINTS -->
+    <General>
+        <Joint label="Cervical" group="General" prox="Trunk" dist="Head" opt="0" angleseq="zxy" type="free" JC="C7" />
+        <Joint label="Lumbosacral" group="General" prox="Pelvis" dist="Trunk" opt="0" angleseq="zxy" type="free" />
+    </General>
+
+    <!-- UPPER LIMB JOINTS-->
+    <Unaffected_upper>
+        <Joint label="LeftShoulder" group="Left" prox="Trunk" dist="LeftArm" opt="0" angleseq="zxy" type="free" JC="LSJC" />
+        <Joint label="RightShoulder" group="Right" prox="Trunk" dist="RightArm" opt="0" angleseq="zxy" type="free" JC="RSJC" />
+        <Joint label="LeftElbow" group="Left" prox="LeftArm" dist="LeftForearm" opt="0" angleseq="zxy" type="hinge" JC="LHLE" />
+        <Joint label="RightElbow" group="Right" prox="RightArm" dist="RightForearm" opt="0" angleseq="zxy" type="hinge" JC="RHLE" />
+    </Unaffected_upper>
+
+    <!-- LOWER (SOUND) LIMB JOINTS-->
+    <Unaffected_lower>
+        <Joint label="LeftHip" group="Left" prox="Pelvis" dist="LeftThigh" opt="0" angleseq="zxy" type="free" JC="LHJC" />
+        <Joint label="RightHip" group="Right" prox="Pelvis" dist="RightThigh" opt="0" angleseq="zxy" type="free" JC="RHJC" />
+        <Joint label="LeftKnee" group="Left" prox="LeftThigh" dist="LeftShank" opt="0" angleseq="zxy" type="free" JC="LKJC" />
+        <Joint label="RightKnee" group="Right" prox="RightThigh" dist="RightShank" opt="0" angleseq="zxy" type="free" JC="RKJC" />
+        <Joint label="LeftAnkle" group="Left" prox="LeftShank" dist="LeftFoot" opt="0" angleseq="zyx" type="free" JC="LAJC" />
+        <Joint label="RightAnkle" group="Right" prox="RightShank" dist="RightFoot" opt="0" angleseq="zyx" type="free" JC="RAJC" />
+    </Unaffected_lower>
+
+    <!-- LOWER (PROSTHETIC) LIMB JOINTS -->
+    <Affected_lower>
+        <!-- transfemoral-->
+        <Joint label="LeftHip" group="Left" prox="Pelvis" dist="LeftSocket" opt="2" angleseq="zxy" type="free" JC="LHJC" />
+        <Joint label="RightHip" group="Right" prox="Pelvis" dist="RightSocket" opt="2" angleseq="zxy" type="free" JC="RHJC" />
+        <Joint label="LeftProstheticKnee" group="Left" prox="LeftKneeProx" dist="LeftKneeDist" opt="2" angleseq="zxy" type="hinge" JC="LPKJC" />
+        <Joint label="RightProstheticKnee" group="Right" prox="RightKneeProx" dist="RightKneeDist" opt="2" angleseq="zxy" type="hinge" JC="RPKJC" />
+        <Joint label="LeftProstheticAnkle" group="Left" prox="LeftFootClamp" dist="LeftFootDist" opt="2" angleseq="zyx" type="free" />
+        <Joint label="RightProstheticAnkle" group="Right" prox="RightFootClamp" dist="RightFootDist" opt="2" angleseq="zyx" type="free" />
+        <!-- /transfemoral-->
+        <!-- transtibial -->
+        <Joint label="LeftHip" group="Left" prox="Pelvis" dist="LeftThigh" opt="3" angleseq="zxy" type="free" JC="LHJC" />
+        <Joint label="RightHip" group="Right" prox="Pelvis" dist="RightThigh" opt="3" angleseq="zxy" type="free" JC="RHJC" />
+        <Joint label="LeftKnee" group="Left" prox="LeftThigh" dist="LeftSocket" opt="3" angleseq="zxy" type="free" JC="LKJC" />
+        <Joint label="RightKnee" group="Right" prox="RightThigh" dist="RightSocket" opt="3" angleseq="zxy" type="free" JC="RKJC" />
+        <Joint label="LeftProstheticAnkle" group="Left" prox="LeftFootClamp" dist="LeftFootDist" opt="3" angleseq="zyx" type="free" />
+        <Joint label="RightProstheticAnkle" group="Right" prox="RightFootClamp" dist="RightFootDist" opt="3" angleseq="zyx" type="free" />
+        <!-- /transtibial -->
+    </Affected_lower>
+    
+    <KinematicChain>
+        <unaffected_lower group="Left" joints="LeftHip, LeftKnee, LeftAnkle" endbody="ForcePlatform" />
+        <unaffected_lower group="Right" joints="RightHip, RightKnee, RightAnkle" endbody="ForcePlatform" />
+        <tf_lower group="Left" joints="LeftHip, LeftProstheticKnee" endbody="ForcePlatform" />
+        <tf_lower group="Right" joints="RightHip, RightProstheticKnee" endbody="ForcePlatform" />
+        <tt_lower group="Left" joints="LeftHip, LeftKnee" endbody="ForcePlatform" />
+        <tt_lower group="Right" joints="RightHip, RightKnee" endbody="ForcePlatform" />
+    </KinematicChain>
+</kinematics>

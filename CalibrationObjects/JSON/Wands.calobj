@@ -1,0 +1,12 @@
+{
+    "arrow416": {
+        "TailMarker": "WandD",
+        "TipMarker": "WandP",
+        "Tail2RealTip": 416.0
+    },
+    "wand160": {
+        "TailMarker": "WandM",
+        "TipMarker": "WandD",
+        "Tail2RealTip": 160.1
+    }
+}
