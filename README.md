@@ -7,7 +7,7 @@ The **OlympiaSW** is a MATLAB-based software package for computing the kinematic
 ## Usage
 
 The architecture of the OlympiaSW and the data processing flow is shown in the flow-chart below (as taken from Di Marco, et al. - submitted 2025).
-![Software architecture and processing flow](Imgs/SWarchitecture.png)
+<img src="Imgs/SWarchitecture.png" width="300" alt="Software architecture and processing flow"/>
 
 The usage of the software is explained in Di Marco, et al. (submitted 2025) and in the Supplementary Materials.
 
