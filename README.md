@@ -29,7 +29,7 @@ The usage of the software is explained in Di Marco, et al. (submitted 2025) and 
 
 ## Installation
 
-To install **MyMATLABPackage**, follow these steps:
+To install **OlympiaSW**, follow these steps:
 
 1. **Download the repository**
 
