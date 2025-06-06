@@ -10,7 +10,7 @@ The architecture of the OlympiaSW and the data processing flow is shown in the f
 
 <img src="Imgs/SWarchitecture.png" width="700" alt="Software architecture and processing flow"/>
 
-The usage of the software is explained in Di Marco, et al. (submitted 2025) and in the Supplementary Materials.
+Detailed documentation, usage instructions, and tutorial videos are available in the [Wiki section of this repository](https://github.com/ProOlympia-INAIL-UNIPD/Olympia-MATLAB/wiki).
 
 ## Requirements
 
