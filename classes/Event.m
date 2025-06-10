@@ -252,7 +252,7 @@ classdef Event
                 startdetectionoffset=0;
             end
             fp=obj.Parent.ForcePlatform;
-            fp=fp.cleanSignal;
+            %fp=fp.cleanSignal;
             fp=fp.combineFP;
 
             [FC, FO]=fp.getEvents("samples",threshold,startdetectionoffset);

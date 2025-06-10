@@ -161,8 +161,10 @@ classdef forcePlatformType2
                 NameValue.MaxNumContacts=100;   %maximum number of hits accepted for each FP
                 NameValue.Reflect=true;
             end
-            threshold=20;
             maxradius=NameValue.MaxRadius;
+            if maxradius==0 || not(isfinite(maxradius))
+               maxradius=obj(1).NSamples;
+            end
              %build filter
             for i=length(obj):-1:1
                 [b,a]=butter(NameValue.FilterOrder,NameValue.FilterCutOff/(obj(i).SampleRate/2));
@@ -170,17 +172,17 @@ classdef forcePlatformType2
                 isactive=not(Fnow(:,3)==0);  %missing values are treated as 0, non 0 elements are signals from the FP)
                 %isactive=abs(Fnow(:,3))>threshold;
                 if numel(obj)>1 %cross talk removal is meaningful only with multiple forceplates
-                warning off %suppress warnings from findpeaks in case no peak is detected
-                [~, loc]=findpeaks(Fnow(:,3),"NPeaks",NameValue.MaxNumContacts,"MinPeakHeight",NameValue.ActiveThreshold,"MinPeakDistance",NameValue.MaxRadius);
-                warning on
-                maxzone=[];
-
-                for j=1:length(loc)
-                    maxzone=[maxzone max(1,loc(j)-maxradius):min(loc(j)+maxradius,length(isactive))];
-                end
-
-                ismaxzone=false(length(isactive),1); %convert maxzone to logical 1) set all elements to false
-                ismaxzone(maxzone)=1; %convert maxzone to logical 2) set maxzone elements to true
+                    warning off %suppress warnings from findpeaks in case no peak is detected
+                    [~, loc]=findpeaks(Fnow(:,3),"NPeaks",NameValue.MaxNumContacts,"MinPeakHeight",NameValue.ActiveThreshold,"MinPeakDistance",NameValue.MaxRadius);
+                    warning on
+                    maxzone=[];
+    
+                    for j=1:length(loc)
+                        maxzone=[maxzone max(1,loc(j)-maxradius):min(loc(j)+maxradius,length(isactive))];
+                    end
+    
+                    ismaxzone=false(length(isactive),1); %convert maxzone to logical 1) set all elements to false
+                    ismaxzone(maxzone)=1; %convert maxzone to logical 2) set maxzone elements to true
                 else
                     ismaxzone=isactive;
                 end
