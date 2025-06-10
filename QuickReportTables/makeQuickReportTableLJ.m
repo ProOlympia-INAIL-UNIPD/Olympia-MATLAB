@@ -44,7 +44,7 @@ end
 if isempty(stiffness)
    stiffness=struct('Left',[],'Right',[]);
 end
-cycles=nan(101,7);
+cycles=nan(101,9);
 %% Initialize Table 
 [Tathl, Tprost, Ttrial]=infoTable(Info);
 
@@ -64,7 +64,7 @@ end
 %% AMTI
 Tamti=table(nan,nan,nan,nan,nan,nan,nan,nan,nan,nan,'VariableNames',{'meanGRFbrak','meanGRFprop',...
     'meanGRFvert','maxGRFbrak','maxGRFprop','maxGRFvert','Istprop','Ibrak','Iprop','Ivert'});
-
+ii=1; %there is only a single FP
 if not(isempty(kinDB.(side)))
     Tamti.meanGRFbrak=nan;
     Tamti.meanGRFprop=nan;
@@ -74,7 +74,7 @@ if not(isempty(kinDB.(side)))
     Tamti.maxGRFprop=kinDB.(side).parameters.horizontal.max.cycle(end);
     Tamti.maxGRFvert=kinDB.(side).parameters.vertical.max.cycle(end);
 
-    Tamti.Istprop=kinDB.(side).impulse.braking.cycle(end);
+    Tamti.Istprop=kinDB.(side).impulse.startprop.cycle(end);
     Tamti.Ibrak=kinDB.(side).impulse.braking.cycle(end);
     Tamti.Iprop=kinDB.(side).impulse.propulsive.cycle(end);
     Tamti.Ivert=kinDB.(side).impulse.vertical.cycle(end);
@@ -142,7 +142,7 @@ end
 %% creating output struct
 cyclesvarnames={'GRFh','GRFv','GRFmod','COPh','COPl','GTh','GTv','Mhip','TH_trunk'};
 Tcycles=array2table(cycles,'VariableNames',cyclesvarnames);
-sname=[Ttrial.RunID{:} '_Cycles'];
+sname=strcat(Ttrial.RunID{:},'_Cycles');
 out.Parameters=[cell2table({Info.Trial.ID},'VariableNames',"TrialID") Tathl Tprost Ttrial TvideoAMTI Tvicon Tamti Tlumped];
 out.(sname)=[array2table((1:101)','VariableNames',{'% Stance'}) Tcycles];
 
