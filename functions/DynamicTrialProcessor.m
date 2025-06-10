@@ -10,6 +10,7 @@ arguments
     NameValue.RotateGround=eye(4);
     NameValue.GravityVector=[0 0 -9.806];
     %forceplat
+    NameValue.CleanSignal=false;  %apply cross talk and filtering
     NameValue.MaxRadius=200;      %expected half-duration of the contact (in samples) 
     NameValue.FilterCutOff=100;   %cut-off frequency for low pass filter
     NameValue.FilterOrder=2;      %low pass filter order (will be doubled in filtfilt)
@@ -18,7 +19,7 @@ arguments
     NameValue.CombineFP='all';
     NameValue.Reflect=true;
     %kinematic
-    NameValue.ClearUnlabeled='C_';
+    NameValue.ClearUnlabeled string="C_";
     NameValue.KinematicFilterOrder double=2;
     NameValue.KinematicFilterCutOff double=20;
     NameValue.SVDmode {mustBeMember(NameValue.SVDmode,["replace","ignore"])}="replace";
@@ -31,10 +32,11 @@ if isempty(file)
    [f,p]=uigetfile('.c3d');
    file=fullfile(p,f);
 end
-if isempty(NameValue.Configuration)
-   trial=Trial(file);
+if isfile(NameValue.Configuration)
+    trial=Trial(file,NameValue.Configuration);
+  
 else
-   trial=Trial(file,NameValue.Configuration);
+    trial=Trial(file);
 end
 if NameValue.EditEvents
    trial.Events=trial.Events.detectfromForcePlates("overwrite",NameValue.EventTreshold);
@@ -43,7 +45,7 @@ trial=trial.setUnits(NameValue.TrialUnits);
 
 trial=trial.changeCoordinates(NameValue.RotateGround);
 
-if NameValue.FilterOrder
+if NameValue.CleanSignal
 trial.ForcePlatform=trial.ForcePlatform.cleanSignal(...
     "FilterCutOff",NameValue.FilterCutOff,"FilterOrder",NameValue.FilterOrder,...
     "ActiveThreshold",NameValue.ActiveThreshold,"MaxNumContacts",...
@@ -57,7 +59,7 @@ else
    trial.ForcePlatform=trial.ForcePlatform.combineFP(NameValue.CombineFP);
 end
 
-if isempty(NameValue.ClearUnlabeled)
+if NameValue.ClearUnlabeled==""
 else
     trial.Points=trial.Points.clearUnlabeled(NameValue.ClearUnlabeled);
 end
@@ -68,8 +70,7 @@ else
    trial.Points=trial.Points.filtfilt(b,a);
 end
 
-if isempty(NameValue.StaticTrial)
-else
+if isfile(NameValue.StaticTrial)
    stat=Trial(NameValue.StaticTrial,NameValue.Configuration);
    stat=stat.setUnits(NameValue.TrialUnits);
    stat=stat.buildSkeleton;
@@ -77,6 +78,8 @@ else
    stat=readC3DInertialProperties(stat);
    stat=stat.setUnits(NameValue.TrialUnits);
    trial=trial.segmentSolidification(stat,NameValue.SVDmode);
+else
+   stat=Trial();
 end
 
 
@@ -87,3 +90,6 @@ trial=trial.inverseDynamics(1,NameValue.GravityVector);
 trial=lumpedAnalysis(trial,"LGT","RGT","LHJC","RHJC");
 end
 trial=trial.GRFAnalysis;
+trial.Metadata.FILEINFO.CREATEDBY=getenv('username');
+trial.Metadata.FILEINFO.DATE=char(datetime);
+trial.setC3DMetaData;
