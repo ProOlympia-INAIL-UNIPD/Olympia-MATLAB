@@ -8,16 +8,6 @@ arguments
     FS_kin double
     FO_kin double
 end
-
-trunk_resampled=nan(101,1);
-trunk_angle_FS=nan;
-trunk_angle_FO=nan;
-thigh_angle_FS=nan;
-shank_angle_FS=nan;
-GT_tip_angle_FS=nan;
-GT_tip_angle_FO=nan;
-sec_gitt_angle=nan;
-
 debugplot=false;
 % markersData -> una struct contenente i dati di tutti i marker
 % amputationSide -> stringa indicante il lato amputato, può essere 'none', 'Right', 'Left'

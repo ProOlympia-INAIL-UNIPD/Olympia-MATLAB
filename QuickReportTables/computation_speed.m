@@ -38,27 +38,17 @@ FO=max(eventsKin.(takeoff_leg).Foot_Off);
 leg=["Left","Right"];
 secondLast=leg(not(leg==takeoff_leg));
 
-try
 FS_beforeLast =max(eventsKin.(secondLast).Foot_Strike);
 FO_beforeLast =max(eventsKin.(secondLast).Foot_Off);
-sl=true;
-catch
-sl=false;
-end
-
 if(strcmpi(takeoff_leg, 'R'))
     
     Vh_FS = RGT_Vh(FS);
     Vh_FO = RGT_Vh(FO);
     Vv_FS = RGT_Vv(FS);
     Vv_FO = RGT_Vv(FO);
-    if sl
+  
     Vh_mean_beforeLast=(LGT_Vh(FO_beforeLast)+LGT_Vh(FS_beforeLast))/2;
     Vv_mean_beforeLast=(LGT_Vv(FO_beforeLast)+LGT_Vv(FS_beforeLast))/2;
-    else
-    Vh_mean_beforeLast=nan;
-    Vv_mean_beforeLast=nan;
-    end
 
     Vh=RGT_Vh;
     Vv=RGT_Vv;
@@ -68,13 +58,10 @@ else
     Vh_FO = LGT_Vh(FO);
     Vv_FS = LGT_Vv(FS);
     Vv_FO = LGT_Vv(FO);
-    if sl
+   
     Vh_mean_beforeLast=(RGT_Vh(FO_beforeLast)+RGT_Vh(FS_beforeLast))/2;
     Vv_mean_beforeLast=(RGT_Vv(FO_beforeLast)+RGT_Vv(FS_beforeLast))/2;
-    else
-    Vh_mean_beforeLast=nan;
-    Vv_mean_beforeLast=nan;
-    end
+   
     Vh=LGT_Vh;
     Vv=LGT_Vv;
 end

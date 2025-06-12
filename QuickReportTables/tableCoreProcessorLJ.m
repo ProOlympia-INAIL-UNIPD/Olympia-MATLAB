@@ -5,7 +5,7 @@ arguments
     tablepath char
     exmode char='';
 end 
-    takeoff_leg=char(Info.Trial.TakeOffLeg);
+    
     mass=Info.Athlete.Mass;
     % read c3d and create platforms and events
     H=btkReadAcquisition(c3dfile);

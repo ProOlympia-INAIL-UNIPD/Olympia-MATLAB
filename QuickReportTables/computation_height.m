@@ -13,16 +13,6 @@ debugplot=false;
 %GTy --> GTy values for all the frames
 %GTz --> GTz values for all the frames
 %Outputs expressed in metres
-% 
-% H_GT_FS=nan;
-% H_GT_FO=nan;
-% H_RGT_max=nan;
-% H_LGT_max=nan;
-% H_GT_mean_beforeLast=nan;
-% GTy=nan;GTz=nan;
-% GTy_cycle=nan(101,1);
-% GTz_cycle=nan(101,1);
-
 
 LGT_heights=markersData.LGT(:,3) * 1e-3;  %[m]
 
@@ -38,22 +28,14 @@ FO=max(eventsKin.(takeoff_leg).Foot_Off);
 
 leg=["Left","Right"];
 secondLast=leg(not(leg==takeoff_leg));
-try
+
 FS_beforeLast =max(eventsKin.(secondLast).Foot_Strike);
 FO_beforeLast =max(eventsKin.(secondLast).Foot_Off);
-sl=true;
-catch
-sl=false;
-end
 
 if(strcmpi(takeoff_leg, 'Right'))
     H_GT_FO = RGT_heights(FO);  
     H_GT_FS = RGT_heights(FS);
-    if sl
     H_GT_mean_beforeLast=(LGT_heights(FO_beforeLast)+LGT_heights(FS_beforeLast))/2;
-    else
-    H_GT_mean_beforeLast=nan;
-    end
     
 
     GTy=markersData.RGT(:,2) * 1e-3; %[m]
@@ -61,11 +43,7 @@ if(strcmpi(takeoff_leg, 'Right'))
 else
     H_GT_FO = LGT_heights(FO);  
     H_GT_FS = LGT_heights(FS); 
-    if sl
     H_GT_mean_beforeLast=(RGT_heights(FO_beforeLast)+RGT_heights(FS_beforeLast))/2;
-    else
-    H_GT_mean_beforeLast=nan;
-    end
 
     GTy=markersData.LGT(:,2) * 1e-3; %[m]
     GTz=LGT_heights;
