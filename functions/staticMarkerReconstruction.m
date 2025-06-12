@@ -31,18 +31,11 @@ for cm=mkr
         stat.ConfigFile.MarkerSet.CalibratedMarkerDef(matches([stat.ConfigFile.MarkerSet.CalibratedMarkerDef.("label"+stat.XMLatt)],cm.("label"+stat.XMLatt))).("source"+stat.XMLatt)=cm.("source"+stat.XMLatt);
         end
         w_tr=Trial(char(fullfile(p,cm.("source"+stat.XMLatt))));
-        if cm.("wand"+stat.XMLatt)=="TRIAL"
-            wand.TailMarker=cm.("label"+stat.XMLatt);
-            wand.TipMarker=cm.("label"+stat.XMLatt);
-            wand.Tail2RealTip=0;
-        else
         try
         wand=wands.(cm.("wand"+stat.XMLatt));
         catch
         error('Wand object not existing!');
         end
-        end
-
         try
         
         stat=stat.wandReconstruct(w_tr,wand,cm.("label"+stat.XMLatt));
