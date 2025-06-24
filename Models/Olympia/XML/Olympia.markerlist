@@ -174,14 +174,14 @@
     <Marker type="T" label="RFM3" segment="RightFootMid" group="Right" cluster="0" static="0" calibrated="0" opt="0" radius="14" colorR="0.1" colorG="0.6" colorB="0.1" visible="1" trajectory="0" />
     
     <!-- LEFT PROSTHETIC DISTAL FOOT -->
-    <Marker type="T" label="LFD1" segment="LeftFootDist" group="Left" cluster="1" static="0" calibrated="0" opt="0" radius="14" colorR="0.5" colorG="0" colorB="0" visible="1" trajectory="0" eventDetection="FootOff" />
-    <Marker type="T" label="LFD2" segment="LeftFootDist" group="Left" cluster="1" static="0" calibrated="0" opt="0" radius="14" colorR="0.5" colorG="0" colorB="0" visible="1" trajectory="0" />
-    <Marker type="T" label="LFD3" segment="LeftFootDist" group="Left" cluster="1" static="0" calibrated="0" opt="0" radius="14" colorR="0.5" colorG="0" colorB="0" visible="1" trajectory="0" />
+    <Marker type="T" label="LFDA" segment="LeftFootDist" group="Left" cluster="1" static="0" calibrated="0" opt="0" radius="14" colorR="0.5" colorG="0" colorB="0" visible="1" trajectory="0" eventDetection="FootOff" /> <!-- old LFD1 -->
+    <Marker type="T" label="LFDM" segment="LeftFootDist" group="Left" cluster="1" static="0" calibrated="0" opt="0" radius="14" colorR="0.5" colorG="0" colorB="0" visible="1" trajectory="0" /> <!-- old LFD2 -->
+    <Marker type="T" label="LFDL" segment="LeftFootDist" group="Left" cluster="1" static="0" calibrated="0" opt="0" radius="14" colorR="0.5" colorG="0" colorB="0" visible="1" trajectory="0" /> <!-- old LFD3 -->
 
     <!-- RIGHT PROSTHETIC DISTAL FOOT -->
-    <Marker type="T" label="RFD1" segment="RightFootDist" group="Right" cluster="1" static="0" calibrated="0" opt="0" radius="14" colorR="0" colorG="0.4" colorB="0" visible="1" trajectory="0" eventDetection="FootOff" />
-    <Marker type="T" label="RFD2" segment="RightFootDist" group="Right" cluster="1" static="0" calibrated="0" opt="0" radius="14" colorR="0" colorG="0.4" colorB="0" visible="1" trajectory="0" />
-    <Marker type="T" label="RFD3" segment="RightFootDist" group="Right" cluster="1" static="0" calibrated="0" opt="0" radius="14" colorR="0" colorG="0.4" colorB="0" visible="1" trajectory="0" />
+    <Marker type="T" label="RFDA" segment="RightFootDist" group="Right" cluster="1" static="0" calibrated="0" opt="0" radius="14" colorR="0" colorG="0.4" colorB="0" visible="1" trajectory="0" eventDetection="FootOff" /> <!-- old RFD1 -->
+    <Marker type="T" label="RFDM" segment="RightFootDist" group="Right" cluster="1" static="0" calibrated="0" opt="0" radius="14" colorR="0" colorG="0.4" colorB="0" visible="1" trajectory="0" /> <!-- old RFD2 -->
+    <Marker type="T" label="RFDL" segment="RightFootDist" group="Right" cluster="1" static="0" calibrated="0" opt="0" radius="14" colorR="0" colorG="0.4" colorB="0" visible="1" trajectory="0" /> <!-- old RFD3 -->
     <!--/ProstheticFoot_transfemoral-->
 
     <!--ProstheticFoot_transtibial -->
