@@ -475,41 +475,41 @@
                 <seq>xzy</seq>
             </CoordSys>    
         </Segment>
-        <Segment label="LeftFootDist" group="Left" points="LFD1,LFD2,LFD3" opt="2" angleseq="xyz" endpoints="" comlabel="LFDCOM">
+        <Segment label="LeftFootDist" group="Left" points="LFDA,LFDM,LFDL" opt="2" angleseq="xyz" endpoints="" comlabel="LFDCOM">
             <CoordSys>
                 <tag>LFD</tag>
-                <origin>LFD2</origin>
-                <origin>LFD3</origin>
+                <origin>LFDM</origin>
+                <origin>LFDL</origin>
                 <axis1>
                     <axis>
                         <tail>origin</tail>
-                        <tip>LFD1</tip>
+                        <tip>LFDA</tip>
                     </axis>
                 </axis1>
                 <temp_axis>
                     <axis>
-                        <tail>LFD2</tail>
-                        <tip>LFD3</tip>
+                        <tail>LFDL</tail> <!-- old LFD2 -->
+                        <tip>LFDM</tip> <!-- old LFD3 -->
                     </axis>
                 </temp_axis>
                 <seq>xyz</seq>
             </CoordSys>    
         </Segment>
-        <Segment label="RightFootDist" group="Right" points="RFD1,RFD2,RFD3" opt="2" angleseq="xyz" endpoints="" comlabel="RFDCOM">
+        <Segment label="RightFootDist" group="Right" points="RFDA,RFDM,RFDL" opt="2" angleseq="xyz" endpoints="" comlabel="RFDCOM">
             <CoordSys>
                 <tag>RFD</tag>
-                <origin>RFD2</origin>
-                <origin>RFD3</origin>
+                <origin>RFDM</origin>
+                <origin>RFDL</origin>
                 <axis1>
                     <axis>
                         <tail>origin</tail>
-                        <tip>RFD1</tip>
+                        <tip>RFDA</tip>
                     </axis>
                 </axis1>
                 <temp_axis>
                     <axis>
-                        <tail>RFD3</tail>
-                        <tip>RFD2</tip>
+                        <tail>RFDM</tail> <!-- old RFD3 -->
+                        <tip>RFDL</tip> <!-- old RFD2 -->
                     </axis>
                 </temp_axis>
                 <seq>xyz</seq>
@@ -797,41 +797,41 @@
                 <seq>xzy</seq>
             </CoordSys>    
         </Segment>
-        <Segment label="LeftFootDist" group="Left" points="LFD1,LFD2,LFD3" opt="3" angleseq="xyz" endpoints="" inertialalias="" comlabel="LFDCOM">
+        <Segment label="LeftFootDist" group="Left" points="LFDA,LFDM,LFDL" opt="2" angleseq="xyz" endpoints="" comlabel="LFDCOM">
             <CoordSys>
                 <tag>LFD</tag>
-                <origin>LFD2</origin>
-                <origin>LFD3</origin>
+                <origin>LFDM</origin>
+                <origin>LFDL</origin>
                 <axis1>
                     <axis>
                         <tail>origin</tail>
-                        <tip>LFD1</tip>
+                        <tip>LFDA</tip>
                     </axis>
                 </axis1>
                 <temp_axis>
                     <axis>
-                        <tail>LFD2</tail>
-                        <tip>LFD3</tip>
+                        <tail>LFDL</tail> <!-- old LFD2 -->
+                        <tip>LFDM</tip> <!-- old LFD3 -->
                     </axis>
                 </temp_axis>
                 <seq>xyz</seq>
             </CoordSys>    
         </Segment>
-        <Segment label="RightFootDist" group="Right" points="RFD1,RFD2,RFD3" opt="3" angleseq="xyz" endpoints="" inertialalias="" comlabel="RFDCOM">
+        <Segment label="RightFootDist" group="Right" points="RFDA,RFDM,RFDL" opt="2" angleseq="xyz" endpoints="" comlabel="RFDCOM">
             <CoordSys>
                 <tag>RFD</tag>
-                <origin>RFD2</origin>
-                <origin>RFD3</origin>
+                <origin>RFDM</origin>
+                <origin>RFDL</origin>
                 <axis1>
                     <axis>
                         <tail>origin</tail>
-                        <tip>RFD1</tip>
+                        <tip>RFDA</tip>
                     </axis>
                 </axis1>
                 <temp_axis>
                     <axis>
-                        <tail>RFD3</tail>
-                        <tip>RFD2</tip>
+                        <tail>RFDM</tail> <!-- old RFD3 -->
+                        <tip>RFDL</tip> <!-- old RFD2 -->
                     </axis>
                 </temp_axis>
                 <seq>xyz</seq>
