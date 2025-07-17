@@ -8,15 +8,16 @@ end
     mass=Info.Athlete.Mass;
 
     % read c3d and create platforms and events
-    H=btkReadAcquisition(c3dfile);
-    fp=forcePlatformType2(c3dfile);
-    markers=btkGetMarkers(H);
-    fs_mkr=btkGetPointFrequency(H);
-    ev=Event(H);
+    trial=Trial(c3dfile);
+    fp=trial.ForcePlatform;
+    markers=trial.Points.PointStruct;
+    fs_mkr=trial.Metadata.POINT.RATE;
+    ev=trial.Events;
+    
     if ev.getEventCount==0
         error("No events in the C3D!");
     end
-    btkCloseAcquisition(H);
+    ev=ev.selectFootContacts;
     
     %fix GRF
     fp=fp.cleanSignal;
@@ -30,14 +31,20 @@ end
 stepside={};
 time=[];
 try
-stepside(1:length(events.Left.Foot_Strike))={'Left'};
-time=events.Left.Foot_Strike;
+    fs=events.Left.Foot_Strike;
+    fo=events.Left.Foot_Off;
+    nsteps=min(numel(fs),numel(fo));
+    stepside(1:nsteps)={'Left'};
+    time=fs(1:nsteps);
 catch
 stepside={};
 end
 try
-stepside(end+1:end+length(events.Right.Foot_Strike))={'Right'};
-time=[time events.Right.Foot_Strike];
+    fs=events.Right.Foot_Strike;
+    fo=events.Right.Foot_Off;
+    nsteps=min(numel(fs),numel(fo));
+    stepside(end+1:end+nsteps)={'Right'};
+    time=[time fs(1:nsteps)];
 catch
 end
 [~,o]=sort(time);
@@ -48,11 +55,12 @@ stepside=stepside(o);
 try
 [kinDB]=getParamGRFv2(fp,ev,mass);
 catch ME
+    kinDB=[];
     [~,f]=fileparts(c3dfile);
     warning("%s: %s",f ,ME.message);
 end
-Tab=makeQuickReportTable(Info,stepside,kinDB,[],[]);
-Tfile=writeSessionTableXLSX(Tab,fullfile(tablepath),exmode);
+% Tab=makeQuickReportTable(Info,stepside,kinDB,[],[]);
+% Tfile=writeSessionTableXLSX(Tab,fullfile(tablepath),exmode);
 
 lumpOK=false;
 
@@ -65,7 +73,7 @@ if isfield(markers,'LGT') && isfield(events,'Left') %right side
     lumpOK=true;
     sm=markers.LGT;
     sm(sm==0)=nan;
-    speed(1)=mean(diff(sm/1000)*fs_mkr,'omitnan');
+    speed(1)=mean(vecnorm(diff(sm/1000)*fs_mkr,2,2),'omitnan');
 else
     speed(1)=nan;
     warning('LGT trajectory is missing')
@@ -77,7 +85,7 @@ if isfield(markers,'RGT') && isfield(events,'Right') %left side
     lumpOK=true;
     sm=markers.RGT;
     sm(sm==0)=nan;
-    speed(2)=mean(diff(sm/1000)*fs_mkr,'omitnan');
+    speed(2)=mean(vecnorm(diff(sm/1000)*fs_mkr,2,2),'omitnan');
 else
     speed(2)=nan;
     warning('RGT trajectory is missing')

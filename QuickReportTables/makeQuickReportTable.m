@@ -89,7 +89,7 @@ for i=1:length(stepside)
             Ttheta.LGT=stiffness.(side).L0.all(ii);
             cycles(:,6:7)=stiffness.(side).PP.cycle(:,[2 3],ii);
             catch
-                warning('%s Kinematics unavailable or corrupted!',side)
+                warning('%s (Step: %s%d): No Kinematics',Info.Trial.ID,Ttrial.StepSide{:},Ttrial.StepID)
             end
             
                 b=cycles(:,4:5)-cycles(:,6:7);

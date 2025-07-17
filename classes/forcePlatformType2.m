@@ -415,8 +415,8 @@ classdef forcePlatformType2
         if isscalar(obj)
             COP=obj.COP;
             % align the COP to the principal directions
-            R=pca(COP);
-            R=R(:,[1 3 2])';
+            R=pca(COP); %so that (X:running direction, Y:mediolateral, Z: vertical (COP doesn't move)
+            R=R(:,[1 3 2])'; %to align with ISB (AP, V, LAT)
         else %ask the user to manually select the directions
             notok=true;
                 while notok

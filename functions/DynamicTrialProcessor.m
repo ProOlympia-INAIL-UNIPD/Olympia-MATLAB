@@ -85,3 +85,4 @@ trial=trial.inverseDynamics(1,NameValue.GravityVector);
 trial=lumpedAnalysis(trial,"LGT","RGT","LHJC","RHJC");
 end
 trial=trial.GRFAnalysis;
+trial.spatioTemporalAnalysis;

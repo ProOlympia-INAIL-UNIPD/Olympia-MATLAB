@@ -21,13 +21,13 @@ arguments
     mass double {mustBePositive(mass)}
 end
 % components
-V=3;
-AP=2;
-ML=1;
+V=3; %vertical on Z
+AP=2;%antero-posterior on Y
+ML=1;%medio-lateral on X
 
 GRF=forceplat.GRF/(9.81*mass);
 GRM=forceplat.GRM/(9.81*mass);
-COP=forceplat.COP/(9.81*mass);
+COP=forceplat.COP;
 f_force=forceplat.SampleRate;
 time=(0:length(GRF(:,3))-1)/f_force;
 footContact=0*time;
@@ -36,6 +36,7 @@ for s=["Left","Right"]
     try
     FS=events.(s).Foot_Strike;
     FO=events.(s).Foot_Off;
+    
 for j=length(FS):-1:1
     fc=FS(j);
     fo=FO(j);
@@ -195,3 +196,7 @@ clear F_ML_stance F_V_stance F_AP_stance GRF_stance GRM_stance COP_stance
         out.(s)=[];
     end
 end
+
+end
+
+

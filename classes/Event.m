@@ -352,6 +352,25 @@ classdef Event
             end
         end
 
+        function obj=selectFootContacts(obj)
+        %modify so that FootStrike and FootOff events are
+        %paired correctly
+        for s=["Left", "Right"]
+            FS=obj.(s).Foot_Strike;
+            FO=obj.(s).Foot_Off;
+            FO(FO<FS(1))=[];%clear FootOffs before the first footstrike
+            FS(FS>FO(end))=[];%clear FootStrike after the last footoff
+            v=reshape([FS(:).';FO(:).'],1,[]);
+            if not(numel(FS)==numel(FO))
+                error("The number of FootStrike and FootOff mismatchs")
+            elseif any(diff(v)<0)
+                error("FootStrike and FootOff are not in the expected sequence")   
+            end
+            obj.(s).Foot_Off=FO;
+            obj.(s).Foot_Strike=FS;
+        end
+        end
+
         %% C3D I/O
 
         function updateC3D(obj,H,mode)
