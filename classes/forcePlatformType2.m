@@ -81,8 +81,8 @@ classdef forcePlatformType2
                 
                 oldnames=fieldnames(FP(i).channels);
                 for j=1:3
-                ch.Force(:,j)=FP(i).channels.(oldnames{j});
-                ch.Moment(:,j)=FP(i).channels.(oldnames{j+3});
+                    ch.Force(:,j)=FP(i).channels.(oldnames{j});
+                    ch.Moment(:,j)=FP(i).channels.(oldnames{j+3});
                 end
 
                 obj(i).Label =sprintf("FP%i",i);
@@ -97,7 +97,7 @@ classdef forcePlatformType2
             end
                 
             if closeflag
-            btkCloseAcquisition(H);
+                btkCloseAcquisition(H);
             end
             
         end
@@ -159,6 +159,7 @@ classdef forcePlatformType2
                 NameValue.FilterOrder=2;      %low pass filter order (will be doubled in filtfilt)
                 NameValue.ActiveThreshold=100;%minimum threshold to accept FP as used during the acquisition
                 NameValue.MaxNumContacts=100;   %maximum number of hits accepted for each FP
+                NameValue.MinStrideDuration=0.3 %minimum duration of stride in s
                 NameValue.Reflect=true;
             end
             maxradius=NameValue.MaxRadius;
@@ -173,7 +174,7 @@ classdef forcePlatformType2
                 %isactive=abs(Fnow(:,3))>threshold;
                 if numel(obj)>1 %cross talk removal is meaningful only with multiple forceplates
                     warning off %suppress warnings from findpeaks in case no peak is detected
-                    [~, loc]=findpeaks(Fnow(:,3),"NPeaks",NameValue.MaxNumContacts,"MinPeakHeight",NameValue.ActiveThreshold,"MinPeakDistance",NameValue.MaxRadius);
+                    [~, loc, wid]=findpeaks(Fnow(:,3),"NPeaks",NameValue.MaxNumContacts,"MinPeakHeight",NameValue.ActiveThreshold,"MinPeakDistance",NameValue.MinStrideDuration*obj(i).SampleRate,"MinPeakProminence",NameValue.ActiveThreshold);
                     warning on
                     maxzone=[];
     
@@ -187,7 +188,7 @@ classdef forcePlatformType2
                     ismaxzone=isactive;
                 end
                 isvalid=isactive & ismaxzone;        % active and valid signal
-                changeState=[false; diff(isvalid); false];
+                changeState=diff([false; isvalid; false]);
                 fc=find(changeState==1)-1;
                 fo=find(changeState==-1)-1;
                 dur=fo-fc;
@@ -196,14 +197,29 @@ classdef forcePlatformType2
                     isvalid(fc(d):fo(d))=false;
                 end
                 
-                changeState=[false; diff(isvalid); false];
+                % changeState flags the samples when the force plates
+                % starts (1) and ends (-1) to be valid (1) by taking the
+                % diff of isvalid. Note that:
+                % if the force is 0 at first and last samples
+                % force  :    __----___
+                % isvalid=    001111000
+                % changeState=001000-100  --->OK
+                % if the force is not 0 at first and last samples
+                % force  :    ---___---
+                % isvalid=    111000111
+                % changeState=000-1001000 --> not OK
+                % if a false is added before and after isvalid
+                %isvalid=    01110001110
+                % changeState=1000-1001000-1 --> OK after offset of 1
+                % NB: this addition doesn't change the first case
+                changeState=diff([false; isvalid; false]);
                 fc=find(changeState==1)-1;
                 fo=find(changeState==-1)-1;
 
                 F=double(obj(i).Channels.Force);
                 M=double(obj(i).Channels.Moment);
                 if NameValue.Reflect
-                   changeState=[false; diff(isvalid); false];
+                   changeState= diff([false; isvalid; false]);
                    fc=find(changeState==1)-1;
                    fo=find(changeState==-1)-1;
 
@@ -681,4 +697,5 @@ end
         %     btkWriteAcquisition(h,c3dfile);
         %     btkCloseAcquisition(h);
         % 
+
         % end

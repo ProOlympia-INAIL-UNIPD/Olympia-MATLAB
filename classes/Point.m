@@ -34,50 +34,58 @@ classdef Point<handle
 
             % if the input is a c3dfile
             if nargin==1
-            if isnumeric(varargin{1})
-                try
-                [mkr,info]=btkGetMarkers(varargin{1});
-                sr=info.frequency;
-                units=info.units.ALLMARKERS;
-                catch ME
-                disp(ME.message)
+                if isnumeric(varargin{1})
+                    try
+                        [mkr,info]=btkGetMarkers(varargin{1});
+                        sr=info.frequency;
+                        units=info.units.ALLMARKERS;
+                    catch ME
+                        disp(ME.message)
+                    end
+                elseif isfile(varargin{1})
+                    try
+                        H=btkReadAcquisition(varargin{1});
+                        [mkr,info]=btkGetMarkers(H);
+                        sr=info.frequency;
+                        units=info.units.ALLMARKERS;
+                        btkCloseAcquisition(H);
+                    catch ME
+                        disp(ME.message)
+                    end
                 end
-            elseif isfile(varargin{1})
-                try
-                H=btkReadAcquisition(varargin{1});
-                [mkr,info]=btkGetMarkers(H);
-                sr=info.frequency;
-                units=info.units.ALLMARKERS;
-                btkCloseAcquisition(H);
-                catch ME
-                disp(ME.message)
+
+                mkr=structfun(@zero2nan,mkr,'UniformOutput',false); %change btk 0 to nan
+                fns=fieldnames(mkr);
+                if nargin<2
+                    color=repmat([0 0 0],length(fns),1);
                 end
-            end
-           
-            mkr=structfun(@zero2nan,mkr,'UniformOutput',false); %change btk 0 to nan
-            fns=fieldnames(mkr);
-            if nargin<2
-               color=repmat([0 0 0],length(fns),1);
-            end
-            for i=length(fns):-1:1
-            obj(i).Label = fns{i};
-            obj(i).XData = mkr.(fns{i})(:,1);
-            obj(i).YData = mkr.(fns{i})(:,2);
-            obj(i).ZData = mkr.(fns{i})(:,3);
-            obj(i).Color = color(i,:);
-            obj(i).Units = char(units);
-            obj(i).SampleRate=sr;
-            obj(i).NFrames=size(obj(i).XData,1);       
-            end 
-            return
+                for i=length(fns):-1:1
+                    obj(i).Label = fns{i};
+                    obj(i).XData = mkr.(fns{i})(:,1);
+                    obj(i).YData = mkr.(fns{i})(:,2);
+                    obj(i).ZData = mkr.(fns{i})(:,3);
+                    obj(i).Color = color(i,:);
+                    obj(i).Units = char(units);
+                    obj(i).SampleRate=sr;
+                    obj(i).NFrames=size(obj(i).XData,1);
+                end
+                return
             end
             % if the input is point properties
             P=properties(obj);
-            if length(P)<length(varargin)
-            error('Too many input arguments!')
+            if length(P)*2<length(varargin)
+                error('Too many input arguments!')
             end
-            for i=1:length(varargin)
-            obj.(P{i})=varargin{i};
+            
+            for j=1:2:length(varargin)
+                for i=1:length(P)
+                    if strcmp((P{i}),varargin{j})
+                        obj.(P{i})=varargin{j+1};
+                        break;
+                    else
+                        continue
+                    end
+                end
             end
 
         end
@@ -147,6 +155,7 @@ classdef Point<handle
             end
             obj(i).Units=newunits;
             end
+            obj(i).Parent.Metadata.POINT.UNITS=newunits;
         end
         
         function obj=fillgaps(obj,method,NameValue)
@@ -157,69 +166,81 @@ classdef Point<handle
                 NameValue.MaxGap=20/100; % 20% max gap is allowed
                 NameValue.AllowTailPrediction=false; %tails are removed
             end
-        switch method
-            case 'spline'
-                prop=namedargs2cell(NameValue);
-            obj.XData=time2cycle([],obj.XData,obj.NFrames,1,prop{:});
-            obj.YData=time2cycle([],obj.YData,obj.NFrames,1,prop{:});
-            obj.ZData=time2cycle([],obj.ZData,obj.NFrames,1,prop{:});
+            switch method
+                case 'spline'
+                    prop=namedargs2cell(NameValue);
+                    obj.XData=time2cycle([],obj.XData,obj.NFrames,1,prop{:});
+                    obj.YData=time2cycle([],obj.YData,obj.NFrames,1,prop{:});
+                    obj.ZData=time2cycle([],obj.ZData,obj.NFrames,1,prop{:});
+            end
         end
-        end
-        function p=appendPoint(obj,label,XYZ,segment,type,cluster,group)
-        %APPENDPOINT adds a Point specified by label and XYZ coordinates to the object
-        % obj=APPENDPOINT(obj,label,XYZ,segment,type,cluster,group) adds a
-        % point to the end of the Point array. The new point need at least
-        % a label and a set of XYZ coordinates to be created. Additional
-        % specification provide context to the point.
+        
+        function p=appendPoint(obj,label,XYZ,unit,segment,type,cluster,group)
+            %APPENDPOINT adds a Point specified by label and XYZ coordinates to the object
+            % obj=APPENDPOINT(obj,label,XYZ,segment,type,cluster,group) adds a
+            % point to the end of the Point array. The new point need at least
+            % a label and a set of XYZ coordinates to be created. Additional
+            % specification provide context to the point.
             arguments
                 obj Point
                 label char
                 XYZ (:,3) double
-                segment string=""
-                type string =""
+                unit string {mustBeMember(unit,["m","mm"])}="m";
+                segment string="";
+                type string ="";
                 cluster logical=false;
                 group string="";
             end
-        % check if point already exist, if exist overwrites
-        i=matches([obj.Label],label);
-        if any(i)
-            warning("A point in the acquisition has already the label %s!",label);
-            i=find(i);
+            % check if point already exist, if exist overwrites
+            if ~any(matches([obj.Units],unit))
+                if strcmp(unit,"m")
+                    %convert from m to mm
+                    XYZ = XYZ*1000;
+                else
+                    %convert from mm to m
+                    XYZ = XYZ/1000;
+                end
+            end
+            i=matches([obj.Label],label);
+            if any(i)
+                warning("A point in the acquisition has already the label %s!",label);
+                i=find(i);
+                p=obj(i);
+                return
+
+                sr=obj(i).SampleRate;
+                tr=obj(i).Parent;
+            else
+                i=length(obj)+1;
+                sr=obj(1).SampleRate;
+                tr=obj(1).Parent;
+            end
+            % append point
+            obj(i).Label=label;
+            obj(i).XData=XYZ(:,1);
+            obj(i).YData=XYZ(:,2);
+            obj(i).ZData=XYZ(:,3);
+            obj(i).Segment=segment;
+            obj(i).Type=type;
+            obj(i).Units=unit;
+            obj(i).NFrames=size(XYZ,1);
+            obj(i).SampleRate=sr;
+            obj(i).Cluster=cluster;
+            obj(i).Group=group;
+            obj(i).Parent=tr;
+
+            plist=[tr.ConfigFile.MarkerSet.Marker.("label"+tr.XMLatt)];
+            if sum(matches(plist,label))<1 %and in case add it
+                tr.ConfigFile.MarkerSet.Marker(end+1).("label"+tr.XMLatt)=label;
+                tr.ConfigFile.MarkerSet.Marker(end).("segment"+tr.XMLatt)=segment;
+                tr.ConfigFile.MarkerSet.Marker(end).("group"+tr.XMLatt)=group;
+                tr.ConfigFile.MarkerSet.Marker(end).("type"+tr.XMLatt)=type;
+                tr.ConfigFile.MarkerSet.Marker(end).("cluster"+tr.XMLatt)=double(cluster);
+            end
+
+
+
             p=obj(i);
-            return
-            
-            sr=obj(i).SampleRate;
-            tr=obj(i).Parent;
-        else
-            i=length(obj)+1;
-            sr=obj(1).SampleRate;
-            tr=obj(1).Parent;
-        end
-        % append point
-        obj(i).Label=label;
-        obj(i).XData=XYZ(:,1);
-        obj(i).YData=XYZ(:,2);
-        obj(i).ZData=XYZ(:,3);
-        obj(i).Segment=segment;
-        obj(i).Type=type;
-        obj(i).NFrames=size(XYZ,1);
-        obj(i).SampleRate=sr;
-        obj(i).Cluster=cluster;
-        obj(i).Group=group;
-        obj(i).Parent=tr;
-
-        plist=[tr.ConfigFile.MarkerSet.Marker.("label"+tr.XMLatt)];
-        if sum(matches(plist,label))<1 %and in case add it
-        tr.ConfigFile.MarkerSet.Marker(end+1).("label"+tr.XMLatt)=label;
-        tr.ConfigFile.MarkerSet.Marker(end).("segment"+tr.XMLatt)=segment;
-        tr.ConfigFile.MarkerSet.Marker(end).("group"+tr.XMLatt)=group;
-        tr.ConfigFile.MarkerSet.Marker(end).("type"+tr.XMLatt)=type;
-        tr.ConfigFile.MarkerSet.Marker(end).("cluster"+tr.XMLatt)=double(cluster);
-        end
-
-
-
-        p=obj(i);
         end
         %% BASIC OPERATIONS
         function obj=sort(obj)
@@ -293,6 +314,7 @@ classdef Point<handle
         %POINTSTRUCT returns a structure of point position, velocity and acceleration with a field for each
         %element in label
             for i=1:length({obj.Label})
+                label=matlab.lang.makeValidName(obj(i).Label,'Prefix','C_');
                 P.(obj(i).Label)=obj(i).Coordinates;
                 V.(obj(i).Label)=obj(i).Velocity;
                 A.(obj(i).Label)=obj(i).Acceleration;
@@ -310,7 +332,6 @@ classdef Point<handle
         function A=get.Acceleration(obj)
             A=[diff(obj.Coordinates,2,1); nan(2,3)]*(obj.SampleRate^2);
         end
-        
         %% GRAPHICS
 
         function ln=plot(obj,frame,NameValue)

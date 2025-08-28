@@ -20,6 +20,7 @@
         useJSON (1,1) logical =false;% selector to use JSON configuration file
         NFrames %Number of frames in the C3D
         NSamples%Number of analog samples in the C3D
+        TaskType (1,1) string = "";
      end
      properties (Transient)
         C3DHandle%Memory address of the loaded C3D file
@@ -80,16 +81,20 @@
             for i=1:length(obj)
                 obj(i).ConfigFile=config;
                 for m=obj(i).ConfigFile.MarkerSet.Marker
-                p=matches([obj(i).Points.Label],m.("label"+obj(i).XMLatt));
-                if sum(p)==1
-                obj(i).Points(p).Type=m.("type"+obj(i).XMLatt);
-                obj(i).Points(p).Segment=m.("segment"+obj(i).XMLatt);
-                obj(i).Points(p).Cluster=m.("cluster"+obj(i).XMLatt);
-                obj(i).Points(p).Group=m.("group"+obj(i).XMLatt);
-                end
+                    p=matches([obj(i).Points.Label],m.("label"+obj(i).XMLatt));
+                    if sum(p)==1
+                        obj(i).Points(p).Type=m.("type"+obj(i).XMLatt);
+                        obj(i).Points(p).Segment=m.("segment"+obj(i).XMLatt);
+                        obj(i).Points(p).Cluster=m.("cluster"+obj(i).XMLatt);
+                        obj(i).Points(p).Group=m.("group"+obj(i).XMLatt);
+                    end
                 end   
                 obj(i).buildSkeleton;
             end
+        end
+
+        function obj=setTaskType(obj,type)
+            obj.TaskType = type;
         end
         %% INERTIAL PROPERTIES
         %set of function operating on the subject parameters and on the
@@ -105,7 +110,7 @@
             arguments
                 obj Trial
                 mass=mean(vecnorm(sum(cat(3,obj.ForcePlatform.GRF),3),2,2))/9.81;
-                gender char {mustBeMember(gender,["Male","Female"])}='Female';
+                gender char {mustBeMember(gender,["Male","Female"])}="Female";
             end
 
             if isfield(obj.Metadata,'PROCESSING')
@@ -113,7 +118,9 @@
                    mass=obj.Metadata.PROCESSING.mass;
                end
             end
-            obj.Metadata.ANTROPOMETRY.gender=gender;
+            if isfield(obj.ConfigFile, "gender")
+                obj.Metadata.ANTROPOMETRY.gender=obj.ConfigFile.gender;
+            end
             obj.Metadata.ANTROPOMETRY.mass=mass;
             obj.Metadata.ANTROPOMETRY.units='kg';
             obj.setC3DMetaData;
@@ -136,6 +143,8 @@
             obj.Metadata.ANTROPOMETRY.gender='Male';
         end
         
+        u = unique([obj.Points.Units]);
+
         try
             mainpath=mfilename('fullpath');
             mainpath=fileparts(mainpath);
@@ -181,7 +190,7 @@
                 if comlabel=="" || ismissing(comlabel)
                     comlabel=segment.Label+"COM";
                 end
-                obj.Points(end+1)=obj.Points.appendPoint(comlabel,com,segment.Label,'V',0,group);
+                obj.Points(end+1)=obj.Points.appendPoint(comlabel, com, u, segment.Label, 'V', 0, group);
                 % verify that the COM is in the markerset
                 plist=[obj.ConfigFile.MarkerSet.Marker.("label"+obj.XMLatt)];
                 if sum(matches(plist,comlabel))<1 %and in case add it
@@ -233,17 +242,33 @@
         obj.Metadata.SEGMENTS_ICM.units=src.Metadata.SEGMENTS_ICM.units;
         for group=string(fieldnames(src.Segments))'
             for seg=string(fieldnames(src.Segments.(group)))'
-            try
-            obj.Segments.(group).(seg).COM=obj.Points(matches([obj.Points.Label],src.Segments.(group).(seg).COM.Label));
-            obj.Segments.(group).(seg).Mass=src.Metadata.SEGMENTS_MASS.(seg);
-            obj.Metadata.SEGMENTS_MASS.(seg)=src.Metadata.SEGMENTS_MASS.(seg);
-            obj.Segments.(group).(seg).Icm=src.Metadata.SEGMENTS_ICM.(seg);
-            obj.Metadata.SEGMENTS_ICM.(seg)=src.Metadata.SEGMENTS_ICM.(seg);
-            m(i)=obj.Segments.(group).(seg).Mass;    
-            com(:,:,i)=obj.Segments.(group).(seg).COM.Coordinates*m(i);
-            i=i+1;
-            catch
-            end %try
+                % try
+                    % obj.Segments.(group).(seg).COM=obj.Points(matches([obj.Points.Label],src.Segments.(group).(seg).COM.Label));
+                    % obj.Segments.(group).(seg).Mass=src.Metadata.SEGMENTS_MASS.(seg);
+                    % obj.Metadata.SEGMENTS_MASS.(seg)=src.Metadata.SEGMENTS_MASS.(seg);
+                    % obj.Segments.(group).(seg).Icm=src.Metadata.SEGMENTS_ICM.(seg);
+                    % obj.Metadata.SEGMENTS_ICM.(seg)=src.Metadata.SEGMENTS_ICM.(seg);
+                    % m(i)=obj.Segments.(group).(seg).Mass;
+                    % com(:,:,i)=obj.Segments.(group).(seg).COM.Coordinates*m(i);
+                % catch
+                try
+                    temp = permute(pagemtimes(obj.Segments.(group).(seg).TransformMat, ...
+                                  [points2local(src.Segments.(group).(seg).COM.Coordinates, src.Segments.(group).(seg).TransformMat) 1]'), [3, 1, 2]);
+                    obj.Segments.(group).(seg).COM = Point('Label', src.Segments.(group).(seg).COM.Label,...
+                                    'XData', temp(:,1), 'YData',temp(:,2), 'ZData', temp(:,3),...
+                                    'Color', src.Segments.(group).(seg).COM.Color, ...
+                                    'Units', src.Segments.(group).(seg).COM.Units, ...
+                                    'SampleRate', src.Segments.(group).(seg).COM.SampleRate, ...
+                                    'Cluster', 1, 'Parent', obj.Points(1).Parent);
+                    obj.Segments.(group).(seg).Mass=src.Metadata.SEGMENTS_MASS.(seg);
+                    obj.Metadata.SEGMENTS_MASS.(seg)=src.Metadata.SEGMENTS_MASS.(seg);
+                    obj.Segments.(group).(seg).Icm=src.Metadata.SEGMENTS_ICM.(seg);
+                    obj.Metadata.SEGMENTS_ICM.(seg)=src.Metadata.SEGMENTS_ICM.(seg);
+                    m(i)=obj.Segments.(group).(seg).Mass;
+                    com(:,:,i)=obj.Segments.(group).(seg).COM.Coordinates*m(i);
+                catch
+                end %try
+                i=i+1;
             end %seg
         end %side
         if exist('com','var')
@@ -286,6 +311,11 @@
         %
         % See Also SVDRECONSTRUCT
             sourcemarkers=strtrim(split(sourcemarkers,','));
+            u = unique([obj.Points.Units]);
+            if isscalar(u)
+            else
+                error("not all points have the same measurement unit.");
+            end
             try
             switch method
                 case 'centroid'
@@ -293,7 +323,7 @@
                         pt(:,:,i)=obj.Points.PointStruct.(sourcemarkers(i));
                     end
                     pt=mean(pt,3);
-                    obj.Points(end+1)=obj.Points.appendPoint(label,pt,segment,type);
+                    obj.Points(end+1)=obj.Points.appendPoint(label,pt,u,segment,type);
                 case 'Bell'
                     pelvis=obj.ConfigFile.KinematicModel.Segment;
                     pelvis=pelvis(matches([pelvis.("label"+obj.XMLatt)],segment));
@@ -305,8 +335,12 @@
                     elseif contains(label,"R")
                         pm=1;
                     end
-                    HJC = squeeze(pagemtimes(P,[[-0.19, -0.30, pm*0.36]*PW, 1]'))';            
-                    obj.Points(end+1)=obj.Points.appendPoint(label,HJC(:,1:3),segment,type);
+                    if pelvis.CoordSys.seq{1}(1) == 'z'
+                        HJC = squeeze(pagemtimes(P,[[-0.19, -0.30, pm*0.36]*PW, 1]'))';
+                    elseif pelvis.CoordSys.seq{1}(1) == 'x'
+                        HJC = squeeze(pagemtimes(P,[[pm*0.36, -0.19, -0.30]*PW, 1]'))';
+                    end
+                    obj.Points(end+1)=obj.Points.appendPoint(label,HJC(:,1:3),u,segment,type);
                 case 'wand' %obsolete
                     path=fileparts(obj.c3dfile);
                     wtr=Trial(char(fullfile(path,sourcemarkers)));
@@ -323,29 +357,29 @@
         end
 
         function obj=reconstructVirtualMarkers(obj)
-        % RECONSTRUCTVIRTUALMARKERS Reconstruct virtual/calibrated markers
-        % defined in the configuration file
-        % obj=reconstructVirtualMarkers(obj) applies the
-        % APPENDVIRTUALMARKER function to all the virtual and calibrated
-        % markers defined in the configuration file
-        % See Also APPENDVIRTUALMARKER
+            % RECONSTRUCTVIRTUALMARKERS Reconstruct virtual/calibrated markers
+            % defined in the configuration file
+            % obj=reconstructVirtualMarkers(obj) applies the
+            % APPENDVIRTUALMARKER function to all the virtual and calibrated
+            % markers defined in the configuration file
+            % See Also APPENDVIRTUALMARKER
             try
-            mkr=reshape(obj.ConfigFile.MarkerSet.VirtualMarkerDef,1,[]);
-            for cm=mkr
-                m=obj.ConfigFile.MarkerSet.Marker(matches([obj.ConfigFile.MarkerSet.Marker.("label"+obj.XMLatt)],cm.("label"+obj.XMLatt)));    
-                if length(m)~=1
-                   warning("Virtual marker with label: %s is not part of the defined markerset and won't be created!",cm.("label"+obj.XMLatt));
-                else
-                    try
-                    obj=obj.appendVirtualMarker(cm.("method"+obj.XMLatt),cm.("label"+obj.XMLatt),cm.("source"+obj.XMLatt),m.("segment"+obj.XMLatt),m.("type"+obj.XMLatt));
-                    catch ME
-                        warning("Error occurred during reconstruction of %s",cm.("label"+obj.XMLatt));
-                        warning(ME);
-                    
-                    
+                mkr=reshape(obj.ConfigFile.MarkerSet.VirtualMarkerDef,1,[]);
+                for cm=mkr
+                    m=obj.ConfigFile.MarkerSet.Marker(matches([obj.ConfigFile.MarkerSet.Marker.("label"+obj.XMLatt)],cm.("label"+obj.XMLatt)));
+                    if length(m)~=1
+                        warning("Virtual marker with label: %s is not part of the defined markerset and won't be created!",cm.("label"+obj.XMLatt));
+                    else
+                        try
+                            obj=obj.appendVirtualMarker(cm.("method"+obj.XMLatt),cm.("label"+obj.XMLatt),cm.("source"+obj.XMLatt),m.("segment"+obj.XMLatt),m.("type"+obj.XMLatt));
+                        catch ME
+                            warning("Error occurred during reconstruction of %s",cm.("label"+obj.XMLatt));
+                            warning(ME);
+
+
+                        end
                     end
                 end
-            end
             catch
                 warning('Virtual Markers are absent or not properly defined!')
             end
@@ -393,8 +427,12 @@
 
             [~,~,T]=svdSolidification(p_src,p_tgt);
             newpt=pagemtimes(T,[newpt 1]');
-            newpt=permute(newpt,[3 1 2]);
-            obj.Points(end+1)=obj.Points.appendPoint(label,newpt(:,1:3),seg,'C',false,group);
+            if size(newpt, 2) == 1
+                newpt = newpt';
+            else
+                newpt=permute(newpt,[3 1 2]);
+            end
+            obj.Points(end+1)=obj.Points.appendPoint(label,newpt(:,1:3),obj.Metadata.POINT.UNITS,seg,'C',false,group);
         end
 
         
@@ -457,7 +495,7 @@
             for i=1:length(p_stat)
                p=p_stat(i);
                XYZ=permute((pagemtimes(T,[cl_stat(i,:) 1]')),[3 1 2]);
-               obj.Points(end+1)=obj.Points.appendPoint(p.Label,XYZ(:,1:3),p.Segment,p.Type,false,p.Group);
+               obj.Points(end+1)=obj.Points.appendPoint(p.Label,XYZ(:,1:3),p.Units,p.Segment,p.Type,false,p.Group);
             end
 
             %if specified, replace collected points with svd version
@@ -757,7 +795,12 @@ for s=1:2
     ns=min(numel(FO_lr),numel(FS_cl));
     SPATIOTEMP.(lr+"FlightTime")=FS_cl(1:ns)-FO_lr(1:ns);
     % stance length 
-    P=obj.Points.PointStruct.(ss(s)+"GT")*R';
+    try
+        P=obj.Points.PointStruct.(ss(s)+"GT")*R';
+    catch
+        P=obj.Points.PointStruct.(ss(s)+"HJC")*R';
+    end
+
     P=P(:,AP);
 
     SPATIOTEMP.(lr+"ContactLengthGT")=P(ev_point.(lr).Foot_Off)-P(ev_point.(lr).Foot_Strike);
@@ -793,80 +836,132 @@ end
             u=obj.Metadata.POINT.UNITS;
             
             obj.setUnits("m"); %inverse dynamics work in m, rad, kg
-            for kc=obj.ConfigFile.KinematicModel.KinematicChain
-                try
-            s=kc.("group"+obj.XMLatt);
-            joints=strrep(split(kc.("joints"+obj.XMLatt),',')," ","");
-            endpoint=kc.("endbody"+obj.XMLatt);
-                % select the endpoint type
-                if endpoint=="ForcePlatform"
-                    force=obj.ForcePlatform;
-                    if length(force)>1
-                    force=force.combineFP;
-                    end
-                    force=force.resample(obj.Points(1).SampleRate);
-                    F=force.GRF;
-                    M=force.GRM*0;
-                    COP=force.COP;
-                    ev=obj.Events.exportEvents('point',false);
-                    FC=ev.(kc.("group"+obj.XMLatt)).Foot_Strike;
-                    FO=ev.(kc.("group"+obj.XMLatt)).Foot_Off;
-                    ctc=false(size(F));
-                    for i=1:length(FC)
-                        ctc(FC(i):FO(i),:)=true;
-                    end
-                    Fd=F.*ctc;
-                    Md=M.*ctc;
-                    DP=COP.*ctc;
-                elseif isequal(endpoint,'Free')||ismissing(endpoint)
-    
-                    DP=obj.Joints.(s).(joints(end)).Child.EndPoints(end).Coordinates;
-                    Fd=0*DP;
-                    Md=0*DP;
-                elseif isfield(obj.Joints.(s),endpoint)
-                    jj=obj.Joints.(s).(endpoint);
-                    Fd=pagemtimes(jj.Force,jj.Parent.Orientation);
-                    Md=pagemtimes(jj.Moment,jj.Parent.Orientation);
-                    DP=jj.JointCenter.Coordinates;  
-                else 
-                    error('endbody Attribute must be specified either as ForcePlatform, Free, or with a valid Joint');
-                end
             
-            for j=length(joints):-1:1
-                joint=obj.Joints.(s).(joints(j));
-                proxSegm=joint.Parent;
-                JC=joint.JointCenter.Coordinates;
-                [Fp,Mp]=DistDynCalc(joint,Fd,Md,g,DP,useID);
-                %prepare for next iteration
-                Fd=-Fp; % Newton third law
-                Md=-Mp;
-                DP=JC;
-                %assign to joint
-                Rprox=proxSegm.Orientation;
-                mp=Mp;
-                fp=Fp;
-                for i=1:size(Rprox,3)
-                    mp(i,:)=Mp(i,:)*Rprox(:,:,i);
-                    fp(i,:)=Fp(i,:)*Rprox(:,:,i);
+            for kc=obj.ConfigFile.KinematicModel.KinematicChain
+                if strcmpi(obj.TaskType, "walking")
+                    FootPlate.(kc.("group"+obj.XMLatt)) = struct("GRF", [], "COP", []);
                 end
-                if u=="mm"
-                obj.Joints.(s).(joint.Label).Moment=mp*1000;
-                obj.Joints.(s).(joint.Label).MomentUnits="Nmm";
-                elseif u=="m"
-                obj.Joints.(s).(joint.Label).Moment=mp;
-                obj.Joints.(s).(joint.Label).MomentUnits="Nm";
-                else
-                error("Invalid units, must  be m or mm!")
-                end
-                obj.Joints.(s).(joint.Label).Force=fp;
-            end 
+                try
+                    s=kc.("group"+obj.XMLatt);
+                    joints=strrep(split(kc.("joints"+obj.XMLatt),',')," ","");
+                    endpoint=kc.("endbody"+obj.XMLatt);
+                    % select the endpoint type
+                    if endpoint=="ForcePlatform"
+                        force=obj.ForcePlatform;
+                        switch obj.TaskType
+                            case "running"
+                                if length(force)>1
+                                    force=force.combineFP;
+                                end
+                                clear FootPlate
+                            case "walking"
+                                ev_analog = obj.Events.exportEvents("analog");
+                                for fp = 1:length(force)
+                                    %ev_analog.(kc.("group"+obj.XMLatt))
+                                    evnames = fieldnames(ev_analog.(kc.("group"+obj.XMLatt)));
+                                    onoff = zeros(obj.NSamples, 1);
+                                    for j = 1:length(ev_analog.(kc.("group"+obj.XMLatt)).(evnames{2}))
+                                        onoff(ev_analog.(kc.("group"+obj.XMLatt)).(evnames{1})(j): ev_analog.(kc.("group"+obj.XMLatt)).(evnames{2})(j)) = 1;
+                                    end
+
+                                    temp = [obj.ConfigFile.MarkerSet.Marker.("label"+obj.XMLatt)];
+                                    platefoot = nan(obj.NFrames, 3, 2);
+                                    for j = 1:2
+                                        platefoot(:, : ,j) = obj.Points(obj.findByLabel("Points", temp(strcmpi([obj.ConfigFile.MarkerSet.Marker.("eventDetection"+obj.XMLatt)], strrep(strrep(evnames(j),"_","")," ","")) & strcmpi([obj.ConfigFile.MarkerSet.Marker.("group"+obj.XMLatt)], s) == 1))).Coordinates;
+                                    end
+                                    
+                                    footin = footInPlate(obj, force(fp), platefoot);
+
+                                    onoff = and(onoff, footin);
+                                    up = find(diff(onoff) == 1);
+                                    down = find(diff(onoff) == -1);
+
+                                    % Delete contacts lasting less than 0.5 s
+                                    for ii = 1:min(length(up), length(down))
+                                        if down(ii) - up(ii) < 0.5*force(fp).SampleRate
+                                            onoff(up + 1: down) = 0;
+                                        end
+                                    end
+
+                                    FootPlate.(s).GRF(:,:,fp) = force(fp).GRF .* repmat(onoff, 1, 3);
+                                    FootPlate.(s).GRM(:,:,fp) = force(fp).GRM .* repmat(onoff, 1, 3);
+                                    FootPlate.(s).COP(:,:,fp) = force(fp).COP .* repmat(onoff, 1, 3);
+                                end
+                        end
+                        if strcmpi(obj.TaskType, "running")
+                            force=force.resample(obj.Points(1).SampleRate);
+                            F=force.GRF;
+                            M=force.GRM*0;
+                            COP=force.COP;
+                            ev=obj.Events.exportEvents('point',false);
+                            FC=ev.(kc.("group"+obj.XMLatt)).Foot_Strike;
+                            FO=ev.(kc.("group"+obj.XMLatt)).Foot_Off;
+                            ctc=false(size(F));
+                            for i=1:length(FC)
+                                ctc(FC(i):FO(i),:)=true;
+                            end
+                            Fd=F.*ctc;
+                            Md=M.*ctc;
+                            DP=COP.*ctc;
+                        elseif strcmpi(obj.TaskType, "walking")
+                            fratio = obj.NSamples/obj.NFrames;
+                            Fd = sum(FootPlate.(s).GRF(1:fratio:end,:,:), 3, "omitmissing");
+                            Md = sum(FootPlate.(s).GRM(1:fratio:end,:,:), 3, "omitmissing");
+                            DP = sum(FootPlate.(s).COP(1:fratio:end,:,:), 3, "omitmissing");
+                        end
+                    elseif isequal(endpoint,'Free')||ismissing(endpoint)
+                        if strcmpi(obj.TaskType, "walking")
+                            error("With walking trials, the endbody must be a Force Platform.")
+                        end
+
+                        DP=obj.Joints.(s).(joints(end)).Child.EndPoints(end).Coordinates;
+                        Fd=0*DP;
+                        Md=0*DP;
+                    elseif isfield(obj.Joints.(s),endpoint)
+                        jj=obj.Joints.(s).(endpoint);
+                        Fd=pagemtimes(jj.Force,jj.Parent.Orientation);
+                        Md=pagemtimes(jj.Moment,jj.Parent.Orientation);
+                        DP=jj.JointCenter.Coordinates;
+                    else
+                        error('endbody Attribute must be specified either as ForcePlatform, Free, or with a valid Joint');
+                    end
+
+                    for j=length(joints):-1:1
+                        joint=obj.Joints.(s).(joints(j));
+                        proxSegm=joint.Parent;
+                        JC=joint.JointCenter.Coordinates;
+                        [Fp,Mp]=DistDynCalc(joint,Fd,Md,g,DP,useID);
+                        %prepare for next iteration
+                        Fd=-Fp; % Newton third law
+                        Md=-Mp;
+                        DP=JC;
+                        %assign to joint
+                        Rprox=proxSegm.Orientation;
+                        mp=Mp;
+                        fp=Fp;
+                        for i=1:size(Rprox,3)
+                            mp(i,:)=Mp(i,:)*Rprox(:,:,i);
+                            fp(i,:)=Fp(i,:)*Rprox(:,:,i);
+                        end
+                        if u=="mm"
+                            obj.Joints.(s).(joint.Label).Moment=mp*1000;
+                            obj.Joints.(s).(joint.Label).MomentUnits="Nmm";
+                        elseif u=="m"
+                            obj.Joints.(s).(joint.Label).Moment=mp;
+                            obj.Joints.(s).(joint.Label).MomentUnits="Nm";
+                        else
+                            error("Invalid units, must  be m or mm!")
+                        end
+                        obj.Joints.(s).(joint.Label).Force=fp;
+                    end
                 catch ME
                     warning (ME.message)
                 end
             end
 
-        obj.setUnits(u);
+            obj.setUnits(u);
         end
+
         %% ARITMETICS
         function obj=mean(obj)
         % MEAN Overloads the mean function
@@ -901,7 +996,16 @@ end
         end
 
         %% FILE I/O
-        
+        function pos = findByLabel(obj, type, label)
+            arguments
+                obj Trial
+                type string {mustBeMember(type,["Points","ForcePlatform","Analogs","Events","Scalars"])}="Points";
+                label (1,1) string = "";
+            end
+
+            pos = find(strcmpi([obj.(type).Label], label));
+        end
+
         function targetfile=saveConfiguration(obj,targetfile)
         % SAVECONFIGURATION Save the configuration to an XML/JSON file
         % targetfile=SAVECONFIGURATION(obj,targetfile) saves the
@@ -1038,11 +1142,26 @@ end
                    format(1)=upper(format(1));
                    if format(1)=='U' %int8
                        format='Byte';
-                   elseif format(1)=='D'
+                   elseif isequal(format,'Double') %format(1)=='D'
                        format='Real';
-                   elseif format(1)=='C' || format(1)=='S'
+                   elseif isequal(format,'Char') %format(1)=='C' || format(1)=='S'
                        format='Char';
                        value={char(value)};
+                   elseif isequal(format,'String')
+                       format='Char';
+                       for i=1:length(value)
+                           tmp{i,1}=char(value(i));
+                       end
+                       value=tmp;
+
+                   elseif isequal(format, 'Cell')
+                       if iscellstr(value)
+                           format='Char';
+                           value=value;
+                       else
+                           warning("Metadata unsupported: %s, %s", g, l);
+                           continue
+                       end
                    end
 
                    INFO = btkMetaDataInfo(format, value);
@@ -1064,4 +1183,7 @@ end
          end
      end
  end
+
+
+
 

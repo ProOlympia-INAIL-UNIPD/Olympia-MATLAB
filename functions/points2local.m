@@ -20,7 +20,7 @@ for iF = 1:size(points,3)
 end
 
 PointsLocal(4,:, :) = [];
-PointsLocalMean = nanmean(PointsLocal, 3);
+PointsLocalMean = mean(PointsLocal, 3, "omitmissing");
 PointsLocal = permute(PointsLocal, [3,1,2]);
 
 

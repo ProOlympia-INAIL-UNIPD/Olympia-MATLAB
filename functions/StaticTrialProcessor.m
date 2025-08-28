@@ -14,28 +14,29 @@ arguments
     NameValue.CombineFP=nan;
     %kinematic
     NameValue.ClearUnlabeled='C_';
+    NameValue.InertialProperties=1;
 end
 
 if isempty(config)
-stat=Trial(file);
+    stat=Trial(file);
 elseif isstruct(config)
-stat=Trial(file);
-stat.XMLatt=NameValue.XMLatt;
-stat.applyConfiguration(config);
+    stat=Trial(file);
+    stat.XMLatt=NameValue.XMLatt;
+    stat.applyConfiguration(config);
 
 
 elseif isfile(config)
-stat=Trial(file,config);
-stat.XMLatt=NameValue.XMLatt;
+    stat=Trial(file,config);
+    stat.XMLatt=NameValue.XMLatt;
 end
 if NameValue.AverageTrial
-   stat=mean(stat);
+    stat=mean(stat);
 end
 
 stat=stat.changeCoordinates(NameValue.ChangeCoordinates);
 if isequal(NameValue.CombineFP,nan)
 else
-stat.ForcePlatform=stat.ForcePlatform.combineFP([],[],NameValue.CombineFP);
+    stat.ForcePlatform=stat.ForcePlatform.combineFP([],[],NameValue.CombineFP);
 end
 stat.Points=stat.Points.clearUnlabeled(NameValue.ClearUnlabeled);
 
@@ -43,5 +44,7 @@ stat=staticMarkerReconstruction(stat);
 stat=stat.setUnits(NameValue.TrialUnits);
 stat=stat.buildSkeleton;
 stat=stat.setSubjectAntropometry();
-stat=stat.scaleInertialProp;
+if NameValue.InertialProperties
+    stat=stat.scaleInertialProp;
+end
 end

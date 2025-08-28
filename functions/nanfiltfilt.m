@@ -12,6 +12,9 @@ elseif isempty(start) && ~isempty(stop)
 elseif ~isempty(start) && isempty(stop)
     out(start(1):end, :) = filtfilt(b, a, in(start(1):end, :));
 else
+    if length(start)<length(stop) % added on 27-Aug-2025: adjusts for NaN appearing at some instant in the signal
+        start = [1; start];
+    end
     for i = 1:length(start)
         out(start(i):stop(i), :) = filtfilt(b, a, in(start(i):stop(i), :));
     end
@@ -43,4 +46,5 @@ else
 end
 
 end
+
 %}

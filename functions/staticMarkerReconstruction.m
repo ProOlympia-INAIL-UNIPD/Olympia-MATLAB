@@ -8,41 +8,49 @@ if isempty(stat.ConfigFile)&&not(exist("configfile","var"))
 end
 
 if isfield(stat.ConfigFile.MarkerSet,"CalibratedMarkerDef")
-mkr=reshape(stat.ConfigFile.MarkerSet.CalibratedMarkerDef,1,[]);
+    mkr=reshape(stat.ConfigFile.MarkerSet.CalibratedMarkerDef,1,[]);
 else
     mkr=[];
 end
 mainpath=mfilename('fullpath');
 mainpath=fileparts(mainpath);
 wands=readstruct(fullfile(mainpath,'..', 'CalibrationObjects','XML','Wands.calobj'),"FileType","xml");
-for cm=mkr
-    m=stat.ConfigFile.MarkerSet.Marker(matches([stat.ConfigFile.MarkerSet.Marker.("label"+stat.XMLatt)],cm.("label"+stat.XMLatt)));    
-    if length(m)~=1
-       warning("Calibrated marker with label: %s is not part of the defined markerset and won't be created!",cm.("label"+stat.XMLatt));
-    else
-        if isfile(char(fullfile(p,cm.("source"+stat.XMLatt))))
+if ~isempty(fields(mkr))
+    for cm=mkr
+        m=stat.ConfigFile.MarkerSet.Marker(matches([stat.ConfigFile.MarkerSet.Marker.("label"+stat.XMLatt)],cm.("label"+stat.XMLatt)));
+        if length(m)~=1
+            warning("Calibrated marker with label: %s is not part of the defined markerset and won't be created!",cm.("label"+stat.XMLatt));
         else
-        [cm.("source"+stat.XMLatt),p]=uigetfile(fullfile(p,'*.c3d'),"Select Wand Trial for "+cm.("label"+stat.XMLatt));
-        if cm.("source"+stat.XMLatt)==0
-            p=fileparts(stat.c3dfile);
-            continue
-           
+            if isfile(char(fullfile(p,cm.("source"+stat.XMLatt))))
+            else
+                [cm.("source"+stat.XMLatt),p]=uigetfile(fullfile(p,'*.c3d'),"Select Wand Trial for "+cm.("label"+stat.XMLatt));
+                if cm.("source"+stat.XMLatt)==0
+                    p=fileparts(stat.c3dfile);
+                    continue
+
+                end
+                stat.ConfigFile.MarkerSet.CalibratedMarkerDef(matches([stat.ConfigFile.MarkerSet.CalibratedMarkerDef.("label"+stat.XMLatt)],cm.("label"+stat.XMLatt))).("source"+stat.XMLatt)=cm.("source"+stat.XMLatt);
+            end
+            w_tr=Trial(char(fullfile(p,cm.("source"+stat.XMLatt))));
+            try
+                if strcmp(cm.("wand"+stat.XMLatt), "TRIAL")
+                    wand.TailMarker = m.("label"+stat.XMLatt);
+                    wand.TipMarker = m.("label"+stat.XMLatt);
+                    wand.Tail2RealTip = 0;
+                else
+                    wand=wands.(cm.("wand"+stat.XMLatt));
+                end
+            catch
+                error('Wand object not existing!');
+            end
+            try
+
+                stat=stat.wandReconstruct(w_tr,wand,cm.("label"+stat.XMLatt));
+            catch ME
+                warning("Error occurred during reconstruction of %s",cm.("label"+stat.XMLatt)+ME.message);
+            end
+
         end
-        stat.ConfigFile.MarkerSet.CalibratedMarkerDef(matches([stat.ConfigFile.MarkerSet.CalibratedMarkerDef.("label"+stat.XMLatt)],cm.("label"+stat.XMLatt))).("source"+stat.XMLatt)=cm.("source"+stat.XMLatt);
-        end
-        w_tr=Trial(char(fullfile(p,cm.("source"+stat.XMLatt))));
-        try
-        wand=wands.(cm.("wand"+stat.XMLatt));
-        catch
-        error('Wand object not existing!');
-        end
-        try
-        
-        stat=stat.wandReconstruct(w_tr,wand,cm.("label"+stat.XMLatt));
-        catch ME
-            warning("Error occurred during reconstruction of %s",cm.("label"+stat.XMLatt)+ME.message);            
-        end
-           
     end
 end
 
