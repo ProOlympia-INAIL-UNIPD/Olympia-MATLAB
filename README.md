@@ -66,5 +66,5 @@ For questions on package usage, please contact:
 
 If you use this package, please cite it as:
 
-> Di Marco, R., Zullo, G., & Breban, S. G. (2025). *OlympiaSW* (Version 1.0.0). GitHub. https://github.com/ProOlympia-INAIL-UNIPD/Olympia-MATLAB  
+> Di Marco, R., Zullo, G., & Breban, S. G. (2025). *OlympiaSW* (Version 1.1.0). GitHub. https://github.com/ProOlympia-INAIL-UNIPD/Olympia-MATLAB  
 > DOI: 10.5281/zenodo.15537123
