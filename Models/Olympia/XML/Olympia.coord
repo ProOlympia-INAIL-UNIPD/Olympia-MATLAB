@@ -613,7 +613,7 @@
         </Segment>
         
         <!-- transtibial -->
-        <Segment label="LeftThigh" group="Left" points="LGT,LHJC,LFLE,LFME,LT1,LT2,LT3,LT4,LKJC" opt="3" angleseq="xyz" endpoints="LHJC,LKJC" inertialalias="Thigh" comlabel="LTHCOM">
+        <!-- Segment label="LeftThigh" group="Left" points="LGT,LHJC,LFLE,LFME,LT1,LT2,LT3,LT4,LKJC" opt="3" angleseq="xyz" endpoints="LHJC,LKJC" inertialalias="Thigh" comlabel="LTHCOM">
             <CoordSys>
                 <tag>LTH</tag>
                 <origin>LFLE</origin>
@@ -652,7 +652,7 @@
                 </temp_axis>
                 <seq>yxz</seq>
             </CoordSys>    
-        </Segment>        
+        </Segment -->        
         <Segment label="LeftSocket" group="Left" points="LFAP,LFAD,LLAP,LLAD,LMAP,LMAD" opt="3" angleseq="xyz" endpoints="LHJC" inertialalias="" comlabel="LSKCOM">
             <CoordSys>
                 <tag>LSK</tag>
@@ -757,7 +757,7 @@
                 <seq>xzy</seq>
             </CoordSys>    
         </Segment>
-        <Segment label="LeftFootProx" group="Left" points="LFPA,LFPP,LFP1,LFP2,LFP3,LCLL,LCLA,LCLM,LCLP" opt="3" angleseq="xyz" endpoints="" inertialalias="" comlabel="LFPCOM">
+        <Segment label="LeftFootProx" group="Left" points="LFPP,LFP1,LFP2,LFP3,LCLPL,LCLPM,LCLDL,LCLDM" opt="3" angleseq="xyz" endpoints="" inertialalias="" comlabel="LFPCOM">
             <CoordSys>
                 <tag>LFP</tag>
                 <origin>LFP1</origin>
@@ -777,7 +777,7 @@
                 <seq>xzy</seq>
             </CoordSys>    
         </Segment>
-        <Segment label="RightFootProx" group="Right" points="RFPA,RFPP,RFP1,RFP2,RFP3,RCLL,RCLA,RCLM,RCLP" opt="3" angleseq="xyz" endpoints="" inertialalias="" comlabel="RFPCOM">
+        <Segment label="RightFootProx" group="Right" points="RFPP,RFP1,RFP2,RFP3,RCLPL,RCLPM,RCLDL,RCLDM" opt="3" angleseq="xyz" endpoints="" inertialalias="" comlabel="RFPCOM">
             <CoordSys>
                 <tag>RFP</tag>
                 <origin>RFP1</origin>
@@ -797,7 +797,7 @@
                 <seq>xzy</seq>
             </CoordSys>    
         </Segment>
-        <Segment label="LeftFootDist" group="Left" points="LFDA,LFDM,LFDL" opt="2" angleseq="xyz" endpoints="" comlabel="LFDCOM">
+        <Segment label="LeftFootDist" group="Left" points="LFDA,LFDM,LFDL" opt="3" angleseq="xyz" endpoints="" comlabel="LFDCOM">
             <CoordSys>
                 <tag>LFD</tag>
                 <origin>LFDM</origin>
@@ -817,7 +817,7 @@
                 <seq>xyz</seq>
             </CoordSys>    
         </Segment>
-        <Segment label="RightFootDist" group="Right" points="RFDA,RFDM,RFDL" opt="2" angleseq="xyz" endpoints="" comlabel="RFDCOM">
+        <Segment label="RightFootDist" group="Right" points="RFDA,RFDM,RFDL" opt="3" angleseq="xyz" endpoints="" comlabel="RFDCOM">
             <CoordSys>
                 <tag>RFD</tag>
                 <origin>RFDM</origin>
