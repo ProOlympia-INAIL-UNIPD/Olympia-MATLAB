@@ -1,8 +1,9 @@
 function out = nanfiltfilt(b, a, in)
 toomit = isnan(in(:, 1));
+toomit =[true; toomit; true]; %to add missing tip and tail %edit 17-10-2025 true instead of false
 temp = diff(toomit);
-start = find(temp == -1)+1;
-stop = find(temp == 1);
+start = find(temp == -1)+1-1; %-1 to adjust toomit
+stop = find(temp == 1)-1;
 
 out = nan(size(in));
 if isempty(start) && isempty(stop)

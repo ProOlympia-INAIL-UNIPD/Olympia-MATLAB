@@ -14,7 +14,7 @@ else
 end
 mainpath=mfilename('fullpath');
 mainpath=fileparts(mainpath);
-wands=readstruct(fullfile(mainpath,'..', 'CalibrationObjects','XML','Wands.calobj'),"FileType","xml");
+wands=readstruct(fullfile(mainpath,'..', 'CalibrationObjects', 'Wands.calobj'),"FileType","xml");
 if ~isempty(fields(mkr))
     for cm=mkr
         m=stat.ConfigFile.MarkerSet.Marker(matches([stat.ConfigFile.MarkerSet.Marker.("label"+stat.XMLatt)],cm.("label"+stat.XMLatt)));
@@ -60,7 +60,7 @@ expectedpoints=[stat.ConfigFile.MarkerSet.Marker.("label"+stat.XMLatt)];
 existingpoints=[stat.Points.Label];
 missingpoints=expectedpoints(~matches(expectedpoints,existingpoints));
 while ~isempty(missingpoints)
-    answer=questdlg(["The following points defined in the MarkerSet are missing from the current trial, what do you want to?"; missingpoints'],"Points Missing","Solidify from Trial","Remove","Ignore","Ignore");
+    answer=questdlg(["The following points defined in the MarkerSet are missing from the current trial, what do you want to do?"; missingpoints'],"Points Missing","Solidify from Trial","Remove","Ignore","Ignore");
     if isempty(answer)
        break
     end

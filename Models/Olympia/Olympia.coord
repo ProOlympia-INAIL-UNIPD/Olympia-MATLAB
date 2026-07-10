@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CoordinateSystems>
     <General>
-        <Segment label="Head" group="General" points="H1,H2,H3,H4,GB,LAM,RAM,CH" opt="0" angleseq="xyz" endpoints="LAM,RAM" inertialalias="Head" comlabel="HDCOM">
+        <Segment label="Head" group="General" points="H1,H2,H3,H4,GB,LAM,RAM,CH" opt="0" endpoints="LAM,RAM" inertialalias="Head" comlabel="HDCOM" angleseq="xyz" sign="1, -1, -1" alias="right bending, right rotation, anterior leaning">
             <CoordSys>
                 <tag>HD</tag>
                 <origin>LAM</origin>
@@ -21,7 +21,7 @@
                 <seq>yzx</seq>
             </CoordSys>    
         </Segment>
-        <Segment label="Trunk" group="General" points="IJ,PX,T8,C7" opt="0" angleseq="xyz" endpoints="IJ,MIDH" inertialalias="Trunk" comlabel="TKCOM">
+        <Segment label="Trunk" group="General" points="IJ,PX,T8,C7" opt="0" endpoints="IJ,MIDH" inertialalias="Trunk" comlabel="TKCOM" angleseq="xyz" sign="1, -1, -1" alias="right bending, right rotation, anterior leaning">
             <CoordSys>
                 <tag>TK</tag>
                 <origin>IJ</origin>
@@ -42,7 +42,7 @@
                 <seq>yzx</seq>
             </CoordSys>    
         </Segment>
-        <Segment label="Pelvis" group="General" points="LASIS,RASIS,LPSIS,RPSIS,LHJC,RHJC,MIDH" opt="0" angleseq="xyz" endpoints="" inertialalias="Pelvis" comlabel="PLCOM">
+        <Segment label="Pelvis" group="General" points="LASIS,RASIS,LPSIS,RPSIS,LHJC,RHJC,MIDH" opt="0" endpoints="" inertialalias="Pelvis" comlabel="PLCOM" angleseq="xyz" sign="1, -1, -1" alias="right bending, right rotation, anterior leaning">
             <CoordSys>
                 <tag>PL</tag>
                 <origin>LASIS</origin>
@@ -66,7 +66,7 @@
     </General>
 
     <Unaffected_upper>
-        <Segment label="LeftArm" group="Left" points="LAC,LHLE,LMSS,LSJC" opt="0" angleseq="xyz" endpoints="LSJC,LHLE" inertialalias="Arm" comlabel="LARCOM">
+        <Segment label="LeftArm" group="Left" points="LAC,LHLE,LMSS,LSJC" opt="0" endpoints="LSJC,LHLE" inertialalias="Arm" comlabel="LARCOM" angleseq="xyz" sign="1, 1, 1" alias="roll, yaw, pitch">
             <CoordSys>
                 <tag>LAR</tag>
                 <origin>LHLE</origin>
@@ -85,7 +85,7 @@
                 <seq>yzx</seq>
             </CoordSys>    
         </Segment>
-        <Segment label="RightArm" group="Right" points="RAC,RHLE,RMSS,RSJC" opt="0" angleseq="xyz" endpoints="RSJC,RHLE" inertialalias="Arm" comlabel="RARCOM">
+        <Segment label="RightArm" group="Right" points="RAC,RHLE,RMSS,RSJC" opt="0" endpoints="RSJC,RHLE" inertialalias="Arm" comlabel="RARCOM" angleseq="xyz" sign="1, 1, 1" alias="roll, yaw, pitch">
             <CoordSys>
                 <tag>RAR</tag>
                 <origin>RHLE</origin>
@@ -104,7 +104,7 @@
                 <seq>yzx</seq>
             </CoordSys>    
         </Segment>
-        <Segment label="LeftForearm" group="Left" points="LAC,LHLE,LMSS,LSJC" opt="0" angleseq="xyz" endpoints="LSJC,LHLE" inertialalias="Forearm" comlabel="LFACOM">
+        <Segment label="LeftForearm" group="Left" points="LAC,LHLE,LMSS,LSJC" opt="0" endpoints="LSJC,LHLE" inertialalias="Forearm" comlabel="LFACOM" angleseq="xyz" sign="1, 1, 1" alias="roll, yaw, pitch">
             <CoordSys>
                 <tag>LFA</tag>
                 <origin>LHLE</origin>
@@ -123,7 +123,7 @@
                 <seq>yzx</seq>
             </CoordSys>    
         </Segment>
-        <Segment label="RightForearm" group="Right" points="RAC,RHLE,RMSS,RSJC" opt="0" angleseq="xyz" endpoints="RSJC,RHLE" inertialalias="Forearm" comlabel="RFACOM">
+        <Segment label="RightForearm" group="Right" points="RAC,RHLE,RMSS,RSJC" opt="0" endpoints="RSJC,RHLE" inertialalias="Forearm" comlabel="RFACOM" angleseq="xyz" sign="1, 1, 1" alias="roll, yaw, pitch">
             <CoordSys>
                 <tag>RFA</tag>
                 <origin>RHLE</origin>
@@ -145,7 +145,7 @@
     </Unaffected_upper>
 
     <Unaffected_lower>
-        <Segment label="LeftThigh" group="Left" points="LGT,LHJC,LFLE,LFME,LT1,LT2,LT3,LT4,LKJC" opt="0" angleseq="xyz" endpoints="LHJC,LKJC" inertialalias="Thigh" comlabel="LTHCOM">
+        <Segment label="LeftThigh" group="Left" points="LGT,LHJC,LFLE,LFME,LT1,LT2,LT3,LT4,LKJC" opt="0" endpoints="LHJC,LKJC" inertialalias="Thigh" comlabel="LTHCOM" angleseq="xyz" sign="1, -1, -1" alias="outward inclination, right rotation, anterior leaning">
             <CoordSys>
                 <tag>LTH</tag>
                 <origin>LFLE</origin>
@@ -165,7 +165,7 @@
                 <seq>yxz</seq>
             </CoordSys>    
         </Segment>
-        <Segment label="RightThigh" group="Right" points="RGT,RHJC,RFLE,RFME,RT1,RT2,RT3,RT4,RKJC" opt="0" angleseq="xyz" endpoints="RHJC,RKJC" inertialalias="Thigh" comlabel="RTHCOM">
+        <Segment label="RightThigh" group="Right" points="RGT,RHJC,RFLE,RFME,RT1,RT2,RT3,RT4,RKJC" opt="0" endpoints="RHJC,RKJC" inertialalias="Thigh" comlabel="RTHCOM" angleseq="xyz" sign="-1, -1, -1" alias="outward inclination, right rotation, anterior leaning">
             <CoordSys>
                 <tag>RTH</tag>
                 <origin>RFLE</origin>
@@ -185,7 +185,7 @@
                 <seq>yxz</seq>
             </CoordSys>    
         </Segment>
-        <Segment label="LeftShank" group="Left" points="LTT,LHF,LLM,LMM,LSH1,LAJC" opt="0" angleseq="xyz" endpoints="LKJC,LAJC" inertialalias="Shank" comlabel="LSHCOM">
+        <Segment label="LeftShank" group="Left" points="LTT,LHF,LLM,LMM,LSH1,LAJC" opt="0" endpoints="LKJC,LAJC" inertialalias="Shank" comlabel="LSHCOM" angleseq="xyz" sign="1, -1, -1" alias="outward inclination, right rotation, anterior leaning">
             <CoordSys>
                 <tag>LSH</tag>
                 <origin>LLM</origin>
@@ -209,7 +209,7 @@
                 <seq>xzy</seq>
             </CoordSys>    
         </Segment>
-        <Segment label="RightShank" group="Right" points="RTT,RHF,RLM,RMM,RSH1,RAJC" opt="0" angleseq="xyz" endpoints="RKJC,RAJC" inertialalias="Shank" comlabel="RSHCOM">
+        <Segment label="RightShank" group="Right" points="RTT,RHF,RLM,RMM,RSH1,RAJC" opt="0" endpoints="RKJC,RAJC" inertialalias="Shank" comlabel="RSHCOM" angleseq="xyz" sign="-1, -1, -1" alias="outward inclination, right rotation, anterior leaning">
             <CoordSys>
                 <tag>RSH</tag>
                 <origin>RLM</origin>
@@ -233,7 +233,7 @@
                 <seq>xzy</seq>
             </CoordSys>    
         </Segment>
-        <Segment label="LeftFoot" group="Left" points="LCA,LIMH,LIIMH,LVMH,LF1" opt="0" angleseq="xyz" endpoints="LCA,LIIMH" inertialalias="Foot" comlabel="LFTCOM">
+        <Segment label="LeftFoot" group="Left" points="LCA,LIMH,LIIMH,LVMH,LF1" opt="0" endpoints="LCA,LIIMH" inertialalias="Foot" comlabel="LFTCOM" angleseq="xyz" sign="1, 1, 1" alias="roll, yaw, pitch">
             <CoordSys>
                 <tag>LFT</tag>
                 <origin>LCA</origin>
@@ -256,7 +256,7 @@
                 <seq>yzx</seq>
             </CoordSys>    
         </Segment>
-        <Segment label="RightFoot" group="Right" points="RCA,RIMH,RIIMH,RVMH,RF1" opt="0" angleseq="xyz" endpoints="RCA,RIIMH" inertialalias="Foot" comlabel="RFTCOM">
+        <Segment label="RightFoot" group="Right" points="RCA,RIMH,RIIMH,RVMH,RF1" opt="0" endpoints="RCA,RIIMH" inertialalias="Foot" comlabel="RFTCOM" angleseq="xyz" sign="1, 1, 1" alias="roll, yaw, pitch">
             <CoordSys>
                 <tag>RFT</tag>
                 <origin>RCA</origin>
@@ -283,7 +283,7 @@
 
     <Affected_lower>
         <!-- transfemoral -->
-        <Segment label="LeftSocket" group="Left" points="LGT,LFAP,LFAD,LLAP,LLAD,LMAP,LMAD,LKL,LKM,LWAM,LWAL,LWPM,LWPL,LHJC" opt="2" angleseq="xyz" endpoints="LHJC" inertialalias="" comlabel="LSKCOM">
+        <Segment label="LeftSocket" group="Left" points="LGT,LFAP,LFAD,LLAP,LLAD,LMAP,LMAD,LKL,LKM,LWAM,LWAL,LWPM,LWPL,LHJC" opt="2" endpoints="LHJC" inertialalias="" comlabel="LSKCOM" angleseq="xyz" sign="1, -1, -1" alias="outward inclination, right rotation, anterior leaning">
             <CoordSys>
                 <tag>LSK</tag>
                 <origin>LLAD</origin>
@@ -307,7 +307,7 @@
                 <seq>xzy</seq>
             </CoordSys>    
         </Segment>
-        <Segment label="RightSocket" group="Right" points="RGT,RFAP,RFAD,RLAP,RLAD,RMAP,RMAD,RKL,RKM,RWAM,RWAL,RWPM,RWPL,RHJC" opt="2" angleseq="xyz" endpoints="RHJC" inertialalias="" comlabel="RSKCOM">
+        <Segment label="RightSocket" group="Right" points="RGT,RFAP,RFAD,RLAP,RLAD,RMAP,RMAD,RKL,RKM,RWAM,RWAL,RWPM,RWPL,RHJC" opt="2" endpoints="RHJC" inertialalias="" comlabel="RSKCOM" angleseq="xyz" sign="-1, -1, -1" alias="outward inclination, right rotation, anterior leaning">
             <CoordSys>
                 <tag>RSK</tag>
                 <origin>RLAD</origin>
@@ -331,7 +331,7 @@
                 <seq>xzy</seq>
             </CoordSys>    
         </Segment>
-        <Segment label="LeftSocketClamp" group="Left" points="LWAM,LWAL,LWPM,LWPL" opt="2" angleseq="xyz">
+        <Segment label="LeftSocketClamp" group="Left" points="LWAM,LWAL,LWPM,LWPL" opt="2" angleseq="xyz" sign="1, 1, 1" alias="roll, yaw, pitch">
                 <CoordSys>
                     <tag>LSC</tag>
                     <origin>LWAM</origin>
@@ -357,7 +357,7 @@
                     <seq>yxz</seq>
             </CoordSys>    
         </Segment>
-        <Segment label="RightSocketClamp" group="Right" points="RWAM,RWAL,RWPM,RWPL" opt="2" angleseq="xyz">
+        <Segment label="RightSocketClamp" group="Right" points="RWAM,RWAL,RWPM,RWPL" opt="2" angleseq="xyz" sign="1, 1, 1" alias="roll, yaw, pitch">
             <CoordSys>
                 <tag>RSC</tag>
                 <origin>RWAM</origin>
@@ -383,7 +383,7 @@
                 <seq>yxz</seq>
             </CoordSys>    
         </Segment>
-        <Segment label="LeftFootClamp" group="Left" points="LCLL,LCLA,LCLM,LCLP,LFP1,LFP2,LFP3" opt="2" angleseq="xyz" endpoints="" comlabel="LFCCOM">
+        <Segment label="LeftFootClamp" group="Left" points="LCLL,LCLA,LCLM,LCLP,LFP1,LFP2,LFP3" opt="2" endpoints="" comlabel="LFCCOM" angleseq="xyz" sign="1, -1, -1" alias="outward inclination, right rotation, anterior leaning">
             <CoordSys>
                 <tag>LFC</tag>
                 <origin>LCLL</origin>
@@ -409,7 +409,7 @@
                 <seq>yxz</seq>
             </CoordSys>    
         </Segment>
-        <Segment label="RightFootClamp" group="Right" points="RCLL,RCLA,RCLM,RCLP,RFP1,RFP2,RFP3" opt="2" angleseq="xyz" endpoints="" comlabel="RFCCOM">
+        <Segment label="RightFootClamp" group="Right" points="RCLL,RCLA,RCLM,RCLP,RFP1,RFP2,RFP3" opt="2" endpoints="" comlabel="RFCCOM" angleseq="xyz" sign="-1, 1, -1" alias="outward inclination, right rotation, anterior leaning">
             <CoordSys>
                 <tag>RFC</tag>
                 <origin>RCLL</origin>
@@ -435,7 +435,7 @@
                 <seq>yxz</seq>
             </CoordSys>    
         </Segment>
-        <Segment label="LeftFootProx" group="Left" points="LFPA,LFPP,LFP1,LFP2,LFP3,LCLL,LCLA,LCLM,LCLP" opt="2" angleseq="xyz" endpoints="" comlabel="LFPCOM">
+        <Segment label="LeftFootProx" group="Left" points="LFPA,LFPP,LFP1,LFP2,LFP3,LCLL,LCLA,LCLM,LCLP" opt="2" endpoints="" comlabel="LFPCOM" angleseq="xyz" sign="1, 1, 1" alias="roll, yaw, pitch">
             <CoordSys>
                 <tag>LFP</tag>
                 <origin>LFP1</origin>
@@ -455,7 +455,7 @@
                 <seq>xzy</seq>
             </CoordSys>    
         </Segment>
-        <Segment label="RightFootProx" group="Right" points="RFPA,RFPP,RFP1,RFP2,RFP3,RCLL,RCLA,RCLM,RCLP" opt="2" angleseq="xyz" endpoints="" comlabel="RFPCOM">
+        <Segment label="RightFootProx" group="Right" points="RFPA,RFPP,RFP1,RFP2,RFP3,RCLL,RCLA,RCLM,RCLP" opt="2" endpoints="" comlabel="RFPCOM" angleseq="xyz" sign="1, 1, 1" alias="roll, yaw, pitch">
             <CoordSys>
                 <tag>RFP</tag>
                 <origin>RFP1</origin>
@@ -475,7 +475,7 @@
                 <seq>xzy</seq>
             </CoordSys>    
         </Segment>
-        <Segment label="LeftFootDist" group="Left" points="LFDA,LFDM,LFDL" opt="2" angleseq="xyz" endpoints="" comlabel="LFDCOM">
+        <Segment label="LeftFootDist" group="Left" points="LFDA,LFDM,LFDL" opt="2" endpoints="" comlabel="LFDCOM" angleseq="xyz" sign="1, 1, 1" alias="roll, yaw, pitch">
             <CoordSys>
                 <tag>LFD</tag>
                 <origin>LFDM</origin>
@@ -488,14 +488,14 @@
                 </axis1>
                 <temp_axis>
                     <axis>
-                        <tail>LFDL</tail> <!-- old LFD2 -->
-                        <tip>LFDM</tip> <!-- old LFD3 -->
+                        <tail>LFDM</tail> <!-- old LFD2 -->
+                        <tip>LFDL</tip> <!-- old LFD3 -->
                     </axis>
                 </temp_axis>
                 <seq>xyz</seq>
             </CoordSys>    
         </Segment>
-        <Segment label="RightFootDist" group="Right" points="RFDA,RFDM,RFDL" opt="2" angleseq="xyz" endpoints="" comlabel="RFDCOM">
+        <Segment label="RightFootDist" group="Right" points="RFDA,RFDM,RFDL" opt="2" endpoints="" comlabel="RFDCOM" angleseq="xyz" sign="1, 1, 1" alias="roll, yaw, pitch">
             <CoordSys>
                 <tag>RFD</tag>
                 <origin>RFDM</origin>
@@ -508,14 +508,14 @@
                 </axis1>
                 <temp_axis>
                     <axis>
-                        <tail>RFDM</tail> <!-- old RFD3 -->
-                        <tip>RFDL</tip> <!-- old RFD2 -->
+                        <tail>RFDL</tail> <!-- old RFD3 -->
+                        <tip>RFDM</tip> <!-- old RFD2 -->
                     </axis>
                 </temp_axis>
                 <seq>xyz</seq>
             </CoordSys>    
         </Segment>
-        <Segment label="LeftKneeProx" group="Left" points="LKL,LKM,LWPM,LWAM,LWAL" opt="2" angleseq="xyz" endpoints="" comlabel="LKPCOM">
+        <Segment label="LeftKneeProx" group="Left" points="LKL,LKM,LWPM,LWAM,LWAL" opt="2" endpoints="" comlabel="LKPCOM" angleseq="xyz" sign="1, 1, 1" alias="roll, yaw, pitch">
             <CoordSys>
                 <tag>LKP</tag>
                 <origin>LKL</origin>
@@ -539,7 +539,7 @@
                 <seq>zxy</seq>
             </CoordSys>    
         </Segment>
-        <Segment label="RightKneeProx" group="Right" points="RKL,RKM,RWPM,RWAM,RWAL" opt="2" angleseq="xyz" endpoints="" comlabel="RKPCOM">
+        <Segment label="RightKneeProx" group="Right" points="RKL,RKM,RWPM,RWAM,RWAL" opt="2" endpoints="" comlabel="RKPCOM" angleseq="xyz" sign="1, 1, 1" alias="roll, yaw, pitch">
             <CoordSys>
                 <tag>RKP</tag>
                 <origin>RKL</origin>
@@ -563,7 +563,7 @@
                 <seq>zxy</seq>
             </CoordSys>    
         </Segment>
-        <Segment label="LeftKneeDist" group="Left" points="LKL,LKM,LCLL,LCLM,LCLP,LCLA" opt="2" angleseq="xyz" endpoints="" comlabel="LKDCOM">
+        <Segment label="LeftKneeDist" group="Left" points="LKL,LKM,LCLL,LCLM,LCLP,LCLA" opt="2" endpoints="" comlabel="LKDCOM" angleseq="xyz" sign="1, 1, 1" alias="roll, yaw, pitch">
             <CoordSys>
                 <tag>LKD</tag>
                 <origin>LKM</origin>
@@ -587,7 +587,7 @@
                 <seq>zxy</seq>
             </CoordSys>    
         </Segment>
-        <Segment label="RightKneeDist" group="Right" points="RKL,RKM,RCLL,RCLM,RCLP,RCLA" opt="2" angleseq="xyz" endpoints="" comlabel="RKDCOM">
+        <Segment label="RightKneeDist" group="Right" points="RKL,RKM,RCLL,RCLM,RCLP,RCLA" opt="2" endpoints="" comlabel="RKDCOM" angleseq="xyz" sign="1, 1, 1" alias="roll, yaw, pitch">
             <CoordSys>
                 <tag>RKD</tag>
                 <origin>RKL</origin>
@@ -613,7 +613,7 @@
         </Segment>
         
         <!-- transtibial -->
-        <!-- Segment label="LeftThigh" group="Left" points="LGT,LHJC,LFLE,LFME,LT1,LT2,LT3,LT4,LKJC" opt="3" angleseq="xyz" endpoints="LHJC,LKJC" inertialalias="Thigh" comlabel="LTHCOM">
+        <Segment label="LeftThigh" group="Left" points="LGT,LHJC,LFLE,LFME,LT1,LT2,LT3,LT4,LKJC" opt="3" endpoints="LHJC,LKJC" inertialalias="Thigh" comlabel="LTHCOM" angleseq="xyz" sign="1, -1, -1" alias="outward inclination, right rotation, anterior leaning">
             <CoordSys>
                 <tag>LTH</tag>
                 <origin>LFLE</origin>
@@ -633,7 +633,7 @@
                 <seq>yxz</seq>
             </CoordSys>    
         </Segment>
-        <Segment label="RightThigh" group="Right" points="RGT,RHJC,RFLE,RFME,RT1,RT2,RT3,RT4,RKJC" opt="3" angleseq="xyz" endpoints="RHJC,RKJC" inertialalias="Thigh" comlabel="RTHCOM">
+        <Segment label="RightThigh" group="Right" points="RGT,RHJC,RFLE,RFME,RT1,RT2,RT3,RT4,RKJC" opt="3" endpoints="RHJC,RKJC" inertialalias="Thigh" comlabel="RTHCOM" angleseq="xyz" sign="-1, -1, -1" alias="outward inclination, right rotation, anterior leaning">
             <CoordSys>
                 <tag>RTH</tag>
                 <origin>RFLE</origin>
@@ -652,12 +652,14 @@
                 </temp_axis>
                 <seq>yxz</seq>
             </CoordSys>    
-        </Segment -->        
-        <Segment label="LeftSocket" group="Left" points="LFAP,LFAD,LLAP,LLAD,LMAP,LMAD" opt="3" angleseq="xyz" endpoints="LHJC" inertialalias="" comlabel="LSKCOM">
+        </Segment>        
+        <Segment label="LeftSocket" group="Left" points="LFAP,LFAD,LLAP,LLAD,LMAP,LMAD,LSKA" opt="3" endpoints="LHJC" inertialalias="" comlabel="LSKCOM" angleseq="xyz" sign="1, -1, -1" alias="outward inclination, right rotation, anterior leaning">
+        <!-- Segment label="LeftSocket" group="Left" points="LFAP,LFAD,LLAP,LLAD,LMAP,LMAD" opt="3" endpoints="LHJC" inertialalias="" comlabel="LSKCOM" angleseq="xyz" sign="1, -1, -1" alias="outward inclination, right rotation, anterior leaning"-->
             <CoordSys>
                 <tag>LSK</tag>
-                <origin>LLAD</origin>
-                <origin>LMAD</origin>
+                <!--origin>LLAD</origin>
+                <origin>LMAD</origin-->
+                <origin>LSKA</origin>
                 <axis1>
                     <axis>
                         <tail>LLAD</tail>
@@ -677,11 +679,13 @@
                 <seq>xzy</seq>
             </CoordSys>    
         </Segment>
-        <Segment label="RightSocket" group="Right" points="RFAP,RFAD,RLAP,RLAD,RMAP,RMAD" opt="3" angleseq="xyz" endpoints="RHJC" inertialalias="" comlabel="RSKCOM">
+        <Segment label="RightSocket" group="Right" points="RFAP,RFAD,RLAP,RLAD,RMAP,RMAD,RSKA" opt="3" endpoints="RHJC" inertialalias="" comlabel="RSKCOM" angleseq="xyz" sign="-1, -1, -1" alias="outward inclination, right rotation, anterior leaning">
+        <!-- Segment label="RightSocket" group="Right" points="RFAP,RFAD,RLAP,RLAD,RMAP,RMAD" opt="3" endpoints="RHJC" inertialalias="" comlabel="RSKCOM" angleseq="xyz" sign="-1, -1, -1" alias="outward inclination, right rotation, anterior leaning" -->
             <CoordSys>
                 <tag>RSK</tag>
-                <origin>RLAD</origin>
-                <origin>RMAD</origin>
+                <!-- origin>RLAD</origin>
+                <origin>RMAD</origin -->
+                <origin>RSKA</origin>
                 <axis1>
                     <axis>
                         <tail>RLAD</tail>
@@ -701,7 +705,7 @@
                 <seq>xzy</seq>
             </CoordSys>    
         </Segment>
-        <Segment label="LeftFootClamp" group="Left" points="LCLPM,LCLPL,LCLDM,LCLDL,LFP1,LFP2,LFP3,LWD,LWL" opt="3" angleseq="xyz" endpoints="" inertialalias="" comlabel="LFCCOM">
+        <Segment label="LeftFootClamp" group="Left" points="LCLPM,LCLPL,LCLDM,LCLDL,LFP1,LFP2,LFP3,LWD,LWL" opt="3" endpoints="" inertialalias="" comlabel="LFCCOM" angleseq="xyz" sign="1, -1, -1" alias="outward inclination, right rotation, anterior leaning">
             <CoordSys>
                 <tag>LFC</tag>
                 <origin>LCLPM</origin>
@@ -729,7 +733,7 @@
                 <seq>xzy</seq>
             </CoordSys>    
         </Segment>
-        <Segment label="RightFootClamp" group="Right" points="RCLPM,RCLPL,RCLDM,RCLDL,RFP1,RFP2,RFP3,RWD,RWL" opt="3" angleseq="xyz" endpoints="" inertialalias="" comlabel="RFCCOM">
+        <Segment label="RightFootClamp" group="Right" points="RCLPM,RCLPL,RCLDM,RCLDL,RFP1,RFP2,RFP3,RWD,RWL" opt="3" endpoints="" inertialalias="" comlabel="RFCCOM" angleseq="xyz" sign="-1, -1, -1" alias="outward inclination, right rotation, anterior leaning">
             <CoordSys>
                 <tag>RFC</tag>
                 <origin>RCLPM</origin>
@@ -757,7 +761,7 @@
                 <seq>xzy</seq>
             </CoordSys>    
         </Segment>
-        <Segment label="LeftFootProx" group="Left" points="LFPP,LFP1,LFP2,LFP3,LCLPL,LCLPM,LCLDL,LCLDM" opt="3" angleseq="xyz" endpoints="" inertialalias="" comlabel="LFPCOM">
+        <Segment label="LeftFootProx" group="Left" points="LFPP,LFP1,LFP2,LFP3,LCLPL,LCLPM,LCLDL,LCLDM" opt="3" endpoints="" inertialalias="" comlabel="LFPCOM" angleseq="xyz" sign="1, 1, 1" alias="roll, yaw, pitch">
             <CoordSys>
                 <tag>LFP</tag>
                 <origin>LFP1</origin>
@@ -777,7 +781,7 @@
                 <seq>xzy</seq>
             </CoordSys>    
         </Segment>
-        <Segment label="RightFootProx" group="Right" points="RFPP,RFP1,RFP2,RFP3,RCLPL,RCLPM,RCLDL,RCLDM" opt="3" angleseq="xyz" endpoints="" inertialalias="" comlabel="RFPCOM">
+        <Segment label="RightFootProx" group="Right" points="RFPP,RFP1,RFP2,RFP3,RCLPL,RCLPM,RCLDL,RCLDM" opt="3" endpoints="" inertialalias="" comlabel="RFPCOM" angleseq="xyz" sign="1, 1, 1" alias="roll, yaw, pitch">
             <CoordSys>
                 <tag>RFP</tag>
                 <origin>RFP1</origin>
@@ -797,7 +801,7 @@
                 <seq>xzy</seq>
             </CoordSys>    
         </Segment>
-        <Segment label="LeftFootDist" group="Left" points="LFDA,LFDM,LFDL" opt="3" angleseq="xyz" endpoints="" comlabel="LFDCOM">
+        <Segment label="LeftFootDist" group="Left" points="LFDA,LFDM,LFDL" opt="3" endpoints="" comlabel="LFDCOM" angleseq="xyz" sign="1, 1, 1" alias="roll, yaw, pitch">
             <CoordSys>
                 <tag>LFD</tag>
                 <origin>LFDM</origin>
@@ -810,14 +814,14 @@
                 </axis1>
                 <temp_axis>
                     <axis>
-                        <tail>LFDL</tail> <!-- old LFD2 -->
-                        <tip>LFDM</tip> <!-- old LFD3 -->
+                        <tail>LFDM</tail> <!-- old LFD2 -->
+                        <tip>LFDL</tip> <!-- old LFD3 -->
                     </axis>
                 </temp_axis>
                 <seq>xyz</seq>
             </CoordSys>    
         </Segment>
-        <Segment label="RightFootDist" group="Right" points="RFDA,RFDM,RFDL" opt="3" angleseq="xyz" endpoints="" comlabel="RFDCOM">
+        <Segment label="RightFootDist" group="Right" points="RFDA,RFDM,RFDL" opt="3" endpoints="" comlabel="RFDCOM" angleseq="xyz" sign="1, 1, 1" alias="roll, yaw, pitch">
             <CoordSys>
                 <tag>RFD</tag>
                 <origin>RFDM</origin>
@@ -830,8 +834,8 @@
                 </axis1>
                 <temp_axis>
                     <axis>
-                        <tail>RFDM</tail> <!-- old RFD3 -->
-                        <tip>RFDL</tip> <!-- old RFD2 -->
+                        <tail>RFDL</tail> <!-- old RFD3 -->
+                        <tip>RFDM</tip> <!-- old RFD2 -->
                     </axis>
                 </temp_axis>
                 <seq>xyz</seq>
@@ -840,7 +844,7 @@
     </Affected_lower>
 
     <Auxiliary>
-        <Segment label="LeftHJC_Knee" group="Auxiliary" points="LHJC,LKL,LKM" opt="0" angleseq="xyz" endpoints="" inertialalias="" comlabel="">
+        <Segment label="LeftHJC_Knee" group="Auxiliary" points="LHJC,LKL,LKM" opt="0" endpoints="" inertialalias="" comlabel="" angleseq="xyz" sign="1, -1, -1" alias="outward inclination, right rotation, anterior leaning">
             <CoordSys>
                 <tag>LHK</tag>
                 <origin>LKL</origin>
@@ -860,7 +864,7 @@
                 <seq>yxz</seq>
             </CoordSys>    
         </Segment>
-        <Segment label="RightHJC_Knee" group="Auxiliary" points="RHJC,RKL,RKM" opt="0" angleseq="xyz" endpoints="" inertialalias="" comlabel="">
+        <Segment label="RightHJC_Knee" group="Auxiliary" points="RHJC,RKL,RKM" opt="0" endpoints="" inertialalias="" comlabel=""  angleseq="xyz" sign="-1, -1, -1" alias="outward inclination, right rotation, anterior leaning">
             <CoordSys>
                 <tag>RHK</tag>
                 <origin>RKL</origin>
@@ -880,7 +884,7 @@
                 <seq>yxz</seq>
             </CoordSys>    
         </Segment>
-        <Segment label="LeftGT_Knee" group="Auxiliary" points="LGT,LKL,LKM" opt="0" angleseq="xyz" endpoints="" inertialalias="" comlabel="">
+        <Segment label="LeftGT_Knee" group="Auxiliary" points="LGT,LKL,LKM" opt="0" endpoints="" inertialalias="" comlabel="" angleseq="xyz" sign="1, -1, -1" alias="outward inclination, right rotation, anterior leaning">
             <CoordSys>
                 <tag>LGK</tag>
                 <origin>LKL</origin>
@@ -899,7 +903,7 @@
                 <seq>yxz</seq>
             </CoordSys>    
         </Segment>
-        <Segment label="RightGT_Knee" group="Auxiliary" points="RGT,RKL,RKM" opt="0" angleseq="xyz" endpoints="" inertialalias="" comlabel="">
+        <Segment label="RightGT_Knee" group="Auxiliary" points="RGT,RKL,RKM" opt="0" endpoints="" inertialalias="" comlabel="" angleseq="xyz" sign="-1, -1, -1" alias="outward inclination, right rotation, anterior leaning">
             <CoordSys>
                 <tag>RGK</tag>
                 <origin>RKL</origin>

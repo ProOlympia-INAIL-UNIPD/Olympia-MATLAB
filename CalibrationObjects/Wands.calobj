@@ -10,4 +10,9 @@
         <TipMarker>WandD</TipMarker>
         <Tail2RealTip>160.1</Tail2RealTip>
     </wand160>
+	<ArrowColossus>
+        <TailMarker>WC</TailMarker>
+        <TipMarker>WP</TipMarker>
+        <Tail2RealTip>416</Tail2RealTip>		
+	</ArrowColossus>
 </calibration_objects>

@@ -18,7 +18,7 @@ classdef forcePlatformType2
         Origin      (1,3) double% Origin with respect to working plate (XYZ)
         Channels    (1,1) struct% physical channels of Force(sample,xyz) and Moment(sample,xyz) in local coordinates
         GRF         (:,3) double% Ground Reaction Forces in absolute coordinates (sample,XYZ)
-        GRM         (:,3) double% Ground Reaction Moments in absolute coordinates (sample,XYZ)
+        FreeTorque  (:,3) double% Ground Reaction Moments in absolute coordinates (sample,XYZ)
         COP         (:,3) double% COP position in absolute coordinates (sample,XYZ)
         Units       (1,3) string% Forces, Moment, and COP units
         SampleRate  (1,1) double% sample rate of the acquisition
@@ -123,18 +123,22 @@ classdef forcePlatformType2
         end
 
         function obj = getGRF(obj)
-        %   computes the GRF, GRM, COP properties using Corners, Origin and Channels 
+        %   computes the GRF, FreeTorque, COP properties using Corners, Origin and Channels 
             for i=length(obj):-1:1
                 [FPR,OFP]=extractSOR(obj(i));
                 floc=obj(i).Channels.Force; %local forces
                 mloc=obj(i).Channels.Moment;%local moments (with respect to physical origin)
-                mloc=mloc+(skew(obj(i).Origin)*floc')';%local moments (with respect to woring plane origin)
+                mloc=mloc+(skew(obj(i).Origin)*floc')';%local moments (with respect to working plane origin)
                 obj(i).GRF=floc*FPR'; %Ground Reaction Forces
                 mgnd=mloc*FPR'; %Ground Reaction Moment (in FP working origin)
-                obj(i).GRM=mgnd+(skew(OFP)*obj(i).GRF')'; %GRM in global origin  (0,0,0);
+                
+                
+                %obj(i).GRM=mgnd+(skew(OFP)*obj(i).GRF')'; %GRM in global origin  (0,0,0);
                 cop(:,1)=-mloc(:,2)./floc(:,3); %COP in FP working plane
                 cop(:,2)=mloc(:,1)./floc(:,3);
                 cop(:,3)=0;                     %COP lies in working plane!
+                ft(:,3)=mloc(:,3)-cop(:,1).*floc(:,2)+cop(:,2).*floc(:,1);
+                obj(i).FreeTorque=ft*FPR';
                 obj(i).COP=OFP+cop*FPR'; %COP in absolute system
             end
           
@@ -155,9 +159,10 @@ classdef forcePlatformType2
             arguments
                 obj
                 NameValue.MaxRadius=200;      %expected half-duration of the contact (in samples) 
-                NameValue.FilterCutOff=100;   %cut-off frequency for low pass filter
-                NameValue.FilterOrder=2;      %low pass filter order (will be doubled in filtfilt)
+                %NameValue.FilterCutOff=100;   %cut-off frequency for low pass filter
+                %NameValue.FilterOrder=2;      %low pass filter order (will be doubled in filtfilt)
                 NameValue.ActiveThreshold=100;%minimum threshold to accept FP as used during the acquisition
+                NameValue.LowThreshold=30;     %minimum value for accepting inputs
                 NameValue.MaxNumContacts=100;   %maximum number of hits accepted for each FP
                 NameValue.MinStrideDuration=0.3 %minimum duration of stride in s
                 NameValue.Reflect=true;
@@ -166,76 +171,166 @@ classdef forcePlatformType2
             if maxradius==0 || not(isfinite(maxradius))
                maxradius=obj(1).NSamples;
             end
-             %build filter
+            
+            % force plate loop
             for i=length(obj):-1:1
-                [b,a]=butter(NameValue.FilterOrder,NameValue.FilterCutOff/(obj(i).SampleRate/2));
-                Fnow=-obj(i).Channels.Force; %work on the normal force (i.e., vertical)
-                isactive=not(Fnow(:,3)==0);  %missing values are treated as 0, non 0 elements are signals from the FP)
-                %isactive=abs(Fnow(:,3))>threshold;
+                %extract forces
+                F=double(obj(i).Channels.Force);
+                M=double(obj(i).Channels.Moment);
+         
+                fz=sqrt(sum(F.^2,2)); %work on the force modulus
+                isactive=movmedian(fz,5)>NameValue.LowThreshold;
+                %isactive=not(fz==0);  %missing values are treated as 0, non 0 elements are signals from the FP)
+                
                 if numel(obj)>1 %cross talk removal is meaningful only with multiple forceplates
+
                     warning off %suppress warnings from findpeaks in case no peak is detected
-                    [~, loc, wid]=findpeaks(Fnow(:,3),"NPeaks",NameValue.MaxNumContacts,"MinPeakHeight",NameValue.ActiveThreshold,"MinPeakDistance",NameValue.MinStrideDuration*obj(i).SampleRate,"MinPeakProminence",NameValue.ActiveThreshold);
+                    [~, loc, wid]=findpeaks(fz,"NPeaks",NameValue.MaxNumContacts,"MinPeakHeight",NameValue.ActiveThreshold,"MinPeakDistance",NameValue.MinStrideDuration*obj(i).SampleRate,"MinPeakProminence",NameValue.ActiveThreshold);
                     warning on
                     maxzone=[];
+                    wid=floor(5*wid); % create a window centered around the peak of a reasonable width
     
                     for j=1:length(loc)
-                        maxzone=[maxzone max(1,loc(j)-maxradius):min(loc(j)+maxradius,length(isactive))];
+                        maxzone=[maxzone max(1,loc(j)-wid(j)):min(loc(j)+wid(j),length(isactive))];
                     end
     
                     ismaxzone=false(length(isactive),1); %convert maxzone to logical 1) set all elements to false
                     ismaxzone(maxzone)=1; %convert maxzone to logical 2) set maxzone elements to true
-                else
+                else %with a single forceplate no crosstalk should exist
                     ismaxzone=isactive;
                 end
-                isvalid=isactive & ismaxzone;        % active and valid signal
-                changeState=diff([false; isvalid; false]);
-                fc=find(changeState==1)-1;
-                fo=find(changeState==-1)-1;
-                dur=fo-fc;
-                dur=find(dur<=5);
-                for d=dur'
-                    isvalid(fc(d):fo(d))=false;
-                end
+                isvalid=isactive & ismaxzone; % active and valid signal
+                %overthres=movmedian(fz,5)>NameValue.LowThreshold; %movmedian helps removing spikes
+                wind=isvalid;%&overthres;
+                wind=movmedian(wind,5);
+                w=find(wind);
+
+                % changeState=diff([false; wind; false]);
+                % fc=find(changeState==1);
+                % fo=find(changeState==-1); 
+                FM=[F M]; %generalized forces array for code optimization
                 
-                % changeState flags the samples when the force plates
-                % starts (1) and ends (-1) to be valid (1) by taking the
-                % diff of isvalid. Note that:
-                % if the force is 0 at first and last samples
-                % force  :    __----___
-                % isvalid=    001111000
-                % changeState=001000-100  --->OK
-                % if the force is not 0 at first and last samples
-                % force  :    ---___---
-                % isvalid=    111000111
-                % changeState=000-1001000 --> not OK
-                % if a false is added before and after isvalid
-                %isvalid=    01110001110
-                % changeState=1000-1001000-1 --> OK after offset of 1
-                % NB: this addition doesn't change the first case
-                changeState=diff([false; isvalid; false]);
-                fc=find(changeState==1)-1;
-                fo=find(changeState==-1)-1;
+                if numel(w)>2 %if there is at least a foot_contact and foot_off
+                    % do reflect the signal to remove border effects of
+                    % filtering
+                    for c=1:6
+                        pad=zeros(numel(w),1);
+                        pad_offset=numel(pad);
+                        f=[pad;FM(:,c);pad];
+                        w_pad=w+pad_offset-1;
 
-                F=double(obj(i).Channels.Force);
-                M=double(obj(i).Channels.Moment);
-                if NameValue.Reflect
-                   changeState= diff([false; isvalid; false]);
-                   fc=find(changeState==1)-1;
-                   fo=find(changeState==-1)-1;
+                        f(w_pad-length(w_pad))=-f(w_pad(end:-1:1))+f(w_pad(end)); %flip the signal before
+                        f(w_pad+length(w_pad))=-f(w_pad(end:-1:1))+f(w_pad(end)); %flip the signal after
+                        f=f(pad_offset+1:end-pad_offset);
+                        % fc=w(1);
 
-                   for j=1:length(fc)
-                       w=floor((fo(j)-fc(j))/2);
-                       pre=fc(j):-1:max(1,fc(j)-w);
-                       post=fo(j):min(length(F(:,1)),fo(j)+w);
-                       F(pre,:)=-F(fc(j):fc(j)+length(pre)-1,:);
-                       F(post,:)=-F(fo(j):-1:fo(j)-length(post)+1,:);
-                       M(pre,:)=-M(fc(j):fc(j)+length(pre)-1,:);
-                       M(post,:)=-M(fo(j):-1:fo(j)-length(post)+1,:);
-                   end
-
+                        % fo=w(end);
+                        % hl_w=floor(length(w)/2);
+                        % 
+                        % w_int=fc-hl_w:fo+hl_w;
+                        % w_int(w_int<1)=[];
+                        % w_int(w_int>numel(f))=[];
+                        % f_int=interp1(w,f(w),w_int,"linear","extrap"); %add linear interp until zero crossing
+                        % 
+                        % f_a=abs(f_int); % make the value absolute
+                        % d_f_a=sign(diff(f_a)); % search the zero crossings
+                        % 
+                        % % since the interpolated values outside the signal are
+                        % % linear, they cross the zero only once, therefore:
+                        % 
+                        % fcpivot=find(not(d_f_a==d_f_a(1)),1,'first'); % first zero crossing
+                        % fopivot=numel(d_f_a)-find(not(d_f_a(end:-1:1)==d_f_a(end)),1,'first'); %last zero crossing
+                        % %fcpivot=fc;
+                        % %fopivot=fo;
+                        % w_int=w_int(fcpivot:fopivot);
+                        % f_int=f_int(fcpivot:fopivot);
+                        % close all
+                        % plot(f)
+                        % hold on
+                        % xline(w_int(1))
+                        % xline(w_int(end))
+                        % plot(w_int,f_int)
+                        % 
+                        % l_w=numel(w_int);
+                        % f(w_int)=f_int;
+                        % f(w_int-l_w)=-f_int(end:-1:1);
+                        % f(w_int+l_w)=-f_int(end:-1:1);
+                        % plot(f)
+                        FM_reflect(:,c)=f;
+                    end
+                else % do not alter the signal (no reflection
+                    FM_reflect=FM; 
                 end
-                obj(i).Channels.Force=filtfilt(b,a,F).*isvalid;
-                obj(i).Channels.Moment=filtfilt(b,a,M).*isvalid;
+                F_reflect=FM_reflect(:,1:3);
+                M_reflect=FM_reflect(:,4:6);
+                if all(isfinite(obj(i).Parent.ForcePlateFilter))
+                    b=obj(i).Parent.ForcePlateFilter(1,:);
+                    a=obj(i).Parent.ForcePlateFilter(2,:);
+                    F=nanfiltfilt(b,a,F_reflect);
+                    M=nanfiltfilt(b,a,M_reflect);
+                end
+
+
+                % fz2=fz;
+                % fz2(fc-numel(w):fc-1,:)=-fz(w(end:-1:1));
+                % fz2(fo+1:fo+numel(w),:)=-fz(w(end:-1:1));
+                % changeState=diff([false; isvalid; false]);
+                % fc=find(changeState==1)-1;
+                % fo=find(changeState==-1)-1; 
+                % dur=fo-fc;
+                % dur=find(dur<=5);
+                % for d=dur'
+                %     isvalid(fc(d):fo(d))=false;
+                % end
+                % 
+                % % changeState flags the samples when the force plates
+                % % starts (1) and ends (-1) to be valid (1) by taking the
+                % % diff of isvalid. Note that:
+                % % if the force is 0 at first and last samples
+                % % force  :    __----___
+                % % isvalid=    001111000
+                % % changeState=001000-100  --->OK
+                % % if the force is not 0 at first and last samples
+                % % force  :    ---___---
+                % % isvalid=    111000111
+                % % changeState=000-1001000 --> not OK
+                % % if a false is added before and after isvalid
+                % %isvalid=    01110001110
+                % % changeState=1000-1001000-1 --> OK after offset of 1
+                % % NB: this addition doesn't change the first case
+                % changeState=diff([false; isvalid; false]);
+                % fc=find(changeState==1)-1;
+                % fo=find(changeState==-1)-1;
+                % 
+                % F=double(obj(i).Channels.Force);
+                % M=double(obj(i).Channels.Moment);
+                % if NameValue.Reflect
+                %    changeState= diff([false; isvalid; false]);
+                %    fc=find(changeState==1)-1;
+                %    fo=find(changeState==-1)-1;
+                % 
+                %    for j=1:length(fc)
+                %        w=floor((fo(j)-fc(j))/2);
+                %        pre=fc(j):-1:max(1,fc(j)-w);
+                %        post=fo(j):min(length(F(:,1)),fo(j)+w);
+                %        F(pre,:)=-F(fc(j):fc(j)+length(pre)-1,:);
+                %        F(post,:)=-F(fo(j):-1:fo(j)-length(post)+1,:);
+                %        M(pre,:)=-M(fc(j):fc(j)+length(pre)-1,:);
+                %        M(post,:)=-M(fo(j):-1:fo(j)-length(post)+1,:);
+                %    end
+                % 
+                % end
+                % if all(isfinite(obj(i).Parent.ForcePlateFilter))
+                %     b=obj(i).Parent.ForcePlateFilter(1,:);
+                %     a=obj(i).Parent.ForcePlateFilter(2,:);
+                %     F=nanfiltfilt(b,a,F);
+                %     M=nanfiltfilt(b,a,M);
+                % end
+                % overthres=-obj(i).Channels.Force(:,3)>NameValue.LowThreshold;
+                % overthres=movmedian(-obj(i).Channels.Force(:,3),5)>NameValue.LowThreshold;
+                
+                obj(i).Channels.Force=F.*(isvalid);
+                obj(i).Channels.Moment=M.*(isvalid);
             end
             obj=obj.getGRF;
         end
@@ -314,7 +409,7 @@ classdef forcePlatformType2
          obj=[old_obj,obj];
         end
 
-        function [FC, FO]=getEvents(obj,units,treshold,startdetectionoffset)
+        function [FC, FO]=getEvents(obj,units,treshold,startdetectionoffset,minimumduration)
             % detects contacts on the force plates using user-specified thresholds 
             % the function returns the foot contact and foot off events in
             % samples, seconds, or milliseconds. Contacts are defined when
@@ -326,44 +421,52 @@ classdef forcePlatformType2
                 units {mustBeMember(units,{'samples','seconds','milliseconds'})}='samples';
                 treshold=10;
                 startdetectionoffset=0;
+                minimumduration=10;
             end
 
             R=[obj.Channels];
-            R=[R.Force(:,3)];
+            R=sum(cat(3,R.Force),3);
             R=sqrt(sum(R.^2,2));
             iscontact=any(R>treshold,2);
             FC=find(diff(iscontact)==1)+1;
             FO=find(diff(iscontact)==-1);
+            if isempty(FC)
+                return
+            end
             FC(FC<startdetectionoffset)=[];
             FO(FO<startdetectionoffset)=[];
+
             if FC(1)>FO(1)
                FC=[1; FC];
             end
             if FO(end)<FC(end)
                FO=[FO; size(R,1)];
             end
+            dur=FO-FC;
+            FO(dur<minimumduration)=[];
+            FC(dur<minimumduration)=[];
             switch units
                 case 'samples'
                 case 'seconds'
-                    FC=(FC-1)/obj.SampleRate;
-                    FO=(FO-1)/obj.SampleRate;
+                    FC=(FC-1)/obj(1).Parent.Metadata.ANALOG.RATE;%SampleRate;
+                    FO=(FO-1)/obj(1).Parent.Metadata.ANALOG.RATE;
                 case 'milliseconds'
-                    FC=1000*(FC-1)/obj.SampleRate;
-                    FO=1000*(FO-1)/obj.SampleRate;
+                    FC=1000*(FC-1)/obj(1).Parent.Metadata.ANALOG.RATE;
+                    FO=1000*(FO-1)/obj(1).Parent.Metadata.ANALOG.RATE;
             end
            
         end
 
         function obj=resample(obj,targetSampleRate)
                  % downsamples Force plate signal to a desired rate.
-                 srratio=obj(1).SampleRate/targetSampleRate;
-                 if mod(obj(1).SampleRate,targetSampleRate)>0 || srratio<1
+                 srratio=obj(1).Parent.Metadata.ANALOG.RATE/targetSampleRate;
+                 if mod(obj(1).Parent.Metadata.ANALOG.RATE,targetSampleRate)>0 || srratio<1
                      error('Only integer Downsampling ratio is allowed!');
                  end
                  for i=1:numel(obj)
                      obj(i).Channels.Force=obj(i).Channels.Force(1:srratio:end,:);
                      obj(i).Channels.Moment=obj(i).Channels.Moment(1:srratio:end,:);
-                     obj(i).SampleRate=targetSampleRate;
+                     obj(i).Parent.Metadata.ANALOG.RATE=targetSampleRate;
                      obj(i).NSamples=obj(i).NSamples/srratio;
                  end
                  obj=obj.getGRF;
@@ -377,7 +480,7 @@ classdef forcePlatformType2
             
             obj(i).Channels=newch;
             obj(i)=obj(i).getGRF;
-            obj(i).SampleRate=nan;
+            obj(i).Parent.Metadata.ANALOG.RATE=nan;
             obj(i).NSamples=1;
             end
         end
@@ -415,6 +518,17 @@ classdef forcePlatformType2
                 obj(i).Units(3)=newunits;
             end
             obj=obj.getGRF;    
+        end
+
+        function obj=filtfilt(obj)
+
+            for i=1:numel(obj)
+                b=obj(i).Parent.ForcePlateFilter(1,:);
+                a=obj(i).Parent.ForcePlateFilter(2,:);
+                obj(i).Channels.Force=nanfiltfilt(b,a,obj(i).Channels.Force);
+                obj(i).Channels.Moment=nanfiltfilt(b,a,obj(i).Channels.Moment);
+                obj(i).getGRF;
+            end
         end
 
         %% UTILITIES
@@ -518,7 +632,7 @@ classdef forcePlatformType2
                  end
                  
                  figure(fig);
-                 t=(0:size(obj(1).Channels.Force(:,1))-1)/obj.SampleRate;
+                 t=(0:size(obj(1).Channels.Force(:,1))-1)/obj.Parent.Metadata.ANALOG.RATE;
                  for i=1:length(obj)
                  subplot(2,1,1)
                  f(i,:)=plot(t,obj(i).Channels.Force);
@@ -557,9 +671,9 @@ classdef forcePlatformType2
                  hold on
                  lgF(:,i)=strcat(obj(i).Label,{'.GRFx','.GRFy','.GRFz'});
                  subplot(3,1,2);
-                 grm(i,:)=plot(t,obj(i).GRM);
+                 grm(i,:)=plot(t,obj(i).FreeTorque);
                  hold on
-                 lgM(:,i)=strcat(obj(i).Label,{'.GRMx','.GRMy','.GRMz'});
+                 lgM(:,i)=strcat(obj(i).Label,{'.FreeTorquex','.FreeTorquey','.FreeTorquez'});
                  subplot(3,1,3);
                  cop(i,:)=plot(t,obj(i).COP);
                  hold on
@@ -644,10 +758,13 @@ function [c,cmedio,cstd]=timeNorm(obj,npoints,base)
                 npoints=101;
                 base string {mustBeMember(base,["stance","stride"])}="stance"
             end
-            ev=exportEvents(obj.Parent.Events,'point',false);
+            ev=exportEvents(obj.Parent.Events,'analog',false);
             group = ["Left","Right"];
             
             for g=group
+                if numel(fieldnames(ev.(g)))==0
+                    continue
+                end
                 S=[]; E=[];
                 S=[S ev.(g).Foot_Strike];
                 if base=="stride"

@@ -34,54 +34,11 @@ if isempty(t)
 end
 
 t_new=linspace(t(1),t(end),npoints);
-
+nv=namedargs2cell(NameValue);
 if dim==1 %data is column oriented
-    cycle=splinefix(t,y',t_new,NameValue)';
+    cycle=nanspline(t,y',t_new,nv{:})';
     
 else      %data is row oriented or N-D
-    cycle=splinefix(t,y,t_new,NameValue);
+    cycle=nanspline(t,y,t_new,nv{:});
 end
-end
-
-function cycle=splinefix(t,y,t_new,NameValue)
-nans=any(isnan(y),1);
-discard=false(1,length(t_new));
-i_max=floor(length(t)*NameValue.MaxGap);
-
-st_gap=find(diff(nans)==1);
-end_gap=find(diff(nans)==-1);
-try
-if st_gap(1)>end_gap(1)
-   if NameValue.AllowTailPrediction
-   st_gap=[1 st_gap];
-   else
-       discard(t_new<t(end_gap(1)))=true;
-       end_gap(1)=[];
-   end
-end
-if end_gap(end)<st_gap(end)
-   if NameValue.AllowTailPrediction
-   end_gap(end+1)=length(nans);
-   else
-   discard(t_new>t(st_gap(end)))=true;
-   st_gap(end)=[];
-   end
-end
-
-for i=1:length(st_gap)
-    if end_gap(i)-st_gap(i)>i_max
-        discard((t(st_gap(i))<t_new)&(t_new<t(end_gap(i))))=true;
-    end
-end
-catch
-end
-warning off
-try
-   cycle=spline(t,y,t_new);
-catch
-   cycle=y(:,1:length(t_new));
-   return
-end
-warning on
-cycle(discard)=nan;
 end

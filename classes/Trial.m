@@ -21,6 +21,9 @@
         NFrames %Number of frames in the C3D
         NSamples%Number of analog samples in the C3D
         TaskType (1,1) string = "";
+        KinematicFilter (2,:) double =nan;
+        ForcePlateFilter (2,:) double =nan;
+        AnalogFilter (2,:) double=nan;
      end
      properties (Transient)
         C3DHandle%Memory address of the loaded C3D file
@@ -110,7 +113,7 @@
             arguments
                 obj Trial
                 mass=mean(vecnorm(sum(cat(3,obj.ForcePlatform.GRF),3),2,2))/9.81;
-                gender char {mustBeMember(gender,["Male","Female"])}="Female";
+                gender char {mustBeMember(gender,["Male","Female"])}='Female';
             end
 
             if isfield(obj.Metadata,'PROCESSING')
@@ -118,9 +121,7 @@
                    mass=obj.Metadata.PROCESSING.mass;
                end
             end
-            if isfield(obj.ConfigFile, "gender")
-                obj.Metadata.ANTROPOMETRY.gender=obj.ConfigFile.gender;
-            end
+            obj.Metadata.ANTROPOMETRY.gender=gender;
             obj.Metadata.ANTROPOMETRY.mass=mass;
             obj.Metadata.ANTROPOMETRY.units='kg';
             obj.setC3DMetaData;
@@ -143,8 +144,6 @@
             obj.Metadata.ANTROPOMETRY.gender='Male';
         end
         
-        u = unique([obj.Points.Units]);
-
         try
             mainpath=mfilename('fullpath');
             mainpath=fileparts(mainpath);
@@ -190,7 +189,7 @@
                 if comlabel=="" || ismissing(comlabel)
                     comlabel=segment.Label+"COM";
                 end
-                obj.Points(end+1)=obj.Points.appendPoint(comlabel, com, u, segment.Label, 'V', 0, group);
+                obj.Points(end+1)=obj.Points.appendPoint(comlabel,com,obj.Metadata.POINT.UNITS,segment.Label,'V',0,group);
                 % verify that the COM is in the markerset
                 plist=[obj.ConfigFile.MarkerSet.Marker.("label"+obj.XMLatt)];
                 if sum(matches(plist,comlabel))<1 %and in case add it
@@ -220,6 +219,7 @@
                 obj.Segments.(group).(seg).InertialUnits=["kg","kgm^2"];
                 obj.Metadata.SEGMENTS_MASS.(seg)=mi;
                 obj.Metadata.SEGMENTS_ICM.(seg)=diag(Ii);
+                obj.Metadata.SEGMENTS_CMlength_perc.(seg)=tmpDL.CM.("value"+obj.XMLatt);
                 catch ME
                     warning("Error when setting inertial properties for %s: %s",segment.Label,ME.message);
                 end
@@ -230,52 +230,36 @@
         end
         
         function obj=moveInertialProperties(obj,src)
-        % MOVEINERTIALPROPERTIES move segment inertial properties to a
-        % different trial
-        %   obj=moveInertialProperties(obj,src) assign the Inertial
-        %   properties from a trial (e.g., static) to the current trial
-        % 
-        % See Also SCALEINERTIALPROP
-        i=1;
-        obj.Metadata.ANTROPOMETRY=src.Metadata.ANTROPOMETRY;
-        obj.Metadata.SEGMENTS_MASS.units=src.Metadata.SEGMENTS_MASS.units;
-        obj.Metadata.SEGMENTS_ICM.units=src.Metadata.SEGMENTS_ICM.units;
-        for group=string(fieldnames(src.Segments))'
-            for seg=string(fieldnames(src.Segments.(group)))'
-                % try
-                    % obj.Segments.(group).(seg).COM=obj.Points(matches([obj.Points.Label],src.Segments.(group).(seg).COM.Label));
-                    % obj.Segments.(group).(seg).Mass=src.Metadata.SEGMENTS_MASS.(seg);
-                    % obj.Metadata.SEGMENTS_MASS.(seg)=src.Metadata.SEGMENTS_MASS.(seg);
-                    % obj.Segments.(group).(seg).Icm=src.Metadata.SEGMENTS_ICM.(seg);
-                    % obj.Metadata.SEGMENTS_ICM.(seg)=src.Metadata.SEGMENTS_ICM.(seg);
-                    % m(i)=obj.Segments.(group).(seg).Mass;
-                    % com(:,:,i)=obj.Segments.(group).(seg).COM.Coordinates*m(i);
-                % catch
-                try
-                    temp = permute(pagemtimes(obj.Segments.(group).(seg).TransformMat, ...
-                                  [points2local(src.Segments.(group).(seg).COM.Coordinates, src.Segments.(group).(seg).TransformMat) 1]'), [3, 1, 2]);
-                    obj.Segments.(group).(seg).COM = Point('Label', src.Segments.(group).(seg).COM.Label,...
-                                    'XData', temp(:,1), 'YData',temp(:,2), 'ZData', temp(:,3),...
-                                    'Color', src.Segments.(group).(seg).COM.Color, ...
-                                    'Units', src.Segments.(group).(seg).COM.Units, ...
-                                    'SampleRate', src.Segments.(group).(seg).COM.SampleRate, ...
-                                    'Cluster', 1, 'Parent', obj.Points(1).Parent);
-                    obj.Segments.(group).(seg).Mass=src.Metadata.SEGMENTS_MASS.(seg);
-                    obj.Metadata.SEGMENTS_MASS.(seg)=src.Metadata.SEGMENTS_MASS.(seg);
-                    obj.Segments.(group).(seg).Icm=src.Metadata.SEGMENTS_ICM.(seg);
-                    obj.Metadata.SEGMENTS_ICM.(seg)=src.Metadata.SEGMENTS_ICM.(seg);
-                    m(i)=obj.Segments.(group).(seg).Mass;
-                    com(:,:,i)=obj.Segments.(group).(seg).COM.Coordinates*m(i);
-                catch
-                end %try
-                i=i+1;
-            end %seg
-        end %side
-        if exist('com','var')
-        COM=sum(com,3)/sum(m);
-        obj.Points(end+1)=obj.Points.appendPoint("COM",COM);
-        obj.setC3DMetaData;
-        end
+            % MOVEINERTIALPROPERTIES move segment inertial properties to a
+            % different trial
+            %   obj=moveInertialProperties(obj,src) assign the Inertial
+            %   properties from a trial (e.g., static) to the current trial
+            %
+            % See Also SCALEINERTIALPROP
+            i=1;
+            obj.Metadata.ANTROPOMETRY=src.Metadata.ANTROPOMETRY;
+            %obj.Metadata.SEGMENTS_MASS.units=src.Metadata.SEGMENTS_MASS.units;
+            %obj.Metadata.SEGMENTS_ICM.units=src.Metadata.SEGMENTS_ICM.units;
+            for group=string(fieldnames(src.Segments))'
+                for seg=string(fieldnames(src.Segments.(group)))'
+                    try
+                        obj.Segments.(group).(seg).COM=obj.Points(matches([obj.Points.Label],src.Segments.(group).(seg).COM.Label));
+                        obj.Segments.(group).(seg).Mass=src.Metadata.SEGMENTS_MASS.(seg);
+                        obj.Metadata.SEGMENTS_MASS.(seg)=src.Metadata.SEGMENTS_MASS.(seg);
+                        obj.Segments.(group).(seg).Icm=src.Metadata.SEGMENTS_ICM.(seg);
+                        obj.Metadata.SEGMENTS_ICM.(seg)=src.Metadata.SEGMENTS_ICM.(seg);
+                        m(i)=obj.Segments.(group).(seg).Mass;
+                        com(:,:,i)=obj.Segments.(group).(seg).COM.Coordinates*m(i);
+                    catch
+                    end %try
+                    i=i+1;
+                end %seg
+            end %side
+            if exist('com','var')
+                COM=sum(com,3)/sum(m);
+                obj.Points(end+1)=obj.Points.appendPoint("COM",COM,obj.Metadata.POINT.UNITS{:}, "", "V");
+                obj.setC3DMetaData;
+            end
         end
         
         function obj=readC3DInertialProperties(obj)
@@ -311,11 +295,7 @@
         %
         % See Also SVDRECONSTRUCT
             sourcemarkers=strtrim(split(sourcemarkers,','));
-            u = unique([obj.Points.Units]);
-            if isscalar(u)
-            else
-                error("not all points have the same measurement unit.");
-            end
+            units=obj.Metadata.POINT.UNITS;
             try
             switch method
                 case 'centroid'
@@ -323,7 +303,7 @@
                         pt(:,:,i)=obj.Points.PointStruct.(sourcemarkers(i));
                     end
                     pt=mean(pt,3);
-                    obj.Points(end+1)=obj.Points.appendPoint(label,pt,u,segment,type);
+                    obj.Points(end+1)=obj.Points.appendPoint(label,pt,units,segment,type);
                 case 'Bell'
                     pelvis=obj.ConfigFile.KinematicModel.Segment;
                     pelvis=pelvis(matches([pelvis.("label"+obj.XMLatt)],segment));
@@ -340,7 +320,7 @@
                     elseif pelvis.CoordSys.seq{1}(1) == 'x'
                         HJC = squeeze(pagemtimes(P,[[pm*0.36, -0.19, -0.30]*PW, 1]'))';
                     end
-                    obj.Points(end+1)=obj.Points.appendPoint(label,HJC(:,1:3),u,segment,type);
+                    obj.Points(end+1)=obj.Points.appendPoint(label,HJC(:,1:3),units,segment,type);
                 case 'wand' %obsolete
                     path=fileparts(obj.c3dfile);
                     wtr=Trial(char(fullfile(path,sourcemarkers)));
@@ -357,29 +337,29 @@
         end
 
         function obj=reconstructVirtualMarkers(obj)
-            % RECONSTRUCTVIRTUALMARKERS Reconstruct virtual/calibrated markers
-            % defined in the configuration file
-            % obj=reconstructVirtualMarkers(obj) applies the
-            % APPENDVIRTUALMARKER function to all the virtual and calibrated
-            % markers defined in the configuration file
-            % See Also APPENDVIRTUALMARKER
+        % RECONSTRUCTVIRTUALMARKERS Reconstruct virtual/calibrated markers
+        % defined in the configuration file
+        % obj=reconstructVirtualMarkers(obj) applies the
+        % APPENDVIRTUALMARKER function to all the virtual and calibrated
+        % markers defined in the configuration file
+        % See Also APPENDVIRTUALMARKER
             try
-                mkr=reshape(obj.ConfigFile.MarkerSet.VirtualMarkerDef,1,[]);
-                for cm=mkr
-                    m=obj.ConfigFile.MarkerSet.Marker(matches([obj.ConfigFile.MarkerSet.Marker.("label"+obj.XMLatt)],cm.("label"+obj.XMLatt)));
-                    if length(m)~=1
-                        warning("Virtual marker with label: %s is not part of the defined markerset and won't be created!",cm.("label"+obj.XMLatt));
-                    else
-                        try
-                            obj=obj.appendVirtualMarker(cm.("method"+obj.XMLatt),cm.("label"+obj.XMLatt),cm.("source"+obj.XMLatt),m.("segment"+obj.XMLatt),m.("type"+obj.XMLatt));
-                        catch ME
-                            warning("Error occurred during reconstruction of %s",cm.("label"+obj.XMLatt));
-                            warning(ME);
-
-
-                        end
+            mkr=reshape(obj.ConfigFile.MarkerSet.VirtualMarkerDef,1,[]);
+            for cm=mkr
+                m=obj.ConfigFile.MarkerSet.Marker(matches([obj.ConfigFile.MarkerSet.Marker.("label"+obj.XMLatt)],cm.("label"+obj.XMLatt)));    
+                if length(m)~=1
+                   warning("Virtual marker with label: %s is not part of the defined markerset and won't be created!",cm.("label"+obj.XMLatt));
+                else
+                    try
+                    obj=obj.appendVirtualMarker(cm.("method"+obj.XMLatt),cm.("label"+obj.XMLatt),cm.("source"+obj.XMLatt),m.("segment"+obj.XMLatt),m.("type"+obj.XMLatt));
+                    catch ME
+                        warning("Error occurred during reconstruction of %s",cm.("label"+obj.XMLatt));
+                        warning(ME);
+                    
+                    
                     end
                 end
+            end
             catch
                 warning('Virtual Markers are absent or not properly defined!')
             end
@@ -427,11 +407,7 @@
 
             [~,~,T]=svdSolidification(p_src,p_tgt);
             newpt=pagemtimes(T,[newpt 1]');
-            if size(newpt, 2) == 1
-                newpt = newpt';
-            else
-                newpt=permute(newpt,[3 1 2]);
-            end
+            newpt=permute(newpt,[3 1 2]);
             obj.Points(end+1)=obj.Points.appendPoint(label,newpt(:,1:3),obj.Metadata.POINT.UNITS,seg,'C',false,group);
         end
 
@@ -496,6 +472,7 @@
                p=p_stat(i);
                XYZ=permute((pagemtimes(T,[cl_stat(i,:) 1]')),[3 1 2]);
                obj.Points(end+1)=obj.Points.appendPoint(p.Label,XYZ(:,1:3),p.Units,p.Segment,p.Type,false,p.Group);
+               %obj.Points(end+1)=Point(p.Label,XYZ(:,1:3),p.Segment,p.Type,false,p.Group)
             end
 
             %if specified, replace collected points with svd version
@@ -564,6 +541,15 @@
                     seg.Label=cseg.("label"+obj.XMLatt);
                     seg.Group=group;
                     obj.Segments.(group).(seg.Label)=seg;
+
+                if not(ismissing(cseg.("sign"+obj.XMLatt))) && not(isempty(cseg.("sign"+obj.XMLatt)))
+                   obj.Segments.(group).(cseg.("label"+obj.XMLatt)).SignConvention=str2num(cseg.("sign"+obj.XMLatt));
+                end
+                if not(ismissing(cseg.("alias"+obj.XMLatt))) && not(isempty(cseg.("alias"+obj.XMLatt)))
+                   obj.Segments.(group).(cseg.("label"+obj.XMLatt)).AngleAlias=cseg.("alias"+obj.XMLatt);
+                else
+                    obj.Segments.(group).(cseg.("label"+obj.XMLatt)).AngleAlias=obj.Segments.(group).(cseg.("label"+obj.XMLatt)).AngleSequence;
+                end
                 catch ME
                     warning(ME.message)
                 end
@@ -610,6 +596,16 @@
                 units="N"+proxSegm.Points(1).Units;
                 obj.Joints.(group).(joint.("label"+obj.XMLatt))=Joint(joint.("label"+obj.XMLatt),group,proxSegm,distSegm,joint.("type"+obj.XMLatt),joint.("angleseq"+obj.XMLatt),"deg",JC,units);
                 obj.Joints.(group).(joint.("label"+obj.XMLatt)).Acquisition=obj;
+                if not(ismissing(joint.("sign"+obj.XMLatt)))
+                   obj.Joints.(group).(joint.("label"+obj.XMLatt)).SignConvention=str2num(joint.("sign"+obj.XMLatt));
+                end
+                if not(ismissing(joint.("alias"+obj.XMLatt)))
+                   obj.Joints.(group).(joint.("label"+obj.XMLatt)).AngleAlias=joint.("alias"+obj.XMLatt);
+                else
+                    obj.Joints.(group).(joint.("label"+obj.XMLatt)).AngleAlias=obj.Joints.(group).(joint.("label"+obj.XMLatt)).AngleSequence;
+                end
+
+
                 catch ME
                     warning(ME.message);
                 end
@@ -619,208 +615,6 @@
 
        
         %% CROSS-OBJECT TRIAL ANALYSIS
-        function [obj, grf] = GRFAnalysis(obj,normalize)
-         %GRFANALYSIS Computes impulses and GRF parameters
-         %  [obj, grf] = GRFAnalysis(obj,normalize) computes impulses and GRF
-         %  parameters from the forcePlatform data stored in the acquisition,
-         %  assigning it into the Metadata.
-         %  Inputs:
-         %  obj         - Trial
-         %  normalize   - Select what to use for mass normalization
-         %  Outputs:
-         %  obj - Updated Trial
-         %  grf - structure containing the calculated GRF data
-
-            arguments
-            obj (1,1) Trial
-            normalize string {mustBeMember(normalize,["no","bodymass","bodyweight"])}="bodyweight";
-            end
-        
-        forceplat=obj.ForcePlatform;
-        if numel(forceplat)==0
-           warning("Trial Contains no Force Platforms!, GRF analysis can't be performed!");
-           return
-        end   
-
-        
-        if btkGetEventNumber(obj.C3DHandle)==0 %needed because metadata isn't updated (btk bug?)
-           warning("Trial Contains no events!, GRF analysis can't be performed!");
-           return
-        else
-           events=obj.Events;
-        end
-
- 
-
-        try %import mass from trial and adjust units
-        mass=obj.Metadata.ANTROPOMETRY.mass;
-        if obj.Metadata.ANTROPOMETRY.units=="t"
-           mass=mass*1000;
-        end
-        mustBePositive(mass);
-        switch normalize
-            case "no"
-                mass=1;
-                unit="N%s";
-            case "bodymass"
-                %mass=mass;
-                unit="N%s/kg";
-            case "bodyweight"
-                mass=mass*9.81;
-                unit="N%s/N";
-        end
-        catch
-            mass=1;
-            unit="N%s";
-        end
-
-   
-        GRF=sum(cat(3,forceplat.GRF),3)/mass;
-        R=forceplat.align2ISB();
-
-        GRF=GRF*R'; %rotate the GRF to the new directions
-        AP=1; % now the first direction has the most variability (i.e., is the running direction)
-        %ML=2;
-        V=2;  % in a typical flat laboratory, the vertical should change least (i.e., is vertical)
-        
-        
-        f_force=forceplat.SampleRate;
-        events=events.selectFootContacts;
-        events=exportEvents(events,'analog',false);
-        events=rmfield(events,'units');
-        
-        for ctx=string(fieldnames(events))' %run the analysis for each context of events
-            if isempty(fieldnames(events.(ctx)))
-                continue
-            end
-            try
-            FS=events.(ctx).Foot_Strike;
-            FO=events.(ctx).Foot_Off;
-            for j=length(FS):-1:1
-            fc=FS(j);
-            fo=FO(j);
-            
-            %%-MAX, MIN, MEAN
-            % anteroposterior
-            grf.GRF_PARAM.Units=sprintf(unit,"");
-            grf.GRF_PARAM.(ctx+"AnteroPosteriorMax")(j)=mean(GRF(fc:fo,AP));
-            grf.GRF_PARAM.(ctx+"AnteroPosteriorMin")(j)=min(GRF(fc:fo,AP));
-            grf.GRF_PARAM.(ctx+"AnteroPosteriorMaxMean")(j)=max(GRF(fc:fo,AP));
-            % vertical
-            grf.GRF_PARAM.(ctx+"VerticalMax")(j)=max(GRF(fc:fo,V));
-            grf.GRF_PARAM.(ctx+"VerticalMean")(j)=mean(GRF(fc:fo,V));
-            %%-IMPULSES
-            grf.GRF_IMPULSES.Units=sprintf(unit,"s");
-            grf.GRF_IMPULSES.(ctx+"Vertical")(j)=trapz(GRF(fc:fo,V)-1)/f_force; %(Fy-BW)/BW= Fy/BW-1
-            %%-Braking/Propulsive impulses X for each step of the same limb
-            GRF_AP_e=GRF(fc:fo,AP);
-            zerocross=[ne(diff(sign(GRF_AP_e)),0);false]; %find zero crossing
-            Ic=cumtrapz(GRF_AP_e)/f_force;
-            Ic=[Ic(zerocross)', Ic(end)];
-            In=Ic-[0,Ic(1:end-1)];
-            
-            grf.GRF_IMPULSES.(ctx+"AnteroPosteriorStartPropulsion")(j)=sum(In)-(sum(In(In<0))+max(In));
-            grf.GRF_IMPULSES.(ctx+"AnteroPosteriorBraking")(j)=sum(In(In<0));
-            grf.GRF_IMPULSES.(ctx+"AnteroPosteriorPropulsive")(j)=max(In);
-            grf.GRF_IMPULSES.(ctx+"AnteroPosteriorNet")(j)=sum(In);    
-
-           
-            
-            end
-            catch ME
-                warning(ME.message)
-            end
-        end
-            if exist('grf','var')
-                if isfield(grf,"GRF_PARAM")
-            obj.Metadata.GRF_PARAM=grf.GRF_PARAM;
-                end
-                if isfield(grf,"GRF_IMPULSES")
-            obj.Metadata.GRF_IMPULSES=grf.GRF_IMPULSES;
-                end
-            obj.setC3DMetaData;
-            else
-               warning("GRF analysis not successfull, check events and forceplate data!")
-               grf=struct();
-            end
-        end
-
-        function SPATIOTEMP=spatioTemporalAnalysis(obj)
-         %SPATIOTEMPORALANALYSIS Computes spatial-temporal parameters
-            arguments
-            obj (1,1) Trial
-            end
-
-        forceplat=obj.ForcePlatform;
-        if numel(forceplat)==0
-           warning("Trial Contains no Force Platforms!, GRF analysis can't be performed!");
-           return
-        end   
-
-        
-        if getEventCount(obj.Events)==0 %needed because metadata isn't updated (btk bug?)
-           warning("Trial Contains no events!, GRF analysis can't be performed!");
-           return
-        else
-           events=obj.Events;
-        end
-
-        fp=forceplat.combineFP;
-   
-        %GRF=sum(cat(3,forceplat.GRF),3)/mass;
-        COP=fp.COP;
-        R=forceplat.align2ISB();
-
-        %GRF=GRF*R'; %rotate the GRF to the new directions
-        COP=COP*R';
-        AP=1; % now the first direction has the most variability (i.e., is the running direction)
-        %ML=2;
-        V=2;  % in a typical flat laboratory, the vertical should change least (i.e., is vertical)
-        events=events.selectFootContacts;
-    ev_force=events.exportEvents("analog");
-    ev_point=events.exportEvents("point");
-    ev_time=events.exportEvents("seconds");
-side=["Left", "Right"];
-ss=["L","R"];
-for s=1:2
-    lr=side(s);                  %considered side
-    cl=side(not(side==side(s))); %controlateral
-    %stance time
-    SPATIOTEMP.(lr+"ContactTime")=ev_time.(lr).Foot_Off-ev_time.(lr).Foot_Strike;
-    
-    %flight time
-    FO_lr=ev_time.(lr).Foot_Off;
-    FS_cl=ev_time.(cl).Foot_Strike;
-    FS_cl(FS_cl<FO_lr(1))=[];
-    ns=min(numel(FO_lr),numel(FS_cl));
-    SPATIOTEMP.(lr+"FlightTime")=FS_cl(1:ns)-FO_lr(1:ns);
-    % stance length 
-    try
-        P=obj.Points.PointStruct.(ss(s)+"GT")*R';
-    catch
-        P=obj.Points.PointStruct.(ss(s)+"HJC")*R';
-    end
-
-    P=P(:,AP);
-
-    SPATIOTEMP.(lr+"ContactLengthGT")=P(ev_point.(lr).Foot_Off)-P(ev_point.(lr).Foot_Strike);
-    
-
-    % stride length
-    FS_lr=ev_force.(lr).Foot_Strike;
-    FS_cl=ev_force.(cl).Foot_Strike;
-    FS_cl(FS_cl<FS_lr(1))=[];
-    ns=min(numel(FS_lr),numel(FS_cl));
-    COP_lr=COP(FS_lr(1:ns),AP);
-    COP_cl=COP(FS_cl(1:ns),AP);
-
-    SPATIOTEMP.(lr+"StrideLength")=COP_cl-COP_lr;
-end
-obj.Metadata.SPATIOTEMP=SPATIOTEMP;
-obj.setC3DMetaData;
-
-end
-
 
         function obj=inverseDynamics(obj,useID,g)
         % INVERSEDYNAMICS Calculate Joint force and moment
@@ -834,7 +628,8 @@ end
             end
 
             u=obj.Metadata.POINT.UNITS;
-            
+            %obj.Points=obj.Points.resample(obj.Metadata.ANALOG.RATE);
+            %obj=obj.buildSkeleton;
             obj.setUnits("m"); %inverse dynamics work in m, rad, kg
             
             for kc=obj.ConfigFile.KinematicModel.KinematicChain
@@ -867,7 +662,8 @@ end
                                     temp = [obj.ConfigFile.MarkerSet.Marker.("label"+obj.XMLatt)];
                                     platefoot = nan(obj.NFrames, 3, 2);
                                     for j = 1:2
-                                        platefoot(:, : ,j) = obj.Points(obj.findByLabel("Points", temp(strcmpi([obj.ConfigFile.MarkerSet.Marker.("eventDetection"+obj.XMLatt)], strrep(strrep(evnames(j),"_","")," ","")) & strcmpi([obj.ConfigFile.MarkerSet.Marker.("group"+obj.XMLatt)], s) == 1))).Coordinates;
+                                        platefoot(:, : ,j) = obj.Points(obj.findByLabel("Points", temp(strcmpi([obj.ConfigFile.MarkerSet.Marker.("eventDetection"+obj.XMLatt)], strrep(strrep(evnames(j),"_","")," ","")) &...
+                                                                                                       strcmpi([obj.ConfigFile.MarkerSet.Marker.("group"+obj.XMLatt)], s) == 1))).Coordinates;
                                     end
                                     
                                     footin = footInPlate(obj, force(fp), platefoot);
@@ -884,15 +680,19 @@ end
                                     end
 
                                     FootPlate.(s).GRF(:,:,fp) = force(fp).GRF .* repmat(onoff, 1, 3);
-                                    FootPlate.(s).GRM(:,:,fp) = force(fp).GRM .* repmat(onoff, 1, 3);
+                                    FootPlate.(s).FreeTorque(:,:,fp) = force(fp).FreeTorque .* repmat(onoff, 1, 3);
                                     FootPlate.(s).COP(:,:,fp) = force(fp).COP .* repmat(onoff, 1, 3);
                                 end
                         end
-                        if strcmpi(obj.TaskType, "running")
-                            force=force.resample(obj.Points(1).SampleRate);
-                            F=force.GRF;
-                            M=force.GRM*0;
-                            COP=force.COP;
+                        if strcmpi(obj.TaskType, "running") || strcmpi(obj.TaskType, "")
+                            ar=obj.Metadata.ANALOG.RATE;
+                            pr=obj.Metadata.POINT.RATE;
+                            sr=ar/pr;
+                            %force=force.resample(obj.Metadata.POINT.RATE);
+                            %obj.Metadata.ANALOG.RATE=ar;
+                            F=force.GRF(1:sr:end,:);
+                            M=force.FreeTorque(1:sr:end,:);
+                            COP=force.COP(1:sr:end,:);
                             ev=obj.Events.exportEvents('point',false);
                             FC=ev.(kc.("group"+obj.XMLatt)).Foot_Strike;
                             FO=ev.(kc.("group"+obj.XMLatt)).Foot_Off;
@@ -906,7 +706,7 @@ end
                         elseif strcmpi(obj.TaskType, "walking")
                             fratio = obj.NSamples/obj.NFrames;
                             Fd = sum(FootPlate.(s).GRF(1:fratio:end,:,:), 3, "omitmissing");
-                            Md = sum(FootPlate.(s).GRM(1:fratio:end,:,:), 3, "omitmissing");
+                            Md = sum(FootPlate.(s).FreeTorque(1:fratio:end,:,:), 3, "omitmissing");
                             DP = sum(FootPlate.(s).COP(1:fratio:end,:,:), 3, "omitmissing");
                         end
                     elseif isequal(endpoint,'Free')||ismissing(endpoint)
@@ -952,6 +752,16 @@ end
                         else
                             error("Invalid units, must  be m or mm!")
                         end
+                        
+                        % for pp=1:3
+                        % subplot(2,3,pp)
+                        % plot(fp(:,pp),"DisplayName",joint.Label+"."+string(char(87+pp)))
+                        % hold on
+                        % subplot(2,3,pp+3)
+                        % plot(mp(:,pp),"DisplayName",joint.Label+"."+string(char(87+pp)))
+                        % hold on
+                        % end
+                        % legend
                         obj.Joints.(s).(joint.Label).Force=fp;
                     end
                 catch ME
@@ -1007,26 +817,26 @@ end
         end
 
         function targetfile=saveConfiguration(obj,targetfile)
-        % SAVECONFIGURATION Save the configuration to an XML/JSON file
+        % SAVECONFIGURATION Save the configuration to an XML file
         % targetfile=SAVECONFIGURATION(obj,targetfile) saves the
-        % configuration structure to an XML/JSON file
-            if nargin==1
-                try
-            [p,f,e]=fileparts(obj.configfile);
-            [f,p]=uiputfile(fullfile(p,[f e]),'Select Configuration file destination:');
-                catch
-                [f,p]=uiputfile('.configuration','Select Configuration file destination:'); 
-                end
+        % configuration structure to an XML file
+        if nargin==1
+            try
+                [p,f,e]=fileparts(obj.configfile);
+                [f,p]=uiputfile(fullfile(p,[f e]),'Select Configuration file destination:');
+            catch
+                [f,p]=uiputfile('.xml','Select Configuration file destination:');
+            end
             if f==0 %no file selected
-               return
+                return
             end
             targetfile=fullfile(p,f);
-            end
-            if obj.useJSON
-            writestruct(obj.ConfigFile,targetfile,'FileType','json');
-            else
-            writestruct(obj.ConfigFile,targetfile,'FileType','xml','AttributeSuffix',obj.XMLatt);
-            end
+        end
+        % if obj.useJSON
+        % writestruct(obj.ConfigFile,targetfile,'FileType','json');
+        % else
+        writestruct(obj.ConfigFile,targetfile,'FileType','xml','AttributeSuffix',obj.XMLatt);
+        % end
         end
         
         function targetfile=writeC3D(obj,targetfile,mode)
@@ -1174,7 +984,13 @@ end
                end
            end
            obj.readC3DMetaData;
-        end   
+        end
+
+        function winopen(obj)
+            winopen(obj.c3dfile);
+        end
+
+
      end
 
      methods (Access=private)
@@ -1183,7 +999,4 @@ end
          end
      end
  end
-
-
-
 

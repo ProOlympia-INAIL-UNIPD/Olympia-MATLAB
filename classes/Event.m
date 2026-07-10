@@ -14,12 +14,23 @@ classdef Event
         Units string {mustBeMember(Units,["seconds","analog","point"])}="seconds";
         TimeOfFirstFrame=0; %Time between the start of the trial and the first indexed frame
         FirstFrame=1;
-        PointRate=1;    %Sample Rate for points
-        AnalogRate=1;   %Sample Rate for analog signals
+
         Absolute logical =false; %indicates wheter event are refered to the TimeOfFirstFrame or to the Absolute time of the acquisition
     end
 
+    properties (Dependent)
+        PointRate;    %Sample Rate for points
+        AnalogRate;   %Sample Rate for analog signals
+    end
+        
     methods
+        function pr=get.PointRate(obj)
+            pr=obj.Parent.Metadata.POINT.RATE;
+        end
+
+        function ar=get.AnalogRate(obj)
+            ar=obj.Parent.Metadata.ANALOG.RATE;
+        end
 
         function obj = Event(c3dfile)
             %obj = Event(c3dfile) reads event from a c3dfile
@@ -39,8 +50,8 @@ classdef Event
             [c3dfile,p]=uigetfile('*.c3d');
             H=btkReadAcquisition(fullfile(p,c3dfile));
         end
-        obj.PointRate=btkGetPointFrequency(H);
-        obj.AnalogRate=btkGetAnalogFrequency(H);
+        %obj.PointRate=btkGetPointFrequency(H);
+        %obj.AnalogRate=btkGetAnalogFrequency(H);
         obj.TimeOfFirstFrame=(btkGetFirstFrame(H)-1)/btkGetPointFrequency(H); %t=(frame-firstframe)/point_freq
         obj.FirstFrame=btkGetFirstFrame(H);
         [ev,info]=btkGetEvents(H);
@@ -166,7 +177,7 @@ classdef Event
         % the trial or of the trim region.
             arguments
                 obj
-                outputunits="seconds";
+                outputunits char {mustBeMember(outputunits,{'seconds','analog','point','perc'})}='seconds';
                 absolute=false;
             end
             if absolute && obj.Absolute
@@ -183,7 +194,7 @@ classdef Event
             fun=@(t) round((t-t0)*fs+1);
             case "point"
             fs=obj.PointRate;
-            fun=@(t) round((t-t0)*fs+1);
+            fun=@(t) floor((t-t0)*fs+1);
             case "perc"
                 fun = @(context) stridePerc(obj, context);
             otherwise
@@ -356,6 +367,9 @@ classdef Event
         %modify so that FootStrike and FootOff events are
         %paired correctly
         for s=["Left", "Right"]
+            if isempty(fieldnames(obj.(s)))
+                continue
+            end
             FS=obj.(s).Foot_Strike;
             FO=obj.(s).Foot_Off;
             FO(FO<FS(1))=[];%clear FootOffs before the first footstrike

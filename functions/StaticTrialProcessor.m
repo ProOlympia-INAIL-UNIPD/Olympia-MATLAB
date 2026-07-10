@@ -15,6 +15,8 @@ arguments
     %kinematic
     NameValue.ClearUnlabeled='C_';
     NameValue.InertialProperties=1;
+    NameValue.Mass_kg=0;
+    NameValue.Gender="Male";
 end
 
 if isempty(config)
@@ -43,7 +45,10 @@ stat.Points=stat.Points.clearUnlabeled(NameValue.ClearUnlabeled);
 stat=staticMarkerReconstruction(stat);
 stat=stat.setUnits(NameValue.TrialUnits);
 stat=stat.buildSkeleton;
-stat=stat.setSubjectAntropometry();
+stat.Metadata.ANTROPOMETRY.mass=NameValue.Mass_kg;
+stat.Metadata.ANTROPOMETRY.massunits="kg";
+stat.Metadata.ANTROPOMETRY.gender=NameValue.Gender;
+%stat=stat.setSubjectAntropometry();
 if NameValue.InertialProperties
     stat=stat.scaleInertialProp;
 end

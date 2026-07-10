@@ -1,6 +1,7 @@
 <?xml version = "1.0" encoding = "UTF-8" ?>
 <ModelList>
     <Model label="Olympia" description="Full body model for running and long jumping of paralympic athletes"/>
+    <Model label="INAIL_RightTransTibial_ProsthFootComp" description="Full model for Andrea's purposes"/>
     <!-- Model label="new model name to be added" 
                 description="optional field where a short description of the model is given"-->
 </ModelList>

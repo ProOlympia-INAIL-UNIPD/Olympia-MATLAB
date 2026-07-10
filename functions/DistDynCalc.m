@@ -5,7 +5,7 @@ function [Fp, Mp] = DistDynCalc(Joint,Fd, Md, g, Fd_appPoint,inertiamask)
 % g è il vettore gravità
 % Fd_appPoint punto applicazione forza distale [nF x 3]
 % inertiamask è un selettore (1/0) per evitare l'uso delle masse e delle inerzie
-debugmode=true;
+debugmode=false;
 if vecnorm(g)>10
     warning('Gravity vector magnitude (%0.2f) appears to be higher than expected, please check that g is provided in m/s2!',vecnorm(g));
 end
@@ -15,8 +15,11 @@ CM=dist.COM;
 if isempty(CM)
     CM=JC;
     inertiamask=0;
+    fprintf("%s: Center of Mass not available, proceeding with Joint Center (inertial components will be neglected)\n",Joint.Label);
 end
-
+if size(CM.Coordinates,1)==0 ||size(JC.Coordinates,1)==0
+   error("%s: COM/JC exists but as an empty point",Joint.Label)
+end
 b = Fd_appPoint-CM.Coordinates;
 m=dist.Mass*inertiamask;
 I=dist.Icm*inertiamask;
@@ -28,7 +31,19 @@ omega=dist.AngularVelocity;
 alpha=dist.AngularAcceleration;
 dist.AngleUnits=au;
 a_com=CM.Acceleration;
-
+%plot(a_com,"DisplayName","unf");hold on
+% [bf,af]=butter(4,5/(dist.SampleRate/2));
+% omega=nanfiltfilt(bf,af,omega);
+% alpha=diff(omega)*dist.SampleRate;
+% alpha(end+1,:)=nan;
+% alpha=nanfiltfilt(bf,af,alpha);
+% speed=diff(CM.Coordinates)*dist.SampleRate;
+% speed(end+1,:)=nan;
+% speed=nanfiltfilt(bf,af,speed);
+% a_com=diff(speed)*dist.SampleRate;
+% a_com(end+1,:)=nan;
+% a_com=nanfiltfilt(bf,af,a_com);
+% plot(a_com,"DisplayName","fil");hold on
 b_Fp = JC.Coordinates - CM.Coordinates;
 ma=m*a_com;
 W=repmat(m*g, [size(T,3) 1]);

@@ -1,4 +1,4 @@
-classdef Joint
+classdef Joint%<handle
     %JOINT contains the data of a Joint in a biomechanical
     %acquisition/model
 
@@ -16,6 +16,8 @@ classdef Joint
         Moment (:,3) double % Joint Moment (frames,XYZ) in the Parent Reference System  
         MomentUnits (1,1) {mustBeMember(MomentUnits,["Nm","Nmm"])}="Nmm"; %Units of Torque
         Acquisition Trial   % Trial containing the data for the Joint
+        SignConvention (1,3) double =[1 1 1]; %Convention for sign
+        AngleAlias=""; %Convention for names
         
     end
     properties (Dependent)
@@ -55,6 +57,7 @@ classdef Joint
             if isequal(obj.AngleUnits,"deg")
             angle=angle*180/pi;
             end
+            angle=angle.*obj.SignConvention;
             %[~,ord]=sort(double(char(obj.AngleSequence)));
             %angle=angle(:,ord);
         end
@@ -70,18 +73,32 @@ classdef Joint
         else
            S=pagemtimes(obj.Rotation,'transpose',Rdot,'none');
         end
-            omega(:,:)=[ S(3,2,:) S(1,3,:) S(2,1,:)]*obj.Parent.SampleRate;
+            omega(:,:)=[ S(3,2,:) S(1,3,:) S(2,1,:)]*obj.Acquisition.Metadata.POINT.RATE;
             omega=omega';
         if isequal(obj.AngleUnits,"deg")
             omega=omega*180/pi;
         end
+
+        if all(isfinite(obj.Acquisition.KinematicFilter))
+            b=obj.Acquisition.KinematicFilter(1,:);
+            a=obj.Acquisition.KinematicFilter(2,:);
+            omega=nanfiltfilt(b,a,omega);
+        end
+
         end
 
         function alpha=get.AngularAcceleration(obj)
 
             omega=obj.AngularVelocity;
-            alpha=diff(omega)*obj.Parent.SampleRate;
+            alpha=diff(omega)*obj.Acquisition.Metadata.POINT.RATE;
             alpha(end+1,:)=nan;
+
+            if all(isfinite(obj.Acquisition.KinematicFilter))
+                b=obj.Acquisition.KinematicFilter(1,:);
+                a=obj.Acquisition.KinematicFilter(2,:);
+                alpha=nanfiltfilt(b,a,alpha);
+            end
+
         end
 
         function power=get.Power(obj)
@@ -112,8 +129,9 @@ classdef Joint
         for quantity=["Angle","Moment","Power"]
             try
             if isequal(quantity,"Angle")
-                descr=obj.AngleSequence;
-                [~,ord]=sort(double(char(obj.AngleSequence)));
+                descr=obj.AngleAlias;
+                %[~,ord]=sort(double(char(obj.AngleSequence)));
+                ord=[1 2 3];
                 data=obj.CardanAngles(:,ord);
             elseif isequal(quantity,"Moment")
 			    descr=sprintf("expressed in %s CS",obj.Parent.Label);
@@ -187,6 +205,7 @@ classdef Joint
             try
             c.angle(:,:,i)=time2cycle([],obj.CardanAngles(S(i):E(i),:),npoints);
             c.omega(:,:,i)=time2cycle([],obj.AngularVelocity(S(i):E(i),:),npoints);
+            c.force(:,:,i)=time2cycle([],obj.Force(S(i):E(i),:),npoints);
             c.moment(:,:,i)=time2cycle([],obj.Moment(S(i):E(i),:),npoints);
             c.power(:,:,i)=time2cycle([],obj.Power(S(i):E(i),:),npoints);
             catch

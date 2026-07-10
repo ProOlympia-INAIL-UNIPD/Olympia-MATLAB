@@ -1,0 +1,69 @@
+<?xml version = "1.0" encoding = "UTF-8" ?>
+<kinematics>
+    <!-- Joint label="Name"
+            group="possible grouping among joints (e.g., General/Right/Left; Common/Affected/Unaffected; etc.)"
+            prox="proximal segment name"
+            dist="distal segment name"
+            opt="2: TF only; 3: TT only"
+            type="joint type (e.g., hinge, free, etc.)"
+            JC="joint center point"
+            angleseq="Euler/Cardan sequence to decompose the 3D rotation"
+            sign="sign convention for the 3 angles (e.g., 1, -1, -1)"
+            alias="alias for the 3 angles (e.g., flexion, adduction, internal rotation)"
+    -->
+
+    <!-- GENERAL JOINTS -->
+    <General>
+        <Joint label="Cervical" group="General" prox="Trunk" dist="Head" opt="0" type="free" JC="C7" angleseq="zxy" sign="1, 1, -1" alias="flexion, right flexion, right rotation"/>
+        <Joint label="Lumbosacral" group="General" prox="Pelvis" dist="Trunk" opt="0" type="free" angleseq="zxy" sign="1, 1, -1" alias="flexion, right bending, right rotation"/>
+    </General>
+
+    <!-- UPPER LIMB JOINTS-->
+    <Unaffected_upper>
+        <Joint label="LeftShoulder" group="Left" prox="Trunk" dist="LeftArm" opt="0" type="free" JC="LSJC" angleseq="zxy" sign="1, -1, -1" alias="flexion, adduction, internal rotation"/>
+        <Joint label="RightShoulder" group="Right" prox="Trunk" dist="RightArm" opt="0" type="free" JC="RSJC" angleseq="zxy" sign="1, 1, 1" alias="flexion, adduction, internal rotation"/>
+        <Joint label="LeftElbow" group="Left" prox="LeftArm" dist="LeftForearm" opt="0" type="hinge" JC="LHLE" angleseq="zxy" sign="1, 1, 1" alias="flexion, null, null"/>
+        <Joint label="RightElbow" group="Right" prox="RightArm" dist="RightForearm" opt="0" type="hinge" JC="RHLE" angleseq="zxy" sign="1, 1, 1" alias="flexion, null, null"/>
+    </Unaffected_upper>
+
+    <!-- LOWER (SOUND) LIMB JOINTS-->
+    <Unaffected_lower>
+        <Joint label="LeftHip" group="Left" prox="Pelvis" dist="LeftThigh" opt="0" type="free" JC="LHJC" angleseq="zxy" sign="1, -1, -1" alias="flexion, adduction, internal rotation"/>
+        <Joint label="RightHip" group="Right" prox="Pelvis" dist="RightThigh" opt="0" type="free" JC="RHJC" angleseq="zxy" sign="1, 1, 1" alias="flexion, adduction, internal rotation"/>
+        <Joint label="LeftKnee" group="Left" prox="LeftThigh" dist="LeftShank" opt="0" type="free" JC="LKJC" angleseq="zxy" sign="-1, -1, -1" alias="flexion, adduction, internal rotation"/>
+        <Joint label="RightKnee" group="Right" prox="RightThigh" dist="RightShank" opt="0" type="free" JC="RKJC" angleseq="zxy" sign="-1, 1, 1" alias="flexion, adduction, internal rotation"/>
+        <Joint label="LeftAnkle" group="Left" prox="LeftShank" dist="LeftFoot" opt="0" type="free" JC="LAJC" angleseq="zyx" sign="1, -1, -1" alias="dorsiflexion, inversion, internal rotation"/>
+        <Joint label="RightAnkle" group="Right" prox="RightShank" dist="RightFoot" opt="0" type="free" JC="RAJC" angleseq="zyx" sign="1, 1, 1" alias="dorsiflexion, inversion, internal rotation"/>
+    </Unaffected_lower>
+
+    <!-- LOWER (PROSTHETIC) LIMB JOINTS -->
+    <Affected_lower>
+        <!-- transfemoral-->
+        <Joint label="LeftHip" group="Left" prox="Pelvis" dist="LeftSocket" opt="2" type="free" JC="LHJC" angleseq="zxy" sign="1, -1, -1" alias="flexion, adduction, internal rotation"/>
+        <Joint label="RightHip" group="Right" prox="Pelvis" dist="RightSocket" opt="2" type="free" JC="RHJC" angleseq="zxy" sign="1, 1, 1" alias="flexion, adduction, internal rotation"/>
+        <Joint label="LeftProstheticKnee" group="Left" prox="LeftKneeProx" dist="LeftKneeDist" opt="2" type="hinge" JC="LPKJC" angleseq="zxy" sign="-1, -1, -1" alias="flexion, adduction, internal rotation"/>
+        <Joint label="RightProstheticKnee" group="Right" prox="RightKneeProx" dist="RightKneeDist" opt="2" type="hinge" JC="RPKJC" angleseq="zxy" sign="-1, 1, 1" alias="flexion, adduction, internal rotation"/>
+        <Joint label="LeftProstheticAnkle" group="Left" prox="LeftFootClamp" dist="LeftFootDist" opt="2" type="free" JC="LPAJC" angleseq="zyx" sign="1, -1, -1" alias="dorsiflexion, inversion, internal rotation"/>
+        <Joint label="RightProstheticAnkle" group="Right" prox="RightFootClamp" dist="RightFootDist" opt="2" type="free" JC="RPAJC" angleseq="zyx" sign="1, 1, 1" alias="dorsiflexion, inversion, internal rotation"/>
+        <!-- /transfemoral-->
+        <!-- transtibial -->
+        <Joint label="LeftHip" group="Left" prox="Pelvis" dist="LeftThigh" opt="3" type="free" JC="LHJC" angleseq="zxy" sign="1, -1, -1" alias="flexion, adduction, internal rotation"/>
+        <Joint label="RightHip" group="Right" prox="Pelvis" dist="RightThigh" opt="3" type="free" JC="RHJC" angleseq="zxy" sign="1, 1, 1" alias="flexion, adduction, internal rotation"/>
+        <Joint label="LeftKnee" group="Left" prox="LeftThigh" dist="LeftSocket" opt="3" type="free" JC="LKJC" angleseq="zxy" sign="-1, -1, -1" alias="flexion, adduction, internal rotation"/>
+        <Joint label="RightKnee" group="Right" prox="RightThigh" dist="RightSocket" opt="3" type="free" JC="RKJC" angleseq="zxy" sign="-1, 1, 1" alias="flexion, adduction, internal rotation"/>
+        <!-- Joint label="LeftFootSocket" group="Left" prox="LeftSocket" dist="LeftFootClamp" opt="3" type="free" JC="LWP" angleseq="zxy" sign="1, -1, -1" alias="dorsiflexion, inversion, internal rotation"/ -->
+        <!-- Joint label="RightFootSocket" group="Right" prox="RightSocket" dist="RightFootClamp" opt="3" type="free" JC="RWP" angleseq="zxy" sign="1, 1, 1" alias="dorsiflexion, inversion, internal rotation"/ -->
+        <Joint label="LeftProstheticAnkle" group="Left" prox="LeftFootClamp" dist="LeftFootDist" opt="3" type="free" JC="LPAJC" angleseq="zyx" sign="1, -1, -1" alias="dorsiflexion, inversion, internal rotation"/>
+        <Joint label="RightProstheticAnkle" group="Right" prox="RightFootClamp" dist="RightFootDist" opt="3" type="free" JC="RPAJC" angleseq="zyx" sign="1, 1, 1" alias="dorsiflexion, inversion, internal rotation"/>
+        <!-- /transtibial -->
+    </Affected_lower>
+    
+    <KinematicChain>
+        <chain group="Left" joints="LeftHip, LeftKnee, LeftAnkle" endbody="ForcePlatform" opt="0"/>
+        <chain group="Right" joints="RightHip, RightKnee, RightAnkle" endbody="ForcePlatform" opt="0"/>
+        <chain group="Left" joints="LeftHip, LeftProstheticKnee, LeftProstheticAnkle" endbody="ForcePlatform" opt="2"/>
+        <chain group="Right" joints="RightHip, RightProstheticKnee, RightProstheticAnkle" endbody="ForcePlatform" opt="2"/>
+        <chain group="Left" joints="LeftHip, LeftKnee, LeftProstheticAnkle" endbody="ForcePlatform" opt="3"/>
+        <chain group="Right" joints="RightHip, RightKnee, RightProstheticAnkle" endbody="ForcePlatform" opt="3"/>
+    </KinematicChain>
+</kinematics>

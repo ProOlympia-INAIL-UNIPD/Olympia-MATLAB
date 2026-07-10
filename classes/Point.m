@@ -175,7 +175,7 @@ classdef Point<handle
             end
         end
         
-        function p=appendPoint(obj,label,XYZ,unit,segment,type,cluster,group)
+        function varargout=appendPoint(obj,label,XYZ,unit,segment,type,cluster,group,eventDetection)
             %APPENDPOINT adds a Point specified by label and XYZ coordinates to the object
             % obj=APPENDPOINT(obj,label,XYZ,segment,type,cluster,group) adds a
             % point to the end of the Point array. The new point need at least
@@ -190,6 +190,7 @@ classdef Point<handle
                 type string ="";
                 cluster logical=false;
                 group string="";
+                eventDetection string=""
             end
             % check if point already exist, if exist overwrites
             if ~any(matches([obj.Units],unit))
@@ -205,7 +206,8 @@ classdef Point<handle
             if any(i)
                 warning("A point in the acquisition has already the label %s!",label);
                 i=find(i);
-                p=obj(i);
+                %p=0;
+                %p=obj(i);
                 return
 
                 sr=obj(i).SampleRate;
@@ -236,11 +238,12 @@ classdef Point<handle
                 tr.ConfigFile.MarkerSet.Marker(end).("group"+tr.XMLatt)=group;
                 tr.ConfigFile.MarkerSet.Marker(end).("type"+tr.XMLatt)=type;
                 tr.ConfigFile.MarkerSet.Marker(end).("cluster"+tr.XMLatt)=double(cluster);
+                tr.ConfigFile.MarkerSet.Marker(end).("eventDetection"+tr.XMLatt)=eventDetection;
             end
 
 
 
-            p=obj(i);
+            varargout{1}=obj(i);
         end
         %% BASIC OPERATIONS
         function obj=sort(obj)
@@ -249,13 +252,18 @@ classdef Point<handle
             obj=obj(ord);
         end
         
-        function obj=filtfilt(obj,b,a)
+        function obj=filtfilt(obj)
             %FILTFILT overloads filtfilt for class point
+
             try
             for i=1:length(obj)
-            obj(i).XData=nanfiltfilt(b,a,obj(i).XData);
-            obj(i).YData=nanfiltfilt(b,a,obj(i).YData);
-            obj(i).ZData=nanfiltfilt(b,a,obj(i).ZData);
+            if all(isfinite(obj(i).Parent.KinematicFilter))
+                b=obj(i).Parent.KinematicFilter(1,:);
+                a=obj(i).Parent.KinematicFilter(2,:);
+                obj(i).XData=nanfiltfilt(b,a,obj(i).XData);
+                obj(i).YData=nanfiltfilt(b,a,obj(i).YData);
+                obj(i).ZData=nanfiltfilt(b,a,obj(i).ZData);
+            end
             end
             catch ME
                 warning("%s: %s",obj(i).Label,ME.message);
@@ -272,11 +280,14 @@ classdef Point<handle
 
         function obj=resample(obj,new_samplerate)
             %RESAMPLE sets the new sample rate using built-in resample
-			for i=1:length(obj)
+			obj=spline(obj,new_samplerate);
+            return
+            
+            for i=1:length(obj)
             p=obj(i).SampleRate;
-            obj(i).XData = resample(obj(i).XData,p,new_samplerate);
-            obj(i).YData = resample(obj(i).XData,p,new_samplerate);
-            obj(i).ZData = resample(obj(i).XData,p,new_samplerate);
+            obj(i).XData = resample(obj(i).XData,new_samplerate,p);
+            obj(i).YData = resample(obj(i).YData,new_samplerate,p);
+            obj(i).ZData = resample(obj(i).ZData,new_samplerate,p);
             obj(i).SampleRate=new_samplerate;
             obj(i).NFrames=obj(i).NFrames*new_samplerate/p;
 			end
@@ -291,12 +302,13 @@ classdef Point<handle
 			newp=np*new_samplerate/p;
 			tb_old=linspace(1,np,np);
 			tb_new=linspace(1,np,newp);
-            obj(i).XData = spline(tb_old,obj(i).XData,tb_new);
-            obj(i).YData = spline(tb_old,obj(i).YData,tb_new);
-            obj(i).ZData = spline(tb_old,obj(i).ZData,tb_new);
+            obj(i).XData = nanspline(tb_old,obj(i).XData',tb_new)';
+            obj(i).YData = nanspline(tb_old,obj(i).YData',tb_new)';
+            obj(i).ZData = nanspline(tb_old,obj(i).ZData',tb_new)';
             obj(i).SampleRate=new_samplerate;
             obj(i).NFrames=newp;
-			end
+            end
+            obj(end).Parent.Metadata.POINT.RATE=new_samplerate;
         end
 
         function obj=mean(obj)
@@ -315,9 +327,9 @@ classdef Point<handle
         %element in label
             for i=1:length({obj.Label})
                 label=matlab.lang.makeValidName(obj(i).Label,'Prefix','C_');
-                P.(obj(i).Label)=obj(i).Coordinates;
-                V.(obj(i).Label)=obj(i).Velocity;
-                A.(obj(i).Label)=obj(i).Acceleration;
+                P.(label)=obj(i).Coordinates;
+                V.(label)=obj(i).Velocity;
+                A.(label)=obj(i).Acceleration;
             end
         end
 
@@ -327,10 +339,20 @@ classdef Point<handle
 
         function V=get.Velocity(obj)
             V=[diff(obj.Coordinates,1,1); nan(1,3)]*obj.SampleRate;
+            if all(isfinite(obj.Parent.KinematicFilter))
+                b=obj.Parent.KinematicFilter(1,:);
+                a=obj.Parent.KinematicFilter(2,:);
+                V=nanfiltfilt(b,a,V);
+            end
         end
         
         function A=get.Acceleration(obj)
             A=[diff(obj.Coordinates,2,1); nan(2,3)]*(obj.SampleRate^2);
+            if all(isfinite(obj.Parent.KinematicFilter))
+                b=obj.Parent.KinematicFilter(1,:);
+                a=obj.Parent.KinematicFilter(2,:);
+                A=nanfiltfilt(b,a,A);
+            end        
         end
         %% GRAPHICS
 

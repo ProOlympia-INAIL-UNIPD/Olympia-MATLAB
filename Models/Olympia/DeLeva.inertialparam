@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<inertial_parameters>
+    <Male>
+        <Head>
+            <Endpoints origin="VERT" other="MIDG" />
+            <Length value="203.3" unit="mm" />
+            <Mass value="6.94" unit="BW_perc" />
+            <CM value="59.76" unit="Length_perc" />
+            <gyration_radii rSagg="36.2" rTrans="37.6" rLong="31.2" />
+        </Head>
+        <Trunk>
+            <Endpoints origin="C7" other="HJC" />
+            <Length value="603.3" unit="mm" />
+            <Mass value="43.46" unit="BW_perc" />
+            <CM value="51.38" unit="Length_perc" />
+            <gyration_radii rSagg="32.8" rTrans="30.6" rLong="16.9" />
+        </Trunk>
+        <UPT>
+            <Endpoints origin="IJ" other="XYPH" />
+            <Length value="170.7" unit="mm" />
+            <Mass value="15.96" unit="BW_perc" />
+            <CM value="29.99" unit="Length_perc" />
+            <gyration_radii rSagg="71.6" rTrans="45.4" rLong="65.9" />
+        </UPT>
+        <MPT>
+            <Endpoints origin="XYPH" other="OMPH" />
+            <Length value="215.5" unit="mm" />
+            <Mass value="16.33" unit="BW_perc" />
+            <CM value="45.02" unit="Length_perc" />
+            <gyration_radii rSagg="48.2" rTrans="38.3" rLong="46.8" />
+        </MPT>
+        <LPT>
+            <Endpoints origin="OMPH" other="MIDH" />
+            <Length value="145.7" unit="mm" />
+            <Mass value="11.17" unit="BW_perc" />
+            <CM value="61.15" unit="Length_perc" />
+            <gyration_radii rSagg="61.5" rTrans="55.1" rLong="58.7" />
+        </LPT>
+        <Arm>
+            <Endpoints origin="SJC" other="EJC" />
+            <Length value="281.7" unit="mm" />
+            <Mass value="2.71" unit="BW_perc" />
+            <CM value="57.72" unit="Length_perc" />
+            <gyration_radii rSagg="28.5" rTrans="26.9" rLong="15.8" />
+        </Arm>
+        <Forearm>
+            <Endpoints origin="ETC" other="WJC" />
+            <Length value="268.9" unit="mm" />
+            <Mass value="1.62" unit="BW_perc" />
+            <CM value="45.74" unit="Length_perc" />
+            <gyration_radii rSagg="27.6" rTrans="26.5" rLong="12.1" />
+        </Forearm>
+        <Hand>
+            <Endpoints origin="WJC" other="MET3" />
+            <Length value="86.2" unit="mm" />
+            <Mass value="0.61" unit="BW_perc" />
+            <CM value="79" unit="Length_perc" />
+            <gyration_radii rSagg="62.8" rTrans="51.3" rLong="40.1" />
+        </Hand>
+        <Thigh>
+            <Endpoints origin="HJC" other="KJC" />
+            <Length value="422.2" unit="mm" />
+            <Mass value="14.16" unit="BW_perc" />
+            <CM value="40.5" unit="Length_perc" />
+            <gyration_radii rSagg="32.9" rTrans="32.9" rLong="14.9" />
+        </Thigh>
+        <Shank>
+            <Endpoints origin="HJC" other="KJC" />
+            <Length value="440.2" unit="mm" />
+            <Mass value="4.33" unit="BW_perc" />
+            <CM value="43.95" unit="Length_perc" />
+            <gyration_radii rSagg="25.1" rTrans="24.6" rLong="10.2" />
+        </Shank>
+        <Foot>
+            <Endpoints origin="HEEL" other="TTIP" />
+            <Length value="258.1" unit="mm" />
+            <Mass value="1.37" unit="BW_perc" />
+            <CM value="44.15" unit="Length_perc" />
+            <gyration_radii rSagg="25.7" rTrans="24.5" rLong="12.4" />
+        </Foot>
+        <Socket>
+            <Endpoints origin="NULL" other="NULL" />
+            <Length value="0" unit="mm" />
+            <Mass value="0" unit="BW_perc" />
+            <CM value="0" unit="Length_perc" />
+            <gyration_radii rSagg="0" rTrans="0" rLong="0" />
+        </Socket>
+        <ProstheticKnee>
+            <Endpoints origin="NULL" other="NULL" />
+            <Length value="0" unit="mm" />
+            <Mass value="0" unit="BW_perc" />
+            <CM value="0" unit="Length_perc" />
+            <gyration_radii rSagg="0" rTrans="0" rLong="0" />
+        </ProstheticKnee>
+        <ProstheticFoot>
+            <Endpoints origin="NULL" other="NULL" />
+            <Length value="0" unit="mm" />
+            <Mass value="0" unit="BW_perc" />
+            <CM value="0" unit="Length_perc" />
+            <gyration_radii rSagg="0" rTrans="0" rLong="0" />
+        </ProstheticFoot>
+    </Male>
+    <Female>
+        <Head>
+            <Endpoints origin="VERT" other="MIDG" />
+            <Length value="200.2" unit="mm" />
+            <Mass value="6.67" unit="BW_perc" />
+            <CM value="58.94" unit="Length_perc" />
+            <gyration_radii rSagg="33" rTrans="35.9" rLong="31.8" />
+        </Head>
+        <Trunk>
+            <Endpoints origin="C7" other="HJC" />
+            <Length value="614.8" unit="mm" />
+            <Mass value="42.57" unit="BW_perc" />
+            <CM value="49.64" unit="Length_perc" />
+            <gyration_radii rSagg="30.7" rTrans="29.2" rLong="14.7" />
+        </Trunk>
+        <UPT>
+            <Endpoints origin="IJ" other="XYPH" />
+            <Length value="142.5" unit="mm" />
+            <Mass value="15.45" unit="BW_perc" />
+            <CM value="20.77" unit="Length_perc" />
+            <gyration_radii rSagg="74.6" rTrans="50.2" rLong="71.8" />
+        </UPT>
+        <MPT>
+            <Endpoints origin="XYPH" other="OMPH" />
+            <Length value="205.3" unit="mm" />
+            <Mass value="14.65" unit="BW_perc" />
+            <CM value="45.12" unit="Length_perc" />
+            <gyration_radii rSagg="43.3" rTrans="35.4" rLong="41.5" />
+        </MPT>
+        <LPT>
+            <Endpoints origin="OMPH" other="MIDH" />
+            <Length value="181.5" unit="mm" />
+            <Mass value="12.47" unit="BW_perc" />
+            <CM value="49.2" unit="Length_perc" />
+            <gyration_radii rSagg="43.3" rTrans="40.2" rLong="44.4" />
+        </LPT>
+        <Arm>
+            <Endpoints origin="SJC" other="EJC" />
+            <Length value="275.1" unit="mm" />
+            <Mass value="2.55" unit="BW_perc" />
+            <CM value="57.54" unit="Length_perc" />
+            <gyration_radii rSagg="27.8" rTrans="26" rLong="14.8" />
+        </Arm>
+        <Forearm>
+            <Endpoints origin="ETC" other="WJC" />
+            <Length value="264.3" unit="mm" />
+            <Mass value="1.38" unit="BW_perc" />
+            <CM value="45.59" unit="Length_perc" />
+            <gyration_radii rSagg="26.1" rTrans="25.7" rLong="9.4" />
+        </Forearm>
+        <Hand>
+            <Endpoints origin="WJC" other="MET3" />
+            <Length value="78" unit="mm" />
+            <Mass value="0.56" unit="BW_perc" />
+            <CM value="74.74" unit="Length_perc" />
+            <gyration_radii rSagg="53.1" rTrans="45.4" rLong="33.5" />
+        </Hand>
+        <Thigh>
+            <Endpoints origin="HJC" other="KJC" />
+            <Length value="368.5" unit="mm" />
+            <Mass value="14.78" unit="BW_perc" />
+            <CM value="36.12" unit="Length_perc" />
+            <gyration_radii rSagg="36.9" rTrans="36.4" rLong="16.2" />
+        </Thigh>
+        <Shank>
+            <Endpoints origin="HJC" other="KJC" />
+            <Length value="438.6" unit="mm" />
+            <Mass value="4.81" unit="BW_perc" />
+            <CM value="43.52" unit="Length_perc" />
+            <gyration_radii rSagg="26.7" rTrans="26.3" rLong="9.2" />
+        </Shank>
+        <Foot>
+            <Endpoints origin="HEEL" other="TTIP" />
+            <Length value="228.3" unit="mm" />
+            <Mass value="1.29" unit="BW_perc" />
+            <CM value="40.14" unit="Length_perc" />
+            <gyration_radii rSagg="29.9" rTrans="27.9" rLong="13.9" />
+        </Foot>
+        <Socket>
+            <Endpoints origin="NULL" other="NULL" />
+            <Length value="0" unit="mm" />
+            <Mass value="0" unit="BW_perc" />
+            <CM value="0" unit="Length_perc" />
+            <gyration_radii rSagg="0" rTrans="0" rLong="0" />
+        </Socket>
+        <ProstheticKnee>
+            <Endpoints origin="NULL" other="NULL" />
+            <Length value="0" unit="mm" />
+            <Mass value="0" unit="BW_perc" />
+            <CM value="0" unit="Length_perc" />
+            <gyration_radii rSagg="0" rTrans="0" rLong="0" />
+        </ProstheticKnee>
+        <ProstheticFoot>
+            <Endpoints origin="NULL" other="NULL" />
+            <Length value="0" unit="mm" />
+            <Mass value="0" unit="BW_perc" />
+            <CM value="0" unit="Length_perc" />
+            <gyration_radii rSagg="0" rTrans="0" rLong="0" />
+        </ProstheticFoot>
+    </Female>
+</inertial_parameters>

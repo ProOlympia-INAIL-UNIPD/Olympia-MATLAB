@@ -15,9 +15,12 @@ classdef Segment< matlab.mixin.Copyable
         Icm (3,3) double        %Baricentric moment of inertia in local coordinates
         InertialUnits (1,2) string %Units for Mass and Icm
         AngleUnits (1,1) {mustBeMember(AngleUnits,["rad","deg"])}="deg";
+        %AngleAlias=AngleSequence; %Convention for names
         AngleSequence (1,3) char ='XYZ';
         CoordsysDef (1,1) struct %Structure containing the info to obtain the Transformation matrix from points
-
+        RotationOffset=eye(3);
+        SignConvention (1,3) double =[1 1 1]; %Convention for sign
+        AngleAlias="";
     end
     properties (Access=private)
         ln matlab.graphics.chart.primitive.Line
@@ -28,6 +31,7 @@ classdef Segment< matlab.mixin.Copyable
         Orientation (3,3,:) double%=nan(3,3,1)
         Origin (:,3) double%=nan(1,3)%diventa un label di uno dei points(in caso da mettere dopo?)
         EulerAngles (:,3) double
+        
         OriginSpeed (:,3) double
         OriginAcceleration (:,3) double
         AngularVelocity (:,3) double
@@ -67,19 +71,28 @@ classdef Segment< matlab.mixin.Copyable
         end
 
         function angle=get.EulerAngles(obj)
-            angle=rotm2eul(obj.Orientation,obj.AngleSequence);
+            angle=rotm2eul(pagemtimes(obj.RotationOffset(1:3,1:3),obj.Orientation),obj.AngleSequence);
             %[~,ord]=sort(double(char(obj.AngleSequence)));
             %ord=1:3;
+            obj.Label
             if isequal(obj.AngleUnits,"deg")
             angle=angle*180/pi;
             end
+            angle=angle.*obj.SignConvention;
             %angle=angle(:,ord);
         end
-
+        % function alias=get.AngleAlias(obj)
+        %     xyz=["Roll","Yaw","Pitch"];
+        %     seq=obj.AngleSequence-'X';
+        %     alias=xyz(seq+1);
+        %     alias=strjoin(alias,", ");
+        % end
         function omega=get.AngularVelocity(obj)
         %getAngularVelocity returns the angular velocity in the fixed or
         %moving frame and in the units specified by the user
         frame='fixed';
+        %
+        
         Rdot=diff(obj.Orientation,1,3);
         Rdot(:,:,end+1)=nan; %adds a fake last sample equal to nan
         if frame(1)=='f'
@@ -87,17 +100,26 @@ classdef Segment< matlab.mixin.Copyable
         else
            S=pagemtimes(obj.Orientation,'transpose',Rdot,'none');
         end
-            omega(:,:)=[ S(3,2,:) S(1,3,:) S(2,1,:)]*obj.SampleRate;
-            omega=omega';
+            omega(:,:)=permute([ S(3,2,:) S(1,3,:) S(2,1,:)],[3 2 1])*obj.SampleRate;
         if isequal(obj.AngleUnits,"deg")
             omega=omega*180/pi;
         end
+            if all(isfinite(obj.Parent.KinematicFilter))
+                b=obj.Parent.KinematicFilter(1,:);
+                a=obj.Parent.KinematicFilter(2,:);
+                omega=nanfiltfilt(b,a,omega);
+            end
         end
 
         function alpha=get.AngularAcceleration(obj)
             omega=obj.AngularVelocity;
             alpha=diff(omega)*obj.SampleRate;
             alpha(end+1,:)=nan;
+            if all(isfinite(obj.Parent.KinematicFilter))
+                b=obj.Parent.KinematicFilter(1,:);
+                a=obj.Parent.KinematicFilter(2,:);
+                alpha=nanfiltfilt(b,a,alpha);
+            end
         end
 
         function speed=get.OriginSpeed(obj)
@@ -189,12 +211,12 @@ classdef Segment< matlab.mixin.Copyable
                 try
                 btkSetPoint(H,char(o.Label),o.EulerAngles);
                 catch
-                btkAppendPoint(H,'angle',char(o.Label),o.EulerAngles,o.EulerAngles(:,1)*0,char(o.AngleSequence));
+                btkAppendPoint(H,'angle',char(o.Label),o.EulerAngles,o.EulerAngles(:,1)*0,char(o.AngleAlias));
                 end
 
             case "append"
                 try
-                btkAppendPoint(H,'angle',char(o.Label),o.EulerAngles,o.EulerAngles(:,1)*0,char(o.AngleSequence));
+                btkAppendPoint(H,'angle',char(o.Label),o.EulerAngles,o.EulerAngles(:,1)*0,char(o.AngleAlias));
                 catch ME
                 warning([ME.message, ', point won''t be created']);
                 end
@@ -203,7 +225,7 @@ classdef Segment< matlab.mixin.Copyable
                  newlabel=[o.Label];
                 for i=1:length(newlabel)
                     try
-                    btkAppendPoint(H,'angle',char(o.Label),o.EulerAngles,o.EulerAngles(:,1)*0,char(o.AngleSequence));
+                    btkAppendPoint(H,'angle',char(o.Label),o.EulerAngles,o.EulerAngles(:,1)*0,char(o.AngleAlias));
                     catch ME
                     end
                 end
