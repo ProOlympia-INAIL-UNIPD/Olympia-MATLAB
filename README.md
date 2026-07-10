@@ -1,6 +1,6 @@
 # Olympia-MATLAB
 
-[![License: CC BY 4.0](https://img.shields.io/badge/License-CC%20BY%204.0-lightgrey.svg)](http://creativecommons.org/licenses/by/4.0/) [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.15537123.svg)](https://doi.org/10.5281/zenodo.15537123)
+[![License: CC BY 4.0](https://img.shields.io/badge/License-CC%20BY%204.0-lightgrey.svg)](http://creativecommons.org/licenses/by/4.0/) [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.21297471.svg)](https://doi.org/10.5281/zenodo.21297471)
 
 The **OlympiaSW** is a MATLAB-based software package for computing the kinematics, kinetics and spatiotemporal parameters of sprinting according to the marker-based model proposed in Di Marco, et al. (submitted 2025).
 
@@ -58,7 +58,7 @@ Alternatively, you can add the folder via Home > Set Path > Add with Subfolders.
 
 For questions on package usage, please contact:
 
-- **Roberto Di Marco** — [roberto.dimarco@univr.it](mailto:roberto.dimarco@univr.it), [r.dimarco@inail.it](mailto:r.dimarco@inail.it)  
+- **Roberto Di Marco** — [r.dimarco@inail.it](mailto:r.dimarco@inail.it)
 - **Giuseppe Zullo** — [giuseppe.zullo@unipd.it](mailto:giuseppe.zullo@unipd.it)  
 - **Samira Giuliana Breban** — [samira.breban@unipd.it](mailto:samira.breban@unipd.it)
 
@@ -67,7 +67,7 @@ For questions on package usage, please contact:
 If you use this package, please cite it as:
 
 > Di Marco, R., Zullo, G., & Breban, S. G. (2025). *OlympiaSW* (Version 2.0.0). GitHub. https://github.com/ProOlympia-INAIL-UNIPD/Olympia-MATLAB  
-> DOI: 10.5281/zenodo.15537123
+> DOI: 10.5281/zenodo.21297471
 
 and please refer to this scientific paper for details on the model definition:
 
