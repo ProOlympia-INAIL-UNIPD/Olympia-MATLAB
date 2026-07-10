@@ -66,5 +66,9 @@ For questions on package usage, please contact:
 
 If you use this package, please cite it as:
 
-> Di Marco, R., Zullo, G., & Breban, S. G. (2025). *OlympiaSW* (Version 1.1.0). GitHub. https://github.com/ProOlympia-INAIL-UNIPD/Olympia-MATLAB  
+> Di Marco, R., Zullo, G., & Breban, S. G. (2025). *OlympiaSW* (Version 2.0.0). GitHub. https://github.com/ProOlympia-INAIL-UNIPD/Olympia-MATLAB  
 > DOI: 10.5281/zenodo.15537123
+
+and please refer to this scientific paper for details on the model definition:
+
+> Di Marco R, Breban SG, Zullo G, Gariboldi F, Scapinello M, Migliore GL, Petrone N and Cutti AG (2025) A motion capture protocol for the kinematic analysis of transfemoral and transtibial sprinters. Front. Bioeng. Biotechnol. 13:1655295. doi: 10.3389/fbioe.2025.1655295
