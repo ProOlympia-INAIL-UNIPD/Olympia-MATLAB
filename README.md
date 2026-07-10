@@ -72,3 +72,4 @@ If you use this package, please cite it as:
 and please refer to this scientific paper for details on the model definition:
 
 > Di Marco R, Breban SG, Zullo G, Gariboldi F, Scapinello M, Migliore GL, Petrone N and Cutti AG (2025) A motion capture protocol for the kinematic analysis of transfemoral and transtibial sprinters. Front. Bioeng. Biotechnol. 13:1655295. doi: 10.3389/fbioe.2025.1655295
+[![DOI](https://img.shields.io/badge/DOI-10.3389%2Ffbioe.2025.1655295-blue)](https://doi.org/10.3389/fbioe.2025.1655295)
